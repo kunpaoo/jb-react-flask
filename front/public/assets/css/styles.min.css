@@ -1,0 +1,78 @@
+#time {
+  padding: 0 20px 0 40px;
+  font-size: 18pt;
+  margin-top: 10px;
+}
+.col-xl-12 {
+  flex: 0 0 auto;
+  width: 100%;
+}
+#top {
+  width: 100%;
+}
+#head2 {
+  height: 47pt;
+  width: 100%;
+}
+#headbot {
+  height: auto;
+}
+.dropdown-menu {
+  overflow-wrap: break-word;
+}
+#another_acc {
+  word-wrap: normal;
+}
+#dropdown {
+  left: auto;
+}
+#drop_Button {
+  color: var(--bs-navbar-hover-color);
+}
+#row_header {
+  width: 100%;
+  flex: 0 0 auto;
+}
+.position-absolute {
+  flex-wrap: wrap;
+}
+#accordionSidebar {
+  margin-top: 20pt;
+}
+#image {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -19pt;
+  margin-top: 22pt;
+}
+.rounded-circle {
+  position: relative;
+  left: auto;
+}
+#header {
+  height: 12vh;
+  width: 100%;
+  margin-right:0;
+  margin-left:0px;
+}
+#name {
+  float: none;
+}
+#position {
+  float: right;
+  align-items: flex-end;
+}
+#down {
+  float: right;
+}
+@media (min-width: 1400px) {
+  .col-xxl-8 {
+    flex: 0 0 auto;
+    width: 50%;
+    position: relative;
+  }
+}
+#head {
+  width: 60%;
+  justify-content: end;
+}
