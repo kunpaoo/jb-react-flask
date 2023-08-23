@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>tryryry</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=8b2627b3d62f886b12f3300859b08b69">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome5-overrides.min.css?h=1a305cab34f7b31a9600b11506fa5d05">
+    <link rel="stylesheet" href="/assets/css/styles.min.css?h=356c7e638ae4000b233b15c0bf21b3e2">
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark" style="background: rgb(56,57,58);">
+            <div class="container-fluid d-flex flex-column p-0">
+                <hr class="sidebar-divider my-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 jus" id="image" style="padding-left: 4px;padding-top: 0px;"><img class="position-relative" src="/assets/img/緋色の風.png?h=e0e09d5807e421df0f50b7a8c802e848" width="172" height="86" style="transform-style: preserve-3d;padding-bottom: 0px;margin-top: -9px;margin-right: 12px;padding-right: 16px;"></div>
+                    </div>
+                </div>
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="/index.html"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Technician.html"><i class="icon ion-ios-people"></i><span>Technicians</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Customer.html"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person-vcard-fill">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5ZM9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8Zm1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96c.026-.163.04-.33.04-.5ZM7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"></path>
+                            </svg><span>Customers</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Job_Order.html"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-briefcase-fill">
+                                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"></path>
+                                <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"></path>
+                            </svg><span>Job Order</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Parts.html"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-cpu-fill">
+                                <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"></path>
+                                <path d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z"></path>
+                            </svg><span>Items/Parts</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/Bills_Payments.html"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-cash-stack">
+                                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+                                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"></path>
+                            </svg><span>Bills</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <nav class="navbar navbar-expand bg-white shadow static-top navbar-light navbar-collapse" id="header" style="padding-bottom: 0px;margin-bottom: 6px;">
+                <div class="container-fluid">
+                    <div class="col-xl-11 col-xxl-11 col-auto flex-wrap d-flex mw-100" id="top">
+                        <div class="row" id="row_header" style="padding-left: 12px;">
+                            <div class="col-lg-3 col-xl-1 col-auto w-auto" style="padding-left: 0px;margin-right: 9px;padding-right: 0px;">
+                                <div style="padding-top: 8px;"><span style="font-weight: bold;font-size: 37px;color: rgb(2,60,63);font-family: Adamina, serif;margin-bottom: 1px;padding-bottom: 0px;padding-top: 0px;margin-top: 0px;">OCCC</span></div>
+                            </div>
+                            <div class="col-xl-1 col-auto w-auto h-auto">
+                                <div style="padding-top: 6px;">
+                                    <!-- Start: Clock-Real-Time -->
+                                    <div id="time" style="background: #ffffff;border-style: solid;border-color: rgb(2,60,63);margin-bottom: 18px;padding-top: 0px;padding-left: 23px;padding-bottom: 0px;border-radius: 20;box-shadow: 0px 0px;"></div><!-- End: Clock-Real-Time -->
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-xxl-2 col-auto w-auto h-auto"></div>
+                            <div class="col justify-content-center">
+                                <!-- Start: Search form block -->
+                                <div class="container flex-column position-relative d-flex w-auto" style="padding-left: 0px;margin-right: 3px;padding-right: 0px;">
+                                    <div class="col-auto ml-auto mr-auto"></div>
+                                </div><!-- End: Search form block -->
+                            </div>
+                            <div class="col-1 col-sm-1 col-xl-1 col-xxl-1 col-auto w-auto justify-content-end" style="padding-left: 0px;margin-right: 1px;padding-right: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell-fill" style="font-size: 47px;padding-top: 0px;margin-top: 11px;color: #023c3f;border-color: #023c3f;padding-left: 0px;margin-left: 1px;">
+                                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"></path>
+                                </svg></div>
+                            <div class="col-10 col-sm-7 col-md-5 col-lg-2 col-xl-2 col-xxl-3 col-auto w-auto justify-content-end" style="padding-right: 0px;padding-left: 1px;">
+                                <div id="position" class="w-auto d-flex flex-wrap" style="padding-right: 0px;margin-right: 0px;">
+                                    <div class="col-xl-12 w-auto col-auto" style="padding-right: 2px;margin-right: 10px;"><span id="name" class="flex-fill d-flex w-auto w-auto" style="padding-right: 0px;margin-right: 2px;padding-left: 0px;height: auto;width: 94.9px;padding-bottom: 0px;margin-bottom: -1px;padding-top: 7px;color: rgb(2,41,20);font-size: 21px;font-weight: bold;text-align: right;margin-top: 10px;">Nina Paraiso</span>
+                                        <div class="w-auto"><span id="down" class="d-inline-flex w-auto h-auto" style="padding-bottom: 1px;margin-bottom: 0px;padding-top: 0px;margin-top: -12px;">Manager</span></div>
+                                    </div>
+                                    <div class="dropdown" style="margin-right: 0px;padding-top: 0px;padding-bottom: 11px;"><a class="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" id="drop_Button" href="#" style="padding-right: 8px;margin-left: 1px;margin-right: 6px;padding-bottom: 0px;margin-bottom: 0px;padding-top: 0px;margin-top: 2px;"></a>
+                                        <div class="dropdown-menu flex-wrap" id="dropdown"><a class="dropdown-item" href="/profile.html">Profile</a><a class="dropdown-item" href="/login.html">Log out</a><a class="dropdown-item" id="another_acc" href="#">Log in to another account</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-auto w-auto" style="padding-left: 0px;padding-right: 1px;margin-right: -1px;">
+                                <!-- Start: Gravatar Image --><img class="rounded-circle" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200" width="70" height="68"><!-- End: Gravatar Image -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div style="padding-top: 0px;background: #ffffff;padding-left: 0px;padding-right: 0px;margin-right: 2px;margin-top: -1px;">
+                <div class="d-sm-flex justify-content-between align-items-center" id="head2" style="padding-right: 0px;margin-right: 0px;background: #ffffff;box-shadow: 0px 0px 20px 1px;">
+                    <h3 class="text-dark mb-0" style="margin-left: 24px;">Bills/Payements</h3>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div>
+                    <div class="row" id="headbot">
+                        <div class="col h-auto" style="padding-bottom: 9px;">
+                            <div class="mh-100" style="margin-top: 21px;"><label class="form-label"></label><input type="date" style="height: 33px;padding-top: 0px;margin-top: 0px;padding-left: 0px;margin-left: 3px;"><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" data-bs-target="#modal-1" style="background: rgb(2,60,63);padding-right: 12px;border-radius: 8px;font-size: 16px;padding-top: 6px;margin-right: -2px;margin-left: 12px;" href="/Bills_ListofPricings.html">List of Pricings</a></div>
+                        </div>
+                        <div class="col-xxl-4 col-auto w-auto flex-wrap d-flex position-relative" style="padding-top: 14px;">
+                            <div style="padding-left: 0px;padding-right: 0px;margin-top: 4px;padding-top: 13px;padding-bottom: 0px;margin-bottom: -1px;"><span style="padding-top: 0px;margin-top: -20px;">Show:</span></div>
+                        </div>
+                        <div class="col w-auto col-auto" style="padding-bottom: 0px;margin-bottom: -40px;">
+                            <div id="dataTable_length-1" class="dataTables_length" aria-controls="dataTable" style="padding-top: 0px;">
+                                <div style="padding-bottom: 0px;padding-top: 0px;"><label class="form-label" style="font-size: 25px;margin-left: -12px;margin-bottom: -18px;padding-bottom: 0px;padding-top: 16px;margin-top: 3px;"><select class="d-inline-block form-select form-select-sm" style="margin-top: 8px;">
+                                            <option value="10" selected="">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>&nbsp;</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow">
+                    <div class="card-body" style="padding-top: 0px;">
+                        <div class="table-responsive table mt-2" id="dataTable-2" role="grid" aria-describedby="dataTable_info">
+                            <table class="table my-0" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-start">ID</th>
+                                        <th class="text-start" style="font-size: 18px;">Customer</th>
+                                        <th class="text-center">Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto"><a href="#" data-bs-target="#modal-1" data-bs-toggle="modal">
+                                                    <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                    <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                </a></div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12123</td>
+                                        <td>
+                                            <div class="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                                                <h6 style="font-size: 12px;color: rgb(0,0,0);margin-bottom: 0px;margin-top: 4px;padding-right: 0px;"><strong>Marjhealou Niana Anne Mejia</strong></h6>
+                                                <div style="font-size: 8px;padding-top: 12px;margin-top: -12px;"><span class="w-auto" style="font-size: 9px;">Id: 1231112-122</span></div>
+                                                <div style="padding-top: 0px;margin-top: -12px;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">$ 2,343</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 align-self-center">
+                                <p id="dataTable_info-1" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+                            </div>
+                            <div class="col-md-6">
+                                <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" role="dialog" tabindex="-1" id="modal-1" style="border-style: solid;">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="margin-bottom: -1px;padding-bottom: 2px;">
+                            <h4 class="modal-title">Statement of Account</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" style="padding-left: 26px;padding-right: 36px;">
+                            <div class="row">
+                                <div class="col-lg-7"><span style="color: rgb(0,0,0);"><strong>Marjhealou Nina Anne M. Paraiso</strong></span></div>
+                                <div class="col"><span>Statement Date:</span><span>09/21/2000</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-7"><span>Contact:&nbsp;</span><span>0976 889 7654</span></div>
+                                <div class="col"><span style="color: rgb(200,44,35);"><strong>WITHOUT WARRANTY</strong></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><span>Address:&nbsp;</span><span>Purok Tacurong, Sultan Kudarat</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12" style="padding-top: 15px;"><span>Customer ID:</span><span>&nbsp;12333-1221</span></div>
+                            </div>
+                            <div class="row" style="padding-top: 23px;">
+                                <div class="col-lg-6" style="padding-left: 2px;"><span><strong><span style="color: rgb(0, 0, 0);">Details</span></strong></span></div>
+                                <div class="col" style="padding-left: 0px;"><span style="color: rgb(200,44,35);border-color: rgb(0,0,0);"><strong><span style="color: rgb(0, 0, 0);">Payments</span></strong></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="border-style: solid;">
+                                    <div class="row" style="border-style: none;">
+                                        <div class="col" style="margin-left: 14px;border-width: 0.5px;border-color: var(--bs-emphasis-color);">
+                                            <div class="row">
+                                                <div class="col"><span style="margin-left: 20px;">Add</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col" style="padding-left: 44px;"><span>Service Fee:&nbsp;</span></div>
+                                                <div class="col text-center" style="border-bottom-width: 0.5px;border-bottom-style: solid;margin-right: 22px;margin-left: 28px;"><span>$31</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col" style="padding-left: 32px;"><span>Total Amount:&nbsp;</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col" style="padding-left: 32px;"><span>Less</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col" style="padding-left: 44px;"><span>Payments:&nbsp;</span></div>
+                                                <div class="col text-center" style="border-bottom-width: 0.5px;border-bottom-style: solid;margin-right: 24px;margin-left: 12px;"><span>$23</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6" style="padding-left: 32px;"><span>Sub-total:</span></div>
+                                                <div class="col text-center" style="padding-left: 32px;border-bottom-width: 1.5px;border-bottom-style: solid;margin-right: 21px;margin-left: 8px;padding-right: 31px;"><span>$23</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col" style="padding-left: 32px;"><span>Total:</span></div>
+                                                <div class="col text-center" style="padding-left: 32px;"><span style="margin-right: 28px;">$34</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col" style="border-style: solid;">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="table-responsive" style="margin-left: -12px;margin-right: -10px;padding-bottom: 0px;margin-bottom: 3px;">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Reference Number</th>
+                                                            <th>Amount</th>
+                                                            <th>Remarks</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>09/12/2003</td>
+                                                            <td>14322111</td>
+                                                            <td>$500</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>09/12/2003</td>
+                                                            <td>33221221</td>
+                                                            <td>$500</td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button" style="background: rgb(45,45,45);" data-bs-target="#modal-2" data-bs-toggle="modal">Create Payment</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" role="dialog" tabindex="-1" id="modal-2">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Create Payment</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col text-start"><span style="margin-left: 20px;"><strong><span style="color: rgb(0, 30, 14);">Marjhealou Nina Anne Paraiso</span></strong></span></div>
+                                <div class="col text-end"><span style="margin-right: 84px;">Date: 09/12/2023</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-start" style="padding-left: 32px;"><span>Customer ID:&nbsp;</span><span>9203881</span></div>
+                            </div>
+                            <div class="row">
+                                <!-- Start: Bootstrap 4 - Payment Form --><div class="container py-5">
+
+  <div class="row">
+    <div class="col-lg-7 mx-auto">
+      <div class="bg-white rounded-lg shadow-sm p-5">
+        <!-- Credit card form tabs -->
+        <ul role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-3">
+          <li class="nav-item">
+            <a data-toggle="pill" href="#nav-tab-card" class="nav-link active rounded-pill">
+                                <i class="fa fa-credit-card"></i>
+                                Credit Card
+                            </a>
+          </li>
+          <li class="nav-item">
+            <a data-toggle="pill" href="#nav-tab-paypal" class="nav-link rounded-pill">
+                                <i class="fa fa-paypal"></i>
+                                Paypal
+                            </a>
+          </li>
+          <li class="nav-item">
+            <a data-toggle="pill" href="#nav-tab-bank" class="nav-link rounded-pill">
+                                <i class="fa fa-university"></i>
+                                 Bank Transfer
+                             </a>
+          </li>
+            <li class="nav-item">
+            <a data-toggle="pill" href="#nav-tab-bank" class="nav-link rounded-pill">
+                                <i class="fa fa-university"></i>
+                                 Cash
+                             </a>
+          </li>
+        </ul>
+        <!-- End -->
+
+
+        <!-- Credit card form content -->
+        <div class="tab-content">
+
+          <!-- credit card info-->
+          <div id="nav-tab-card" class="tab-pane fade show active">
+            <p class="alert alert-success">Some text success or error</p>
+            <form role="form">
+              <div class="form-group">
+                <label for="username">Full name (on the card)</label>
+                <input type="text" name="username" placeholder="Jeff Doe" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="cardNumber">Card number</label>
+                <div class="input-group">
+                  <input type="text" name="cardNumber" placeholder="Your card number" class="form-control" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text text-muted">
+                                                <i class="fa fa-cc-visa mx-1"></i>
+                                                <i class="fa fa-cc-amex mx-1"></i>
+                                                <i class="fa fa-cc-mastercard mx-1"></i>
+                                            </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="form-group">
+                    <label><span class="hidden-xs">Expiration</span></label>
+                    <div class="input-group">
+                      <input type="number" placeholder="MM" name="" class="form-control" required>
+                      <input type="number" placeholder="YY" name="" class="form-control" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group mb-4">
+                    <label data-toggle="tooltip" title="Three-digits code on the back of your card">CVV
+                                                <i class="fa fa-question-circle"></i>
+                                            </label>
+                    <input type="text" required class="form-control">
+                  </div>
+                </div>
+
+
+
+              </div>
+              <button type="button" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirm  </button>
+            </form>
+          </div>
+          <!-- End -->
+
+          <!-- Paypal info -->
+          <div id="nav-tab-paypal" class="tab-pane fade">
+            <p>Paypal is easiest way to pay online</p>
+            <p>
+              <button type="button" class="btn btn-primary rounded-pill"><i class="fa fa-paypal mr-2"></i> Log into my Paypal</button>
+            </p>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <!-- End -->
+
+          <!-- bank transfer info -->
+          <div id="nav-tab-bank" class="tab-pane fade">
+            <h6>Bank account details</h6>
+            <dl>
+              <dt>Bank</dt>
+              <dd> THE WORLD BANK</dd>
+            </dl>
+            <dl>
+              <dt>Account number</dt>
+              <dd>7775877975</dd>
+            </dl>
+            <dl>
+              <dt>IBAN</dt>
+              <dd>CZ7775877975656</dd>
+            </dl>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <!-- End -->
+        </div>
+        <!-- End -->
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End: Bootstrap 4 - Payment Form -->
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" type="button">Add &amp; Save</button></div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © OCCC 2023</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" type="module"></script>
+    <script src="/assets/js/script.min.js?h=a76f314cdf051da21b9b2125430b3f67"></script>
+</body>
+
+</html>

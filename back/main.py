@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.debug = True
 
-@app.route('/api')
+@app.route('/api', methods = ["GET"])
 def home():
     
     return load_list()
