@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Navbar from './Navbar';
 import Header from './Header';
-import Dashboard from './Dashboard';
+import Dashboard from './Dashboard/Dashboard';
 
 function App() {
 

@@ -2,22 +2,61 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Dashboard from './Dashboard/Dashboard';
 import Technician from './tech_pages/Technician';
+import Edit_tech from './tech_pages/Edit_technician';
+import Create_tech from './tech_pages/Create_tech';
+import Job_order from './JobOrder_pages/Job_order';
+import Create_job from './JobOrder_pages/Create_Job_order';
+import Customer from './Cust_pages/Customer';
+import Create_customer from './Cust_pages/Create_Customer';
+import Edit_cust from './Cust_pages/Edit_Cust';
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App/>,
-  },
-  {
-    path:"/technician",
-    element: <Technician/>,
-  },
-  
+ {
+  path: "/",
+  element: <App />,
+ },
+ {
+  path: "/Dashboard",
+  element: <Dashboard />,
+ },
+ {
+  path: "/technician",
+  element: <Technician />,
+ },
+ {
+  path: "/Create_technician",
+  element: <Create_tech />,
+ },
+ {
+  path: "/Edit_technician",
+  element: <Edit_tech />,
+ },
+ {
+  path: "/job_order",
+  element: <Job_order />,
+ },
+ {
+  path: "/Create_Job_Order",
+  element: <Create_job />,
+ },
+ {
+  path: "/customer",
+  element: <Customer />,
+ },
+ {
+  path: "/create_customer",
+  element: <Create_customer />,
+ },
+ {
+  path: "/edit_customer",
+  element: <Edit_cust />,
+ },
 ]);
 
 
