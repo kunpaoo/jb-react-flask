@@ -56,14 +56,14 @@ var Create_tech = () => {
                  id="nav-tab"
                  role="tablist">
                  <a
-                  className="nav-link active"
+                  className="nav-link active text-white"
                   id="step1-tab"
                   data-bs-toggle="tab"
                   href="#step1">
                   Profile
                  </a>
                  <a
-                  className="nav-link"
+                  className="nav-link text-white"
                   id="step4-tab"
                   data-bs-toggle="tab"
                   href="#step2">

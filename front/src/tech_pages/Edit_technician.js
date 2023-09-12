@@ -55,14 +55,14 @@ var Edit_tech = () => {
             id="nav-tab"
             role="tablist">
             <a
-             className="nav-link active"
+             className="nav-link active text-white"
              id="step1-tab"
              data-bs-toggle="tab"
              href="#step1">
              Profile
             </a>
             <a
-             className="nav-link"
+             className="nav-link text-white"
              id="step4-tab"
              data-bs-toggle="tab"
              href="#step2">
@@ -167,7 +167,10 @@ var Edit_tech = () => {
          </form>
          <div className="row justify-content-between">
           <div className="col-auto">
-           <button type="button" className="btn btn-secondary" href="/Customer">
+           <button
+            type="button"
+            className="btn btn-secondary"
+            href="/technician">
             Cancel
            </button>
           </div>
