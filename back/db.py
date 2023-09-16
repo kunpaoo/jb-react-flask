@@ -1,17 +1,18 @@
 from sqlalchemy import create_engine,text
 
-engine = create_engine("mysql+pymysql://online:Incorrect0-@localhost/job_order")
+engine = create_engine("mysql+pymysql://online:Incorrect0-@localhost/jbm")
 
-def load_list():
+
+def load_list(table):
     with engine.connect() as conn:
-        result = conn.execute(text("select * from customers"))
-        cust_list = []
+        result = conn.execute(text("select * from ", table))
+        job_list = []
         all_res = result.all()
         
         for row in all_res:
-            cust_list.append(row._asdict())
+            job_list.append(row._asdict())
 
-        return cust_list
+        return job_list
     
 def add_list(data):
     with engine.connect() as conn:

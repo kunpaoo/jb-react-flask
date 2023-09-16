@@ -7,9 +7,9 @@ app = Flask(__name__)
 app.debug = True
 
 
-@app.route('/customers', methods = ["GET","POST"])
+@app.route('/job_order', methods = ["GET","POST"]) # job order
 def custlist():
-    return load_list()
+    return load_list("job_order")
 
 @app.route('/customers/add', methods = ["GET","POST"])
 def addlist():
