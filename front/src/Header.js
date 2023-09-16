@@ -33,8 +33,8 @@ const Header = () => {
                 </div>
               </div>
               <div className="col-xl-1 col-auto w-auto h-auto">
-                <div style={{ paddingTop: "6px" }}>
-                  {/* Start: Clock-Real-Time */}
+                {/* <div style={{ paddingTop: "6px" }}>
+                  {/* Start: Clock-Real-Time *
                   <div
                     id="time"
                     style={{
@@ -48,8 +48,8 @@ const Header = () => {
                       borderRadius: 20,
                       boxShadow: "0px 0px",
                     }}></div>
-                  {/* End: Clock-Real-Time */}
-                </div>
+                  /* End: Clock-Real-Time 
+                </div> */}
               </div>
               <div className="col-xl-2 col-xxl-2 col-auto w-auto h-auto" />
               <div className="col justify-content-center">

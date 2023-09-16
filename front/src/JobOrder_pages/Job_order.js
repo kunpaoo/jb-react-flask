@@ -17,11 +17,11 @@ var JobOrder = () => {
   })
 
   var job_list;
-  data = null? job_list = "loading":
+  data == null? job_list = "loading":
   job_list = data.map((row)=>{
     return(
       <tr>
-              <td>12123</td>
+              <td>{row.order_id}</td>
               <td>
                <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
                 <a href="#" data-bs-target="#modal-1" data-bs-toggle="modal">
@@ -33,7 +33,7 @@ var JobOrder = () => {
                    marginTop: "4px",
                    paddingRight: "0px",
                   }}>
-                  <strong>Acer Laptop: Broken Battery&nbsp;</strong>
+                  <strong>{row.job_name}</strong>
                  </h6>
                  <div
                   style={{
@@ -42,7 +42,7 @@ var JobOrder = () => {
                    marginTop: "-12px",
                   }}>
                   <span className="w-auto" style={{ fontSize: "9px" }}>
-                   Created 2/02/2023 11:23 a.m.
+                   Created {row.order_date}
                   </span>
                  </div>
                  <div
@@ -67,7 +67,7 @@ var JobOrder = () => {
                   marginTop: "4px",
                   paddingRight: "0px",
                  }}>
-                 <strong>Jane MariedAusten</strong>
+                 <strong>{row.cust_name}</strong>
                 </h6>
                 <div
                  style={{
@@ -91,7 +91,7 @@ var JobOrder = () => {
                    fillRule="evenodd"
                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
                  </svg>
-                 <span style={{ fontSize: "9px" }}>09759983569</span>
+                 <span style={{ fontSize: "9px" }}>{row.cust_phone}</span>
                 </div>
                </div>
               </td>
@@ -105,7 +105,7 @@ var JobOrder = () => {
                   marginTop: "4px",
                   paddingRight: "0px",
                  }}>
-                 <strong>Mr. K echsdfd O.sd</strong>
+                 <strong>{row.tech_name}</strong>
                 </h6>
                 <div
                  className="w-auto"
@@ -134,7 +134,7 @@ var JobOrder = () => {
                    fill="currentColor"
                   />
                  </svg>
-                 <span style={{ fontSize: "9px" }}>KTJjdjf@gmail.com</span>
+                 <span style={{ fontSize: "9px" }}>{row.tech_email}</span>
                 </div>
                 <div
                  className="w-auto"
@@ -159,12 +159,12 @@ var JobOrder = () => {
                    fillRule="evenodd"
                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
                  </svg>
-                 <span style={{ fontSize: "9px" }}>09759983569</span>
+                 <span style={{ fontSize: "9px" }}>{row.tech_phone}</span>
                 </div>
                </div>
               </td>
               <td className="text-center" style={{ fontSize: "11px" }}>
-               09/14/2003
+               {row.est_completion}
               </td>
               <td className="text-center">
                <span
@@ -421,6 +421,9 @@ var JobOrder = () => {
 
             {/* TABLE DATA START */}
             <tbody>
+
+              {job_list}
+
              <tr>
               <td>12123</td>
               <td>
