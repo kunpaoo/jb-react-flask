@@ -1,14 +1,17 @@
 from sqlalchemy import create_engine,text
 
-engine = create_engine("mysql+pymysql://root:marj#09142003@localhost/job_order")
+engine = create_engine("mysql+pymysql://online:Incorrect0-@localhost/jbm")
 
 def load_list():
     with engine.connect() as conn:
-        result = conn.execute(text("select * from technician"))
-        cust_list = []
+        columns = "job_order.order_id, job_order.job_name, job_order.order_date, technician.tech_name, customer.cust_name"
+        q = "select " + columns +  " from job_order join technician on technician.tech_id = job_order.tech_id join customer on job_order.cust_id = customer.cust_id;"
+        result = conn.execute(text(q))
+        order_list = []
         all_res = result.all()
+
         
         for row in all_res:
-            cust_list.append(row._asdict())
+            order_list.append(row._asdict())
 
-        return cust_list
+        return order_list

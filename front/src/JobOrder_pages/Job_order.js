@@ -1,9 +1,188 @@
 import { Button } from "react-bootstrap";
 import Header from "../Header";
 import Navbar from "../Navbar";
+import React, {useEffect, useState} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-var job_order = () => {
+var JobOrder = () => {
+
+  const [data,setData] = useState();
+
+  useEffect(()=>{
+    fetch("/api")
+    .then((res)=>res.json())
+    .then((data)=>{
+      setData(data);
+    })
+  })
+
+  var job_list;
+  data = null? job_list = "loading":
+  job_list = data.map((row)=>{
+    return(
+      <tr>
+              <td>12123</td>
+              <td>
+               <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                <a href="#" data-bs-target="#modal-1" data-bs-toggle="modal">
+                 <h6
+                  style={{
+                   fontSize: "12px",
+                   color: "rgb(0,0,0)",
+                   marginBottom: "0px",
+                   marginTop: "4px",
+                   paddingRight: "0px",
+                  }}>
+                  <strong>Acer Laptop: Broken Battery&nbsp;</strong>
+                 </h6>
+                 <div
+                  style={{
+                   fontSize: "8px",
+                   paddingTop: "12px",
+                   marginTop: "-12px",
+                  }}>
+                  <span className="w-auto" style={{ fontSize: "9px" }}>
+                   Created 2/02/2023 11:23 a.m.
+                  </span>
+                 </div>
+                 <div
+                  style={{
+                   paddingTop: "0px",
+                   marginTop: "-12px",
+                  }}>
+                  <span className="w-auto" style={{ fontSize: "9px" }}>
+                   Created by: Anya Kuan
+                  </span>
+                 </div>
+                </a>
+               </div>
+              </td>
+              <td>
+               <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+                <h6
+                 style={{
+                  fontSize: "12px",
+                  color: "rgb(0,0,0)",
+                  marginBottom: "0px",
+                  marginTop: "4px",
+                  paddingRight: "0px",
+                 }}>
+                 <strong>Jane MariedAusten</strong>
+                </h6>
+                <div
+                 style={{
+                  marginTop: "-9px",
+                  marginLeft: "9px",
+                  paddingTop: "1px",
+                 }}>
+                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                  className="bi bi-telephone-fill"
+                  style={{
+                   color: "rgb(61,61,61)",
+                   fontSize: "9px",
+                   marginRight: "2px",
+                  }}>
+                  <path
+                   fillRule="evenodd"
+                   d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
+                 </svg>
+                 <span style={{ fontSize: "9px" }}>09759983569</span>
+                </div>
+               </div>
+              </td>
+              <td>
+               <div className="col-lg-11 col-xl-11 col-xxl-12 justify-content-center w-auto">
+                <h6
+                 style={{
+                  fontSize: "12px",
+                  color: "rgb(0,0,0)",
+                  marginBottom: "0px",
+                  marginTop: "4px",
+                  paddingRight: "0px",
+                 }}>
+                 <strong>Mr. K echsdfd O.sd</strong>
+                </h6>
+                <div
+                 className="w-auto"
+                 style={{
+                  marginTop: "-9px",
+                  marginLeft: "9px",
+                  paddingTop: "1px",
+                 }}>
+                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  style={{
+                   color: "rgb(61,61,61)",
+                   fontSize: "9px",
+                   marginRight: "2px",
+                  }}>
+                  <path
+                   d="M2.00333 5.88355L9.99995 9.88186L17.9967 5.8835C17.9363 4.83315 17.0655 4 16 4H4C2.93452 4 2.06363 4.83318 2.00333 5.88355Z"
+                   fill="currentColor"
+                  />
+                  <path
+                   d="M18 8.1179L9.99995 12.1179L2 8.11796V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V8.1179Z"
+                   fill="currentColor"
+                  />
+                 </svg>
+                 <span style={{ fontSize: "9px" }}>KTJjdjf@gmail.com</span>
+                </div>
+                <div
+                 className="w-auto"
+                 style={{
+                  marginLeft: "9px",
+                  paddingTop: "0px",
+                  marginTop: "-13px",
+                 }}>
+                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                  className="bi bi-telephone-fill"
+                  style={{
+                   color: "rgb(61,61,61)",
+                   fontSize: "9px",
+                   marginRight: "2px",
+                  }}>
+                  <path
+                   fillRule="evenodd"
+                   d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
+                 </svg>
+                 <span style={{ fontSize: "9px" }}>09759983569</span>
+                </div>
+               </div>
+              </td>
+              <td className="text-center" style={{ fontSize: "11px" }}>
+               09/14/2003
+              </td>
+              <td className="text-center">
+               <span
+                className="badge bg-primary"
+                style={{ background: "rgb(1,139,32)" }}>
+                With warranty
+               </span>
+              </td>
+              <td className="text-center">
+               <span className="badge bg-primary" style={{ fontSize: "11px" }}>
+                Scheduling Delivery
+               </span>
+              </td>
+             </tr>
+    )
+  })
+
+
   return (
    <div id="page-top" class="overflow-hidden">
     <div id="wrapper">
@@ -18,6 +197,10 @@ var job_order = () => {
        id="content-wrapper"
        style={{ padding: "0px" }}></div>
       <Header />
+
+
+
+
       <div className="d-flex flex-column" id="content-wrapper">
        <div
         style={{
@@ -166,6 +349,8 @@ var job_order = () => {
             </div>
            </div>
           </div>
+
+
           <div
            className="col w-auto col-auto"
            style={{ paddingBottom: "0px", marginBottom: "-40px" }}>
@@ -208,6 +393,8 @@ var job_order = () => {
           </div>
          </div>
         </div>
+
+        {/* TABLE START */}
         <div className="card shadow">
          <div className="card-body" style={{ paddingTop: "0px" }}>
           <div
@@ -231,6 +418,8 @@ var job_order = () => {
               <th className="text-center">Status</th>
              </tr>
             </thead>
+
+            {/* TABLE DATA START */}
             <tbody>
              <tr>
               <td>12123</td>
@@ -394,6 +583,9 @@ var job_order = () => {
             </tbody>
             <tfoot></tfoot>
            </table>
+
+          {/* TABLE DATA END */}
+
           </div>
           <div className="row">
            <div className="col-md-6 align-self-center">
@@ -440,6 +632,10 @@ var job_order = () => {
          </div>
         </div>
        </div>
+
+
+
+       {/* ORDER DETAILS */}
        <div className="modal fade" role="dialog" tabIndex={-1} id="modal-1">
         <div className="modal-dialog modal-xl" role="document">
          <div className="modal-content">
@@ -750,4 +946,4 @@ var job_order = () => {
   );
 };
 
-export default job_order;
+export default JobOrder;

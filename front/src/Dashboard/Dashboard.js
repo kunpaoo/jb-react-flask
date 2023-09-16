@@ -5,7 +5,7 @@ const Dashboard = () => {
  return (
   <div id="page-top" class="overflow-hidden">
    <div id="wrapper">
-    <Navbar />
+    {/* <Navbar />
     <div
         id="wrapper container-fluid border border-black"
         style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
@@ -13,7 +13,7 @@ const Dashboard = () => {
          className="d-flex flex-column container-fluid"
          id="content-wrapper"
          style={{ padding: "0px" }}></div>
-        <Header />
+        <Header /> */}
     <div className="container-fluid">
      <div className="d-sm-flex justify-content-between align-items-center mb-4">
       <h3 className="text-dark mb-0">Dashboard</h3>
@@ -403,7 +403,7 @@ const Dashboard = () => {
     </div>
    </div>
    </div>
-   </div>
+  
 
  );
 };

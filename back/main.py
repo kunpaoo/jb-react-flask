@@ -8,7 +8,6 @@ app.debug = True
 
 @app.route('/api', methods = ["GET"])
 def home():
-    
     return load_list()
     
 
