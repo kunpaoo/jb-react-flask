@@ -188,7 +188,7 @@ var JobOrder = () => {
     <div id="wrapper">
      <Navbar />
 
-     {/* MAIN CONTENT */}
+     
      <div
       id="wrapper container-fluid border border-black"
       style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
@@ -198,7 +198,7 @@ var JobOrder = () => {
        style={{ padding: "0px" }}></div>
       <Header />
 
-
+      {/* MAIN CONTENT */}
 
 
       <div className="d-flex flex-column" id="content-wrapper">
@@ -235,7 +235,7 @@ var JobOrder = () => {
            paddingTop: "6px",
            marginRight: "14px",
           }}
-          href="/Create_Job_Order">
+          href="/Create_Job_Order">                       {/*create job order url*/}
           <svg
            xmlns="http://www.w3.org/2000/svg"
            width="1em"

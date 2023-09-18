@@ -3,7 +3,12 @@
  import "bootstrap/dist/css/bootstrap.min.css";
  import React, { useState } from "react";
 
- var Create_job = () => {
+ var Createjob = () => {
+
+
+
+
+
   // adding parts needed
   const [parts, setParts] = useState([]);
   function AddInput() {
@@ -90,6 +95,15 @@
    var form = document.getElementById("input-form");
    form.insertAdjacentHTML("beforeend", newDiv);
   }
+
+
+
+
+
+
+
+
+
   return (
    <div id="page-top" class="overflow-hidden">
     <div id="wrapper">
@@ -102,6 +116,9 @@
        id="content-wrapper"
        style={{ padding: "0px" }}></div>
       <Header />
+
+
+
 
       <div>
        <div
@@ -129,11 +146,15 @@
        </div>
        <div className="container-fluid">
         <div />
+
+
         {/* Start: Multi step form */}
+
+
         <div className="row py-4 ">
          <div className="w-100 row justify-content-center">
           <div className>
-           <form action method="post" id="registration">
+           <form action method="post" id="addOrder">
             <nav>
              <div
               className="nav nav-pills nav-fill navbar-dark bg-dark text-white"
@@ -170,7 +191,12 @@
              </div>
             </nav>
             <div className="tab-content">
+
+
+
              {/* Step 1*/}
+
+
              <div
               className="tab-pane fade show active rounded bg-white p-4"
               id="step1">
@@ -184,7 +210,7 @@
                   <input
                    className="form-control search-input"
                    type="text"
-                   name="search-bar"
+                   name="cust_name"
                    placeholder="Search..."
                   />
                   <button className="btn btn-light search-btn" type="button">
@@ -197,12 +223,12 @@
                </div>
                <div className="row">
                 <div className="col">
-                 <span>Job Title:&nbsp;</span>
-                 <input className="form-control" type="text" required />
+                 <span>Job Name:&nbsp;</span>
+                 <input name="job_name" className="form-control" type="text" required />
                 </div>
                 <div className="col">
                  <span>Date:</span>
-                 <input className="form-control" type="date" />
+                 <input name="order_date" className="form-control" type="date" />
                 </div>
                </div>
                <div className="row">
@@ -221,7 +247,7 @@
                   <div className="col">
                    <span>Brand:&nbsp;</span>
                    <input
-                    id="brand_name"
+                    id="brand"
                     className="form-control"
                     type="text"
                    />
@@ -231,6 +257,7 @@
                   <div className="col-xl-5 col-xxl-7">
                    <span>Defect Description:&nbsp;</span>
                    <textarea
+                    name="desc"
                     id="defect_descrip"
                     className="form-control"
                     style={{ height: "111px" }}
@@ -246,6 +273,7 @@
                       <div className="col">
                        <div className="form-check">
                         <input
+                         name="returning"
                          className="form-check-input"
                          type="radio"
                          id="formCheck-1"
@@ -279,6 +307,7 @@
                       <div className="col">
                        <div className="form-check">
                         <input
+                         name="warranty"
                          className="form-check-input"
                          type="radio"
                          id="formCheck-3"
@@ -335,7 +364,7 @@
                  <input className="form-control" type="text" />
                 </div>
                 <div className="col">
-                 <span>Price:&nbsp;</span>
+                 <span>Price:&nbsp;</span>                            {/* price not necessarily known */}
                  <input className="form-control" type="text" />
                 </div>
                 <div className="col">
@@ -351,9 +380,9 @@
                  </div>
                 </div>
                 <div className="col col-auto">
-                 <a href="#" className="add" onClick={AddInput}>
+                 <button className="add" onClick={AddInput}>
                   <i className="fa fa-plus-circle" aria-hidden="true" />
-                 </a>
+                 </button>
                  <span />
                 </div>
                </div>
@@ -366,6 +395,9 @@
                <input className="form-control w-25" type="date" />
               </div>
              </div>
+
+
+
              {/* Step 2*/}
              <div className="tab-pane fade rounded bg-white p-4" id="step2">
               <h4>Assign Employee</h4>
@@ -486,14 +518,18 @@
                   />
                   <div className="row selectgroup-button">
                    <div className="col">
+
                     {/* Start: Gravatar Image */}
                     <img
+                     alt="technician profile"
                      className="rounded-circle"
                      src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                      width={70}
                      height={68}
                     />
                     {/* End: Gravatar Image */}
+
+
                    </div>
                    <div className="col">
                     <span>Mr. Technician K. One</span>
@@ -505,7 +541,13 @@
                </div>
               </div>
              </div>
+
+
+
              {/* Step 3*/}
+
+
+
              <div className="tab-pane fade rounded bg-white p-4" id="step3">
               <h4 className="text-start">Breakdown of Fees</h4>
               <div className>
@@ -516,7 +558,7 @@
                   <div className="col">
                    <div className="row">
                     <div className="col">
-                     <span>Item #1:&nbsp;</span>
+                     <span>Part #1:&nbsp;</span>
                      <span>Battery</span>
                     </div>
                     <div className="col text-center">
@@ -546,7 +588,7 @@
                   <div className="col">
                    <div className="row">
                     <div className="col">
-                     <span>Item #1:&nbsp;</span>
+                     <span>Part #2:&nbsp;</span>
                      <span>Battery</span>
                     </div>
                     <div className="col text-center">
@@ -600,7 +642,7 @@
                 </div>
                </div>
                <div className="row mt-2">
-                <div className="col">
+                {/* <div className="col">
                  <div>
                   <button
                    className="btn btn-primary"
@@ -611,7 +653,7 @@
                    &nbsp;Add New Service
                   </button>
                  </div>
-                </div>
+                </div> */}
                 <div className="col text-end">
                  <span>Total Amount:</span>
                 </div>
@@ -627,6 +669,8 @@
                </div>
               </div>
              </div>
+
+
              {/* Step 4*/}
              <div className="tab-pane fade rounded bg-white p-4" id="step4">
               <h4 className="text-start">Preview &amp; Save</h4>
@@ -681,7 +725,7 @@
                   <div className="col">
                    <div className="row">
                     <div className="col">
-                     <span>Item #1:&nbsp;</span>
+                     <span>Part #1:&nbsp;</span>
                      <span>Battery</span>
                     </div>
                    </div>
@@ -714,7 +758,7 @@
                   <div className="col">
                    <div className="row">
                     <div className="col">
-                     <span>Item #1:&nbsp;</span>
+                     <span>Part #2:&nbsp;</span>
                      <span>Battery</span>
                     </div>
                    </div>
@@ -774,7 +818,9 @@
               </div>
              </div>
             </div>
-           </form>
+           
+
+
            <div className="row justify-content-between">
             <div className="col-auto">
              <button
@@ -791,14 +837,15 @@
               data-enchanter="next">
               Next
              </button>
-             <button
+             <input
               type="submit"
               className="btn btn-primary"
               data-enchanter="finish">
               Finish
-             </button>
+             </input>
             </div>
            </div>
+           </form>
           </div>
          </div>
         </div>
@@ -934,4 +981,4 @@
   );
  }
  
- export default Create_job;
+ export default Createjob;
