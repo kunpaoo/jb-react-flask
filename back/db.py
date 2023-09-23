@@ -21,18 +21,32 @@ def load_list():
     
 def add_list(data):
     with engine.connect() as conn:
+        if data["warranty"] == "on" : warranty = True
+        else : warranty = False
+
+        if data["returning"] == "on" : returning = True
+        else: returning = "False"
+
+
+
         # tech_id = f"select tech_id from technician where tech_name = '{data.tech_name}'"
         tech_id = 3
-        cust_id = f"select cust_id from customer where cust_name = '{data['cust_name']}'"
+        cust = f"select cust_id from customer where cust_name = '{data['cust_name']}' limit 1"
+        cust_id = conn.execute(text(cust)).all()[0][0]
         fee_id = 1
         
+        
         columns = f"order_date, job_name, est_completion, fee_id, cust_id, tech_id"
-        q=f"insert into job_order({columns}) values ({today},'{data['job_name']}',{data['est_completion']},'{fee_id}','{cust_id}','{tech_id}')"
+        q=f"insert into job_order({columns}) values ('{data['order_date']}','{data['job_name']}','{data['est_completion']}',{fee_id},{cust_id},{tech_id});"
         result = conn.execute(text(q))
         conn.commit()
-        return "AAA"
-        # unit_columns = f"order_id, unit_name, brand, warranty, returning, defect_description"
-        # unit = f"insert into unit_item({unit_columns}) values('{result['order_id']}','{data['unit_name']}','{data['brand']}',{data['warranty']},{data['returning']},'{data['desc']}')"
-        # unit_add = conn.execute(text(unit))
-        # conn.commit()        
+        
+
+        order_id = conn.execute(text("select max(order_id) from job_order;")).all()[0][0]
+        unit_columns = "order_id, unit_name, brand, warranty, returning, defect_description"
+        unit = f"insert into unit_item({unit_columns}) values('{order_id}','{data['unit_name']}','{data['brand']}',{warranty},{returning},'{data['desc']}')"
+        unit_add = conn.execute(text(unit))
+        conn.commit()       
+
+        return "DATA INSERTED WITH UNIT" 
         

@@ -18,9 +18,15 @@
     setFormData(e.currentTarget);
     var formm = new FormData(document.querySelector('form'));
     var dat = {
+        order_date:formm.get("order_date"),
         cust_name:formm.get("cust_name"),
         job_name:formm.get("job_name"),
-        est_completion:formm.get("est_completion")
+        est_completion:formm.get("est_completion"),
+        warranty:formm.get("warranty"),
+        returning:formm.get("returning"),
+        unit_name: formm.get("unit_name"),
+        brand: formm.get("brand"),
+        desc: formm.get("desc")
     }
     fetch('/add',{
         method:"POST",

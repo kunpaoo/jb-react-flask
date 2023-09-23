@@ -16,7 +16,7 @@ def home():
 def addjob():
     data = request.json
     
-    return data["cust_name"]
+    return add_list(data)
     
 
 
