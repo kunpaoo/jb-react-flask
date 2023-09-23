@@ -1,7 +1,7 @@
 from flask import Flask,render_template,jsonify,request
 from db import *
 import numpy as np
-
+import json
 
 app = Flask(__name__)
 
@@ -12,11 +12,11 @@ def home():
     return load_list()
     
 
-@app.route('/add', methods=["GET","POST"])
+@app.route('/add', methods=["POST","GET"])
 def addjob():
-    if(request.method == "POST"):
-        add_list(request.form)
-    return load_list()
+    data = request.json
+    
+    return data["cust_name"]
     
 
 

@@ -24,7 +24,7 @@ var JobOrder = () => {
               <td>{row.order_id}</td>
               <td>
                <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
-                <a href="#" data-bs-target="#modal-1" data-bs-toggle="modal">
+                <a href="/" data-bs-target="#modal-1" data-bs-toggle="modal">
                  <h6
                   style={{
                    fontSize: "12px",
@@ -428,7 +428,7 @@ var JobOrder = () => {
               <td>12123</td>
               <td>
                <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
-                <a href="#" data-bs-target="#modal-1" data-bs-toggle="modal">
+                <a href="/" data-bs-target="#modal-1" data-bs-toggle="modal">
                  <h6
                   style={{
                    fontSize: "12px",

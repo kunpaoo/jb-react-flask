@@ -2,12 +2,57 @@
  import Header from "../Header";
  import "bootstrap/dist/css/bootstrap.min.css";
  import React, { useState } from "react";
+ import {useNavigate} from "react-router-dom";
 
  var Createjob = () => {
 
 
+  // post to api
+  
+
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormData(e.currentTarget);
+    var formm = new FormData(document.querySelector('form'));
+    var dat = {
+        cust_name:formm.get("cust_name"),
+        job_name:formm.get("job_name"),
+        est_completion:formm.get("est_completion")
+    }
+    fetch('/add',{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify(dat)
+    })
+    .then((res)=>(res.text()))
+    .then((a)=>console.log("NEXT: ",a));
+    // console.log(formData);
+    console.log(JSON.stringify(dat));
+    // navigate('/job_order');
 
 
+  }
+  
+
+//   function getFormData(){
+//     var data = $('form').serializeArray().reduce(function(obj, item) {
+//         obj[item.name] = item.value;
+//         return obj;
+//     }, {});
+//     setFormData(data);
+//     fetch('/add',{
+//         method:"POST",
+//         form: 'cors',
+//         body: formData
+//       })
+//     // eslint-disable-next-line no-restricted-globals
+//     location.replace("/job_order");
+//   }
 
   // adding parts needed
   const [parts, setParts] = useState([]);
@@ -154,7 +199,7 @@
         <div className="row py-4 ">
          <div className="w-100 row justify-content-center">
           <div className>
-           <form action method="post" id="addOrder">
+           <form method="POST" onSubmit={handleSubmit} id="addOrder">
             <nav>
              <div
               className="nav nav-pills nav-fill navbar-dark bg-dark text-white"
@@ -239,6 +284,7 @@
                     Unit name:{" "}
                     <input
                      id="unit_name"
+                     name="unit_name"
                      className="form-control"
                      type="text"
                     />
@@ -248,6 +294,7 @@
                    <span>Brand:&nbsp;</span>
                    <input
                     id="brand"
+                    name="brand"
                     className="form-control"
                     type="text"
                    />
@@ -288,6 +335,7 @@
                       <div className="col">
                        <div className="form-check">
                         <input
+                         name="returning"
                          className="form-check-input"
                          type="radio"
                          id="formCheck-2"
@@ -322,6 +370,7 @@
                       <div className="col">
                        <div className="form-check">
                         <input
+                        name="warranty"
                          className="form-check-input"
                          type="radio"
                          id="formCheck-4"
@@ -364,10 +413,6 @@
                  <input className="form-control" type="text" />
                 </div>
                 <div className="col">
-                 <span>Price:&nbsp;</span>                            {/* price not necessarily known */}
-                 <input className="form-control" type="text" />
-                </div>
-                <div className="col">
                  <span>Brand:&nbsp;</span>
                  <input className="form-control" type="text" />
                 </div>
@@ -392,7 +437,7 @@
               </div>
               <div className="row mt-4">
                <span>Estimated Time Completion:</span>
-               <input className="form-control w-25" type="date" />
+               <input name="est_completion" className="form-control w-25" type="date" />
               </div>
              </div>
 
@@ -408,7 +453,7 @@
                  <label className="selectgroup-item">
                   <input
                    type="checkbox"
-                   name="value"
+                   name="3"
                    defaultValue="CSS"
                    className="selectgroup-input"
                   />
@@ -416,6 +461,7 @@
                    <div className="col">
                     {/* Start: Gravatar Image */}
                     <img
+                     alt=""
                      className="rounded-circle"
                      src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                      width={70}
@@ -442,6 +488,7 @@
                    <div className="col">
                     {/* Start: Gravatar Image */}
                     <img
+                     alt=""
                      className="rounded-circle"
                      src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                      width={70}
@@ -468,6 +515,7 @@
                    <div className="col">
                     {/* Start: Gravatar Image */}
                     <img
+                     alt=""
                      className="rounded-circle"
                      src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                      width={70}
@@ -494,6 +542,7 @@
                    <div className="col">
                     {/* Start: Gravatar Image */}
                     <img
+                     alt=""
                      className="rounded-circle"
                      src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                      width={70}
@@ -840,9 +889,7 @@
              <input
               type="submit"
               className="btn btn-primary"
-              data-enchanter="finish">
-              Finish
-             </input>
+              data-enchanter="finish" />
             </div>
            </div>
            </form>
@@ -850,6 +897,7 @@
          </div>
         </div>
         {/* End: Multi step form */}
+
         {/* modal for Add charges*/}
         <div className="modal fade" role="dialog" tabIndex={-1} id="modal-1">
          <div className="modal-dialog" role="document">

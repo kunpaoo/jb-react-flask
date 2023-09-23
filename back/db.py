@@ -21,18 +21,18 @@ def load_list():
     
 def add_list(data):
     with engine.connect() as conn:
-        tech_id = f"select tech_id from technician where tech_name = '{data.tech_name}'"
-        cust_id = f"select cust_id from customer where cust_name = '{data.cust_name}'"
+        # tech_id = f"select tech_id from technician where tech_name = '{data.tech_name}'"
+        tech_id = 3
+        cust_id = f"select cust_id from customer where cust_name = '{data['cust_name']}'"
         fee_id = 1
         
         columns = f"order_date, job_name, est_completion, fee_id, cust_id, tech_id"
-        q=f"insert into job_order({columns}) values ({today},'{data.job_name}','{data.est_completion}','{fee_id}','{cust_id}','{tech_id}')"
+        q=f"insert into job_order({columns}) values ({today},'{data['job_name']}',{data['est_completion']},'{fee_id}','{cust_id}','{tech_id}')"
         result = conn.execute(text(q))
         conn.commit()
-        
-        unit_columns = f"order_id, unit_name, brand, warranty, returning, defect_description"
-        unit = f"insert into unit_item({unit_columns}) values('{result.order_id}','{data.unit_name}','{data.brand}',{data.warranty},{data.returning},'{data.desc}')"
-        unit_add = conn.execute(text(unit))
-        conn.commit()        
-        
+        return "AAA"
+        # unit_columns = f"order_id, unit_name, brand, warranty, returning, defect_description"
+        # unit = f"insert into unit_item({unit_columns}) values('{result['order_id']}','{data['unit_name']}','{data['brand']}',{data['warranty']},{data['returning']},'{data['desc']}')"
+        # unit_add = conn.execute(text(unit))
+        # conn.commit()        
         
