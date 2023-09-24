@@ -7,6 +7,65 @@
  var Createjob = () => {
 
 
+//   itemize units
+
+  var units = 2;
+  function add_more() {
+   units++;
+   var newDiv = `
+    <div id="product_row${units}" class="row row-auto">
+        <div class="col"><span>Unit name: <input id="unit_name" name="unit_name${units}" class="form-control" type="text"></span></div>
+        <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name="brand${units}" class="form-control" type="text"></div>
+    </div>
+    <div class="row">
+        
+        <div class="col-xl-5 col-xxl-7"><span>Defect
+                Description:&nbsp;</span><textarea name="desc${units}" id="defect_descrip" class="form-control" style="height: 111px;"
+                required></textarea></div>
+        <div class="col">
+            <div class="row">
+                <div class="col"><span>Product from OCCC?:</span>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check"><input value="yes" name="returning${units}" class="form-check-input" type="radio" id="formCheck-1"><label
+                                    class="form-check-label" for="formCheck-1">Yes</label></div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check"><input value="no" name="returning${units}" class="form-check-input" type="radio" id="formCheck-2"><label
+                                    class="form-check-label" for="formCheck-2">No</label></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"><span>With warranty?</span>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check"><input value="yes" name="warranty${units}" class="form-check-input" type="radio" id="formCheck-3"><label
+                                    class="form-check-label" for="formCheck-3">Yes</label></div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check"><input value="no" name="warranty${units}" class="form-check-input" type="radio" id="formCheck-4"><label
+                                    class="form-check-label" for="formCheck-4">No</label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"><span>If not from OCCC,
+                        where?</span><textarea class="form-control" style="height: 31px;"></textarea></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    
+    </div>`;
+   var form = document.getElementById("input-form");
+   form.insertAdjacentHTML("beforeend", newDiv);
+  }
+
+
+
+
   // post to api
   
 
@@ -22,12 +81,18 @@
         cust_name:formm.get("cust_name"),
         job_name:formm.get("job_name"),
         est_completion:formm.get("est_completion"),
-        warranty:formm.get("warranty"),
-        returning:formm.get("returning"),
-        unit_name: formm.get("unit_name"),
-        brand: formm.get("brand"),
-        desc: formm.get("desc")
+        units:units
     }
+
+    for(var x = 1; x<=units; x++){
+        console.log(units);
+        dat["unit_name"+x] = formm.get("unit_name"+x);
+        dat["brand"+x] = formm.get("brand"+x);
+        dat["desc"+x] = formm.get("desc"+x);
+        dat["returning"+x] = formm.get("returning"+x);
+        dat["warranty"+x] = formm.get("warranty"+x);
+    }
+
     fetch('/add',{
         method:"POST",
         headers: {
@@ -93,59 +158,7 @@
   
   };
   
-  var name_of_parts = 1;
-  function add_more() {
-   name_of_parts++;
-   var newDiv = `
-    <div id="product_row${name_of_parts}" class="row row-auto">
-                        <div class="col"><span>Unit name: <input id="unit_name" class="form-control" type="text"></span></div>
-                        <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" class="form-control" type="text"></div>
-                    </div>
-                    <div class="row">
-                        
-                                <div class="col-xl-5 col-xxl-7"><span>Defect
-                                        Description:&nbsp;</span><textarea id="defect_descrip" class="form-control" style="height: 111px;"
-                                        required></textarea></div>
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="col"><span>Product from OCCC?:</span>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1"><label
-                                                            class="form-check-label" for="formCheck-1">Yes</label></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2"><label
-                                                            class="form-check-label" for="formCheck-2">No</label></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col"><span>With warranty?</span>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label
-                                                            class="form-check-label" for="formCheck-3">Yes</label></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4"><label
-                                                            class="form-check-label" for="formCheck-4">No</label></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col"><span>If not from OCCC,
-                                                where?</span><textarea class="form-control" style="height: 31px;"></textarea></div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
- 
-                    
-                    </div>`;
-   var form = document.getElementById("input-form");
-   form.insertAdjacentHTML("beforeend", newDiv);
-  }
+  
 
 
 
@@ -290,7 +303,7 @@
                     Unit name:{" "}
                     <input
                      id="unit_name"
-                     name="unit_name"
+                     name="unit_name1"
                      className="form-control"
                      type="text"
                     />
@@ -300,7 +313,7 @@
                    <span>Brand:&nbsp;</span>
                    <input
                     id="brand"
-                    name="brand"
+                    name="brand1"
                     className="form-control"
                     type="text"
                    />
@@ -310,7 +323,7 @@
                   <div className="col-xl-5 col-xxl-7">
                    <span>Defect Description:&nbsp;</span>
                    <textarea
-                    name="desc"
+                    name="desc1"
                     id="defect_descrip"
                     className="form-control"
                     style={{ height: "111px" }}
@@ -326,10 +339,11 @@
                       <div className="col">
                        <div className="form-check">
                         <input
-                         name="returning"
+                         name="returning1"
                          className="form-check-input"
                          type="radio"
                          id="formCheck-1"
+                         value="yes"
                         />
                         <label
                          className="form-check-label"
@@ -341,10 +355,11 @@
                       <div className="col">
                        <div className="form-check">
                         <input
-                         name="returning"
+                         name="returning1"
                          className="form-check-input"
                          type="radio"
                          id="formCheck-2"
+                         value="no"
                         />
                         <label
                          className="form-check-label"
@@ -361,10 +376,11 @@
                       <div className="col">
                        <div className="form-check">
                         <input
-                         name="warranty"
+                         name="warranty1"
                          className="form-check-input"
                          type="radio"
                          id="formCheck-3"
+                         value="yes"
                         />
                         <label
                          className="form-check-label"
@@ -376,10 +392,11 @@
                       <div className="col">
                        <div className="form-check">
                         <input
-                        name="warranty"
+                        name="warranty1"
                          className="form-check-input"
                          type="radio"
                          id="formCheck-4"
+                         value="no"
                         />
                         <label
                          className="form-check-label"
