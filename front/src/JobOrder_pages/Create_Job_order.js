@@ -9,9 +9,12 @@
 
 //   itemize units
 
-  var units = 2;
+  const [numunits,setUnits] = useState(1);
+
   function add_more() {
-   units++;
+   setUnits(numunits+1);
+   console.log(numunits)
+   var units = numunits+1;
    var newDiv = `
     <div id="product_row${units}" class="row row-auto">
         <div class="col"><span>Unit name: <input id="unit_name" name="unit_name${units}" class="form-control" type="text"></span></div>
@@ -63,6 +66,54 @@
    form.insertAdjacentHTML("beforeend", newDiv);
   }
 
+ // adding parts needed
+ const [parts, setParts] = useState([]);
+ const [numparts,setNumParts] = useState(1);
+ function AddInput() {
+   setNumParts(numparts+1);
+   console.log(numparts)
+   var p = numparts+1;
+   var item_name = "item_name"+p;
+   var brand = "item_brand"+p;
+   var est_price = "est_price"+p;
+  const newPart = 
+  ( <div className="flex" key={parts.length}>
+    <input
+     name={item_name}
+     type="text"
+     placeholder="Enter name of part"
+     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
+    />
+    
+    <input
+     name={brand}
+     type="text"
+     placeholder="Enter brand"
+     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
+    />
+    <input
+     name={est_price}
+     type="text"
+     placeholder="Enter estimated price"
+     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
+    />
+    {/* <input
+     type="text"
+     placeholder="Enter unit"
+     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
+    /> */}
+   </div>
+   
+  );
+  
+
+  setParts([...parts, newPart]);
+
+ 
+ };
+ 
+
+
 
 
 
@@ -72,20 +123,19 @@
   const navigate = useNavigate();
   const [formData, setFormData] = useState();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormData(e.currentTarget);
+  const getData = () => {
     var formm = new FormData(document.querySelector('form'));
     var dat = {
         order_date:formm.get("order_date"),
         cust_name:formm.get("cust_name"),
         job_name:formm.get("job_name"),
         est_completion:formm.get("est_completion"),
-        units:units
+        units:numunits,
+        num_of_parts:numparts
     }
 
-    for(var x = 1; x<=units; x++){
-        console.log(units);
+    for(var x = 1; x<=numunits; x++){
+        console.log(numunits);
         dat["unit_name"+x] = formm.get("unit_name"+x);
         dat["brand"+x] = formm.get("brand"+x);
         dat["desc"+x] = formm.get("desc"+x);
@@ -93,18 +143,33 @@
         dat["warranty"+x] = formm.get("warranty"+x);
     }
 
+    for(x = 1; x<=numparts; x++){
+        console.log(numparts);
+        dat["item_name"+x] = formm.get("item_name"+x);
+        dat["item_brand"+x] = formm.get("item_brand"+x);
+        dat["est_price"+x] = formm.get("est_price"+x);
+    }
+
+    return JSON.stringify(dat);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormData(e.currentTarget);
+    var dat = getData()
+
     fetch('/add',{
         method:"POST",
         headers: {
             "Content-Type": "application/json",
           },
-        body:JSON.stringify(dat)
+        body:dat
     })
     .then((res)=>(res.text()))
     .then((a)=>console.log("NEXT: ",a));
     // console.log(formData);
-    console.log(JSON.stringify(dat));
-    // navigate('/job_order');
+    // console.log(JSON.stringify(dat));
+     navigate('/job_order');
 
 
   }
@@ -125,46 +190,117 @@
 //     location.replace("/job_order");
 //   }
 
-  // adding parts needed
-  const [parts, setParts] = useState([]);
-  function AddInput() {
-   const newPart = (
-    <div className="flex" key={parts.length}>
-     <input
-      type="text"
-      placeholder="Enter name of parts"
-      style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-     />
-     <input
-      type="text"
-      placeholder="Enter price"
-      style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-     />
-     <input
-      type="text"
-      placeholder="Enter brand"
-      style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-     />
-     <input
-      type="text"
-      placeholder="Enter unit"
-      style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-     />
-    </div>
-   );
-
-   setParts([...parts, newPart]);
-
-  
-  };
-  
+ 
   
 
+const displayData = (e) => {
+    var dat = getData();
+    // var warranty = dat["warranty"] === "yes"?  "WITH WARRANTY" : "WITHOUT WARRANTY";
+    // var returning = dat["returning"] === "yes"? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
+    
+    // multiple units
+    
+    var unitsprev = [];
+    for(var x=1; x<=dat["units"]; x++){
+        var warranty = dat["warranty"] === "yes"?  "WITH WARRANTY" : "WITHOUT WARRANTY";
+        var returning = dat["returning"] === "yes"? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
+        unitsprev += (
+            <>
+            <div className="row">
+                <div className="col">
+                 <span>Unit {x}:</span><br/>
+                 <span>{dat["unit_name"+x]}</span>
+                </div>
+                <div className="col">
+                 <span>Brand: &nbsp;</span>
+                 <span>{dat["unit_brand"+x]}</span>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <span>{warranty}</span>
+                </div>
+                <div className="col">
+                    <span>Bought in OCCC?&nbsp;</span>
+                    <span>{returning}</span>
+                </div>
+            </div><div className="row">
+                <div className="col">
+                    <span className="text-uppercase fw-bold">
+                        Defect Description:
+                    </span>
+                </div>
+            </div><div className="row">
+                <div className="col">
+                    <span>
+                        {dat["desc"+x]}
+                    </span>
+                </div>
+            </div></>
+        );
+    }
 
+    // multiple items
 
+    var itemsprev;
+    for( x=1; x<=dat["num_of_parts"]; x++){
+        itemsprev += (
+            <>
+            <div className="row">
+            <div className="col">
+            <div className="row">
+            <div className="col">
+                <span>Part {x}: &nbsp;</span>
+                <span>{dat["item_name"]}</span>
+            </div>
+            </div>
+            <div className="row">
+            <div className="col">
+                <span>Details:</span>
+            </div>
+            </div>
+            <div className="row">
+            <div className="col">
+                <span>Brand:&nbsp;</span>
+                <span>{dat["item_brand"+x]}</span>
+            </div>
+            </div>
+            <div className="row">
+            <div className="col">
+                <span>Estimated Price:&nbsp;</span>
+                <span>{dat["est_price"+x]}</span>
+            </div>
+            </div>
+            </div>
+            </div>
+            </>
+        );
+        }
+        console.log(unitsprev);
+        return (
+            // <>
+            // <div className="row">
+            // <div className="col">
+            //     <span>Job Title:&nbsp;</span>
+            //     <span>{dat["job_name"]}</span>
+            // </div>
+            // <div className="col">
+            //     <span>Customer:&nbsp;</span>
+            //     <span>{dat["cust_name"]}</span>
+            // </div>
+            // <div className="col">
+            //     <span>Created:&nbsp;</span>
+            //     <span>{dat["order_date"]}</span>
+            // </div>
+            // </div>
 
-
-
+            // {unitsprev}
+            // {itemsprev}
+            // </>
+            "CALLED"
+            
+        );
+    }
 
 
 
@@ -429,27 +565,34 @@
                </div>
                <div className="row row-auto">
                 <div className="row mt-4">
-                 <h5>Parts/Items needed for the job:</h5>
+                 <h5>Parts needed for the job:</h5>
                 </div>
                 <div className="col">
-                 <span>Name of Parts:&nbsp;</span>
-                 <input className="form-control" type="text" />
+                 <span>Name of Part:&nbsp;</span>
+                 <input name="item_name1" className="form-control" type="text" />
                 </div>
                 <div className="col">
                  <span>Brand:&nbsp;</span>
-                 <input className="form-control" type="text" />
+                 <input name="item_brand1" className="form-control" type="text" />
                 </div>
+
                 <div className="col">
+                 <span>Estimated Price:&nbsp;</span>
+                 <input name="est_price1" className="form-control" type="text" />
+                </div>
+                
+                
+                {/* <div className="col">
                  <div className="row">
                   <div className="col">
                    <span>Unit:&nbsp;</span>
                    <input className="form-control" type="text" />
                   </div>
                  </div>
-                </div>
+                </div> */}
                 <div className="col col-auto">
-                 <button className="add" onClick={AddInput}>
-                  <i className="fa fa-plus-circle" aria-hidden="true" />
+                 <button type="button" className="add" onClick={AddInput}>
+                  <i className="fa fa-plus-circle"/>
                  </button>
                  <span />
                 </div>
@@ -747,31 +890,40 @@
              <div className="tab-pane fade rounded bg-white p-4" id="step4">
               <h4 className="text-start">Preview &amp; Save</h4>
               <div className>
-               <div className="row">
+                
+                {displayData}
+
+               {/* <div className="row">
                 <div className="col">
                  <span>Job Title:&nbsp;</span>
-                 <span>Acer Laptop: Broken Battery</span>
+                 <span>{getData()["job_name"]}</span>
                 </div>
                 <div className="col">
                  <span>Customer:&nbsp;</span>
-                 <span>Ninya Anne Paraiso</span>
+                 <span>{getData()["cust_name"]}</span>
                 </div>
                 <div className="col">
                  <span>Created:&nbsp;</span>
-                 <span>09/14/22/2023</span>
+                 <span>{getData()["order_date"]}</span>
                 </div>
                </div>
                <div className="row">
                 <div className="col">
-                 <span>Job Id:&nbsp;</span>
-                 <span>32819-232</span>
+                 <span>Unit 1:</span><br/>
+                 <span>NAME</span>
                 </div>
                 <div className="col">
-                 <span>WITH WARRANTY</span>
+                 <span>Brand: &nbsp;</span>
+                 <span>BRAND</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>With Warranty? {getData()["warranty"].toUpperCase()}</span>
                 </div>
                 <div className="col">
-                 <span>Bought in:&nbsp;</span>
-                 <span>OCCC</span>
+                 <span>Bought in OCCC?&nbsp;</span>
+                 <span>{getData()["returning"].toUpperCase()}</span>
                 </div>
                </div>
                <div className="row">
@@ -784,15 +936,14 @@
                <div className="row">
                 <div className="col">
                  <span>
-                  Peter Piper Pick a peck from pickled pepper a peck of peter
-                  piper pick if peter piper pick a peck of pickeled pepper where
-                  is the peck of pickled piper peter piper pick.
+                  {getData()["desc"]}
                  </span>
                 </div>
                </div>
                <div className="row">
                 <div className="col">
                  <span className="fw-bold">Parts Needed:</span>
+                 
                  <div className="row">
                   <div className="col">
                    <div className="row">
@@ -814,19 +965,13 @@
                    </div>
                    <div className="row">
                     <div className="col">
-                     <span>Unit:&nbsp;</span>
-                     <span>th-w1-34</span>
-                    </div>
-                   </div>
-                   <div className="row">
-                    <div className="col">
-                     <span>Price:&nbsp;</span>
+                     <span>Estimated Price:&nbsp;</span>
                      <span>$12</span>
                     </div>
                    </div>
                   </div>
-                 </div>
-                 <div className="row">
+                 </div> */}
+                 {/* <div className="row">
                   <div className="col">
                    <div className="row">
                     <div className="col">
@@ -858,11 +1003,10 @@
                     </div>
                    </div>
                   </div>
-                 </div>
+                 </div> */}
                 </div>
                 <div className="col">
-                 <span />
-                 <span />
+                 
                  <div className="row">
                   <div className="col">
                    <div className="row">
@@ -888,9 +1032,7 @@
                 </div>
                </div>
               </div>
-             </div>
-            </div>
-           
+             
 
 
            <div className="row justify-content-between">
@@ -912,10 +1054,12 @@
              <input
               type="submit"
               className="btn btn-primary"
-              data-enchanter="finish" />
+              data-enchanter="finish"/>
             </div>
            </div>
+           
            </form>
+           
           </div>
          </div>
         </div>

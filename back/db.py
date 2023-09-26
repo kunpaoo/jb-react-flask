@@ -7,8 +7,8 @@ engine = create_engine("mysql+pymysql://online:Incorrect0-@localhost/jbm")
 
 def load_list():
     with engine.connect() as conn:
-        columns = "job_order.order_id, job_order.job_name, job_order.order_date, job_order.est_completion, technician.tech_name, technician.tech_phone, technician.tech_email, customer.cust_name, customer.cust_phone"
-        q = "select " + columns +  " from job_order join technician on technician.tech_id = job_order.tech_id join customer on job_order.cust_id = customer.cust_id;"
+        columns = "job_order.order_id, job_order.job_name, job_order.order_date, job_order.est_completion, technician.tech_name, technician.tech_number, technician.tech_email, customer.cust_name, customer.cust_phone"
+        q = "select " + columns +  " from job_order join technician on technician.tech_id = job_order.tech_id join customer on job_order.cust_id = customer.cust_id order by job_order.order_id desc;"
         result = conn.execute(text(q))
         order_list = []
         all_res = result.all()
@@ -44,7 +44,7 @@ def add_list(data):
         
 
         # unit itemize
-        for unit in range(1,data['units']):
+        for unit in range(1,data['units']+1):
             if data[f"warranty{unit}"] == "yes" : warranty = True
             else : warranty = False
 
@@ -54,7 +54,17 @@ def add_list(data):
             u = f"insert into unit_item({unit_columns}) values('{order_id}','{data[f'unit_name{unit}']}','{data[f'brand{unit}']}',{warranty},{returning},'{data[f'desc{unit}']}')"
             unit_add = conn.execute(text(u))
             conn.commit()  
-             
 
-        return "DATA INSERTED WITH UNIT" 
+
+        # part itemize
+        if data["item_name1"] is not None:
+            for part in range(1,data['num_of_parts']+1):
+                unit_columns = "order_id, item_name, brand, est_price"
+                u = f"insert into order_part({unit_columns}) values('{order_id}','{data[f'item_name{part}']}','{data[f'item_brand{part}']}','{data[f'est_price{part}']}')"
+                unit_add = conn.execute(text(u))
+                conn.commit()  
+        
+                  
+
+        return "DATA INSERTED WITH UNIT AND PARTS" 
         

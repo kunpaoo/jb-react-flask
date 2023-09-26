@@ -32,7 +32,7 @@ const Navbar = () => {
         </div>
         <ul className="navbar-nav text-light" id="accordionSidebar">
          <li className="nav-item pt-4">
-          <a className="nav-link active" href="/Dashboard">
+          <a className="nav-link active" href="/">
            <i className="material-icons">dashboard</i>
            <span>Dashboard</span>
           </a>
