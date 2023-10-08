@@ -73,7 +73,7 @@ const Navbar = () => {
           </a>
          </li>
          <li className="nav-item">
-          <a className="nav-link" href="/register.html">
+          <a className="nav-link" href="/parts_list">
            <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -88,7 +88,7 @@ const Navbar = () => {
           </a>
          </li>
          <li className="nav-item">
-          <a className="nav-link" href="Bills.html">
+          <a className="nav-link" href="/Bill_Payment">
            <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -99,17 +99,11 @@ const Navbar = () => {
             <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
             <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z" />
            </svg>
-           <span>Items/Parts</span>
+           <span>Bills/Payments</span>
           </a>
          </li>
         </ul>
-        <div className="text-center d-none d-md-inline">
-         <button
-          className="btn rounded-circle border-0"
-          id="sidebarToggle"
-          type="button"
-         />
-        </div>
+        
        </div>
       </nav>
      </div>

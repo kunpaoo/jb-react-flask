@@ -112,7 +112,7 @@ var job_order = () => {
               marginRight: "-2px",
               marginLeft: "12px",
              }}
-             href="/View_Deliveries.html">
+             href="/View_deliveries">
              View Deliveries
             </a>
            </div>

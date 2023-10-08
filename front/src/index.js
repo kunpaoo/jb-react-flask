@@ -12,12 +12,16 @@ import Edit_Job_Order from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
 import Create_customer from './Cust_pages/Create_Customer';
 import Edit_cust from './Cust_pages/Edit_Cust';
+import Parts_list from './Parts/Parts_list';
+import View_deliveries from './JobOrder_pages/View_deliveries';
+import View_Request from './Parts/View_request';
+import Bill_Payment from './Bills/Bills_Payments';
+
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Edit_job from './JobOrder_pages/Edit_JobOrder';
 const router = createBrowserRouter([
  {
   path: "/",
@@ -62,6 +66,22 @@ const router = createBrowserRouter([
  {
   path: "/edit_customer",
   element: <Edit_cust />,
+ },
+ {
+  path: "/parts_list",
+  element: <Parts_list />,
+ },
+ {
+  path: "/View_deliveries",
+  element: <View_deliveries />,
+ },
+ {
+  path: "/View_request",
+  element: <View_Request />,
+ },
+ {
+  path: "/Bill_Payment",
+  element: <Bill_Payment />,
  },
 ]);
 
