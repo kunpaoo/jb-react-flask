@@ -49,7 +49,7 @@ const preview = (key,radio) => {
 
 //   itemize units
 
-const [numunits,setUnits] = useState(1);
+const [numunits,setUnits] = useState(rowData.units.length);
 const [newUnits,setNewUnits] = useState([]);
 
 
@@ -213,7 +213,7 @@ function load_units(){
 
 // adding parts needed
 const [parts, setParts] = useState([]);
-const [numparts,setNumParts] = useState(1);
+const [numparts,setNumParts] = useState(rowData.parts.length);
 function AddInput() {
   setNumParts(numparts+1);
   console.log(numparts)

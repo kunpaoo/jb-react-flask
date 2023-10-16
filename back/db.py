@@ -112,3 +112,69 @@ def add_list(data):
 
         return "DATA INSERTED WITH UNIT AND PARTS" 
 
+
+def update_list(data,id):
+    with engine.connect() as conn:
+        tech_id = 3
+        cust = f"select cust_id from customer where cust_name = '{data['cust_name']}' limit 1"
+        cust_id = conn.execute(text(cust)).all()[0][0]
+        fee_id = 1
+        
+        q=f"update job_order set order_date = '{data['order_date']}', job_name = '{data['job_name']}', est_completion = '{data['est_completion']}', cust_id = {cust_id}, tech_id = {tech_id} where order_id = {id});"
+        result = conn.execute(text(q))
+        conn.commit()
+         
+
+        # unit itemize
+
+        # missing delete unit
+        # update existing items, not add 
+        # select count() as num_of_x
+
+        num_units = conn.execute(text(f"select count(unit_id) as num_unit from unit_item where order_id={id};").all()[0][0])
+        
+        for unit in range(1,num_units+1):
+            unitq = f"select unit_id from unit_item where order_id = {id}, unit_name = {data[f'unit_name{unit}']}"
+            u_id = conn.execute(text(unitq)).all()[0][0]
+            if data[f"warranty{unit}"] == "yes" : warranty = True
+            else : warranty = False
+
+            if data[f"returning{unit}"] == "yes" : returning = True
+            else: returning = False
+            
+            u = f"update unit_item set unit_name = '{data[f'unit_name{unit}']}', brand = '{data[f'brand{unit}']}', warranty = {warranty}, warranty = {returning}, defect_description = '{data[f'desc{unit}']}') where unit_id = {u_id};"
+            unit_update = conn.execute(text(u))
+            conn.commit()  
+
+
+
+        # excess units to add
+        if(data['numunits']>num_units):
+            for unit in range(num_units,data["numunits"]+1):
+                unit_columns = "order_id, unit_name, brand, warranty, returning, defect_description"
+                u = f"insert into unit_item({unit_columns}) values('{id}','{data[f'unit_name{unit}']}','{data[f'brand{unit}']}',{warranty},{returning},'{data[f'desc{unit}']}')"
+                unit_add = conn.execute(text(u))
+                conn.commit()
+
+
+        num_parts = conn.execute(text(f"select count(op_id) as num_parts from order_part where op_id={p_id};").all()[0][0])
+
+        # part itemize
+        if data["item_name1"] is not None:
+            for part in range(1,data['num_of_parts']+1):
+                partq = f"select op_id from order_part where order_id = {id}, item_name = {data[f'item_name{unit}']}"
+                p_id = conn.execute(text(partq)).all()[0][0]
+                unit_columns = "order_id, item_name, brand, est_price"
+                u = f"update order_part set item_name = '{data[f'item_name{part}']}', brand = '{data[f'item_brand{part}']}', est_price = '{data[f'est_price{part}']}' where op_id = {p_id};"
+                unit_add = conn.execute(text(u))
+                conn.commit()  
+
+        if data["num_of_parts"] > num_parts:
+            for part in range(num_parts,data["num_of_parts"]+1):
+                unit_columns = "order_id, item_name, brand, est_price"
+                u = f"insert into order_part({unit_columns}) values('{id}','{data[f'item_name{part}']}','{data[f'item_brand{part}']}','{data[f'est_price{part}']}')"
+                unit_add = conn.execute(text(u))
+                conn.commit()  
+
+    
+
