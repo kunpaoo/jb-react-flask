@@ -10,7 +10,10 @@ app.debug = True
 @app.route('/api', methods = ["GET"])
 def home():
     return load_list()
-    
+
+@app.route('/api/<id>', methods = ["GET"])
+def viewrow(id):
+    return load_row(id)
 
 @app.route('/add', methods=["POST","GET"])
 def addjob():

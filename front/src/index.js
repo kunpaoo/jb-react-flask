@@ -8,7 +8,7 @@ import Edit_tech from './tech_pages/Edit_technician';
 import Create_tech from './tech_pages/Create_tech';
 import JobOrder from './JobOrder_pages/Job_order';
 import Createjob from './JobOrder_pages/Create_Job_order';
-import Edit_Job_Order from './JobOrder_pages/Edit_JobOrder';
+import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
 import Create_customer from './Cust_pages/Create_Customer';
 import Edit_cust from './Cust_pages/Edit_Cust';
@@ -48,8 +48,8 @@ const router = createBrowserRouter([
   element: <Createjob />,
  },
  {
-  path: "/Edit_Job_Order",
-  element: <Edit_Job_Order />,
+  path: "/Edit_Job_Order/:id",
+  element: <EditJobOrder />,
  },
  {
   path: "/customer",

@@ -6,35 +6,52 @@
 
  var Createjob = () => {
 
+var dat = {};
+
+// add values to preview
+
+const preview = (key,radio) => {
+    console.log(document.getElementsByName(key)[0].checked)
+    let value = radio ? 
+    document.getElementsByName(key)[0].checked ? "yes" : "no" : document.getElementById(key).value;
+    value!=null ? dat[key] = value : dat[key] = "loading" ;
+
+    console.log(dat);
+}
+
+
+
 
 //   itemize units
 
   const [numunits,setUnits] = useState(1);
+  const [newUnits,setNewUnits] = useState([]);
 
   function add_more() {
    setUnits(numunits+1);
    console.log(numunits)
    var units = numunits+1;
-   var newDiv = `
-    <div id="product_row${units}" class="row row-auto">
-        <div class="col"><span>Unit name: <input id="unit_name" name="unit_name${units}" class="form-control" type="text"></span></div>
-        <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name="brand${units}" class="form-control" type="text"></div>
+   const newDiv = (
+   <>
+    <div id={"product_row"+{units}} class="row row-auto">
+        <div class="col"><span>Unit name: <input id="unit_name" name={"unit_name"+{units}} class="form-control" type="text"/></span></div>
+        <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name={"brand"+{units}} class="form-control" type="text"/></div>
     </div>
     <div class="row">
         
         <div class="col-xl-5 col-xxl-7"><span>Defect
-                Description:&nbsp;</span><textarea name="desc${units}" id="defect_descrip" class="form-control" style="height: 111px;"
+                Description:&nbsp;</span><textarea name={"desc"+{units}} id="defect_descrip" class="form-control" style={{height:"111px;"}} 
                 required></textarea></div>
         <div class="col">
             <div class="row">
                 <div class="col"><span>Product from OCCC?:</span>
                     <div class="row">
                         <div class="col">
-                            <div class="form-check"><input value="yes" name="returning${units}" class="form-check-input" type="radio" id="formCheck-1"><label
+                            <div class="form-check"><input value="yes" name={"returning"+{units}} class="form-check-input" type="radio" id="formCheck-1"/><label
                                     class="form-check-label" for="formCheck-1">Yes</label></div>
                         </div>
                         <div class="col">
-                            <div class="form-check"><input value="no" name="returning${units}" class="form-check-input" type="radio" id="formCheck-2"><label
+                            <div class="form-check"><input value="no" name={"returning" +{units}} class="form-check-input" type="radio" id="formCheck-2"/><label
                                     class="form-check-label" for="formCheck-2">No</label></div>
                         </div>
                     </div>
@@ -42,11 +59,11 @@
                 <div class="col"><span>With warranty?</span>
                     <div class="row">
                         <div class="col">
-                            <div class="form-check"><input value="yes" name="warranty${units}" class="form-check-input" type="radio" id="formCheck-3"><label
+                            <div class="form-check"><input value="yes" name={"warranty"+{units}} class="form-check-input" type="radio" id="formCheck-3"/><label
                                     class="form-check-label" for="formCheck-3">Yes</label></div>
                         </div>
                         <div class="col">
-                            <div class="form-check"><input value="no" name="warranty${units}" class="form-check-input" type="radio" id="formCheck-4"><label
+                            <div class="form-check"><input value="no" name={"warranty"+{units}} class="form-check-input" type="radio" id="formCheck-4"/><label
                                     class="form-check-label" for="formCheck-4">No</label></div>
                         </div>
                     </div>
@@ -54,16 +71,14 @@
             </div>
             <div class="row">
                 <div class="col"><span>If not from OCCC,
-                        where?</span><textarea class="form-control" style="height: 31px;"></textarea></div>
+                        where?</span><textarea class="form-control" style={{height:"31px"}}></textarea></div>
             </div>
         </div>
         </div>
-    </div>
+    </>);
 
-    
-    </div>`;
-   var form = document.getElementById("input-form");
-   form.insertAdjacentHTML("beforeend", newDiv);
+    setNewUnits([...newUnits,newDiv])
+   
   }
 
  // adding parts needed
@@ -117,11 +132,14 @@
 
 
 
-  // post to api
+ 
   
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState();
+
+
+  // get data from forms
 
   const getData = () => {
     var formm = new FormData(document.querySelector('form'));
@@ -130,28 +148,51 @@
         cust_name:formm.get("cust_name"),
         job_name:formm.get("job_name"),
         est_completion:formm.get("est_completion"),
-        units:numunits,
+        numunits:numunits,
         num_of_parts:numparts
     }
+    
+    console.log(typeof(dat.order_date))
+
+    var u = [dat];
 
     for(var x = 1; x<=numunits; x++){
-        console.log(numunits);
-        dat["unit_name"+x] = formm.get("unit_name"+x);
-        dat["brand"+x] = formm.get("brand"+x);
-        dat["desc"+x] = formm.get("desc"+x);
-        dat["returning"+x] = formm.get("returning"+x);
-        dat["warranty"+x] = formm.get("warranty"+x);
+        u.push({
+            "unit_name":dat["unit_name"+x],
+            "brand":dat["brand"+x],
+            "desc":dat["desc"+x],
+            "returning":dat["returning"+x],
+            "warranty":dat["warranty"+x]
+        })
+        // console.log(numunits);
+        // dat["unit_name"+x] = formm.get("unit_name"+x);
+        // dat["brand"+x] = formm.get("brand"+x);
+        // dat["desc"+x] = formm.get("desc"+x);
+        // dat["returning"+x] = formm.get("returning"+x);
+        // dat["warranty"+x] = formm.get("warranty"+x);
     }
 
     for(x = 1; x<=numparts; x++){
-        console.log(numparts);
-        dat["item_name"+x] = formm.get("item_name"+x);
-        dat["item_brand"+x] = formm.get("item_brand"+x);
-        dat["est_price"+x] = formm.get("est_price"+x);
+        // console.log(numparts);
+        // dat["item_name"+x] = formm.get("item_name"+x);
+        // dat["item_brand"+x] = formm.get("item_brand"+x);
+        // dat["est_price"+x] = formm.get("est_price"+x);
+        u.push({
+            "item_name":dat["item_name"+x],
+            "item_brand":dat["item_brand"+x],
+            "est_price":dat["est_price"+x]
+        })
     }
+
+
+    
+    console.log(u)
 
     return JSON.stringify(dat);
   }
+
+
+  //submit to api
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -195,8 +236,8 @@
 
 const displayData = (e) => {
     var dat = getData();
-    // var warranty = dat["warranty"] === "yes"?  "WITH WARRANTY" : "WITHOUT WARRANTY";
-    // var returning = dat["returning"] === "yes"? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
+    //  var warranty = dat["warranty"] === "yes"?  "WITH WARRANTY" : "WITHOUT WARRANTY";
+    //  var returning = dat["returning"] === "yes"? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
     
     // multiple units
     
@@ -276,30 +317,50 @@ const displayData = (e) => {
             </>
         );
         }
-        console.log(unitsprev);
-        return (
-            // <>
-            // <div className="row">
-            // <div className="col">
-            //     <span>Job Title:&nbsp;</span>
-            //     <span>{dat["job_name"]}</span>
-            // </div>
-            // <div className="col">
-            //     <span>Customer:&nbsp;</span>
-            //     <span>{dat["cust_name"]}</span>
-            // </div>
-            // <div className="col">
-            //     <span>Created:&nbsp;</span>
-            //     <span>{dat["order_date"]}</span>
-            // </div>
-            // </div>
+        console.log(dat["item_name"]);
 
-            // {unitsprev}
-            // {itemsprev}
-            // </>
-            "CALLED"
+        document.getElementById("prev").innerHTML = `
+        <div className="row">
+            <div className="col">
+                <span>Job Title:&nbsp;</span>
+                <span>${dat["job_name"]}</span>
+            </div>
+            <div className="col">
+                <span>Customer:&nbsp;</span>
+                <span>${dat["cust_name"]}</span>
+            </div>
+            <div className="col">
+                <span>Created:&nbsp;</span>
+                <span>${dat["order_date"]}</span>
+            </div>
+            </div>
+
+            ${unitsprev}
+            ${itemsprev}
+        `
+        // return (
+        //     <>
+        //     <div className="row">
+        //     <div className="col">
+        //         <span>Job Title:&nbsp;</span>
+        //         <span>{dat["job_name"]}</span>
+        //     </div>
+        //     <div className="col">
+        //         <span>Customer:&nbsp;</span>
+        //         <span>{dat["cust_name"]}</span>
+        //     </div>
+        //     <div className="col">
+        //         <span>Created:&nbsp;</span>
+        //         <span>{dat["order_date"]}</span>
+        //     </div>
+        //     </div>
+
+        //     {unitsprev}
+        //     {itemsprev}
+        //     </>
             
-        );
+        // );
+        
     }
 
 
@@ -385,7 +446,8 @@ const displayData = (e) => {
                className="nav-link"
                id="step4-tab"
                data-bs-toggle="tab"
-               href="#step4">
+               href="#step4"
+               >
                Preview &amp; Save
               </a>
              </div>
@@ -412,6 +474,7 @@ const displayData = (e) => {
                    type="text"
                    name="cust_name"
                    placeholder="Search..."
+                   id="cust_name" onInput={() => preview("cust_name")}
                   />
                   <button className="btn btn-light search-btn" type="button">
                    {" "}
@@ -424,11 +487,11 @@ const displayData = (e) => {
                <div className="row">
                 <div className="col">
                  <span>Job Name:&nbsp;</span>
-                 <input name="job_name" className="form-control" type="text" required />
+                 <input name="job_name" className="form-control" type="text" id="job_name" onInput={() => preview("job_name",false)} required />
                 </div>
                 <div className="col">
                  <span>Date:</span>
-                 <input name="order_date" className="form-control" type="date" />
+                 <input name="order_date" className="form-control" type="date" id="order_date" onInput={() => preview("order_date",false)}/>
                 </div>
                </div>
                <div className="row">
@@ -438,20 +501,22 @@ const displayData = (e) => {
                    <span>
                     Unit name:{" "}
                     <input
-                     id="unit_name"
+                     id="unit_name1"
                      name="unit_name1"
                      className="form-control"
                      type="text"
+                     onInput={() => preview("unit_name1",false)}
                     />
                    </span>
                   </div>
                   <div className="col">
                    <span>Brand:&nbsp;</span>
                    <input
-                    id="brand"
+                    id="brand1"
                     name="brand1"
                     className="form-control"
                     type="text"
+                    onInput={() => preview("brand1",false)}
                    />
                   </div>
                  </div>
@@ -460,11 +525,12 @@ const displayData = (e) => {
                    <span>Defect Description:&nbsp;</span>
                    <textarea
                     name="desc1"
-                    id="defect_descrip"
+                    id="desc1"
                     className="form-control"
                     style={{ height: "111px" }}
                     required
                     defaultValue={""}
+                    onInput={() => preview("desc1",false)}
                    />
                   </div>
                   <div className="col">
@@ -480,6 +546,7 @@ const displayData = (e) => {
                          type="radio"
                          id="formCheck-1"
                          value="yes"
+                         onInput={()=>preview("returning1",true)}
                         />
                         <label
                          className="form-check-label"
@@ -496,6 +563,7 @@ const displayData = (e) => {
                          type="radio"
                          id="formCheck-2"
                          value="no"
+                         onInput={()=>preview("returning1",true)}
                         />
                         <label
                          className="form-check-label"
@@ -515,12 +583,13 @@ const displayData = (e) => {
                          name="warranty1"
                          className="form-check-input"
                          type="radio"
-                         id="formCheck-3"
+                         id="warranty1"
                          value="yes"
+                         onInput={()=>preview("warranty1",true)}
                         />
                         <label
                          className="form-check-label"
-                         htmlFor="formCheck-3">
+                         htmlFor="wararnty1">
                          Yes
                         </label>
                        </div>
@@ -531,8 +600,9 @@ const displayData = (e) => {
                         name="warranty1"
                          className="form-check-input"
                          type="radio"
-                         id="formCheck-4"
+                         id="warranty1"
                          value="no"
+                         onInput={()=>preview("warranty1",true)}
                         />
                         <label
                          className="form-check-label"
@@ -557,28 +627,32 @@ const displayData = (e) => {
                   </div>
                  </div>
                 </div>
-                <div className>
+                <div className="row">
+                <div className="inp-group">{newUnits.map((unit) => unit)}</div>
+               </div>
+                <div className="col col-auto">
                  <button className="add" onClick={add_more}>
                   Add More
                  </button>
                 </div>
                </div>
+               
                <div className="row row-auto">
                 <div className="row mt-4">
                  <h5>Parts needed for the job:</h5>
                 </div>
                 <div className="col">
                  <span>Name of Part:&nbsp;</span>
-                 <input name="item_name1" className="form-control" type="text" />
+                 <input name="item_name" className="form-control" type="text" />
                 </div>
                 <div className="col">
                  <span>Brand:&nbsp;</span>
-                 <input name="item_brand1" className="form-control" type="text" />
+                 <input name="item_brand" className="form-control" type="text" />
                 </div>
 
                 <div className="col">
                  <span>Estimated Price:&nbsp;</span>
-                 <input name="est_price1" className="form-control" type="text" />
+                 <input name="est_price" className="form-control" type="text" />
                 </div>
                 
                 
@@ -889,7 +963,7 @@ const displayData = (e) => {
              {/* Step 4*/}
              <div className="tab-pane fade rounded bg-white p-4" id="step4">
               <h4 className="text-start">Preview &amp; Save</h4>
-              <div className>
+              <div id="prev" className>
                 
                 {displayData}
 

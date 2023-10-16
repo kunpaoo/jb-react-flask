@@ -7,7 +7,7 @@ engine = create_engine("mysql+pymysql://online:Incorrect0-@localhost/jbm")
 
 def load_list():
     with engine.connect() as conn:
-        columns = "job_order.order_id, job_order.job_name, job_order.order_date, job_order.est_completion, technician.tech_name, technician.tech_number, technician.tech_email, customer.cust_name, customer.cust_phone"
+        columns = "job_order.order_id, job_order.job_name, date_format(job_order.order_date,'%Y-%m-%d') as order_date, date_format(job_order.est_completion,'%Y-%m-%d') as est_completion, technician.tech_name, technician.tech_number, technician.tech_email, customer.cust_name, customer.cust_phone"
         q = "select " + columns +  " from job_order join technician on technician.tech_id = job_order.tech_id join customer on job_order.cust_id = customer.cust_id order by job_order.order_id desc;"
         result = conn.execute(text(q))
         order_list = []
@@ -19,11 +19,55 @@ def load_list():
 
         return order_list
     
+def load_row(id):
+    with engine.connect() as conn:
+        columns = "job_order.order_id, job_order.job_name, date_format(job_order.order_date,'%Y-%m-%d') as order_date, date_format(job_order.est_completion,'%Y-%m-%d') as est_completion, technician.tech_name, technician.tech_number, technician.tech_email, customer.cust_name, customer.cust_phone"
+        q = f"select * from (select {columns} from job_order join technician on technician.tech_id = job_order.tech_id join customer on job_order.cust_id = customer.cust_id order by job_order.order_id desc) as all_list where order_id = {id};"
+        result = conn.execute(text(q))
+        # order_list = []
+        # all_res = result.all()
+
+        
+        # for row in all_res:
+        #     order_list.append(row._asdict())
+        
+        order = result.all()[0]._asdict()
+
+
+        unit_columns = "order_id, unit_name, brand, warranty, returning, defect_description"
+        q = f"select {unit_columns} from unit_item where order_id = {id}"
+        result = conn.execute(text(q))
+        ures = result.all()
+        unit_list = []
+
+        for row in ures:
+            unit_list.append(row._asdict())
+
+        unit_columns = "order_id, item_name, brand, est_price"
+        q = f"select {unit_columns} from order_part where order_id = {id}"
+        result = conn.execute(text(q))
+        pres = result.all()
+        part_list = []
+
+        for row in pres:
+            part_list.append(row._asdict())
+
+        out = {
+            "order": order,
+            "units": unit_list,
+            "parts": part_list
+        }
+
+        return out
+    
+# def load_units(id):
+#     with engine.connect() as conn:
+        
+#         return unit_list
+
+
 def add_list(data):
     with engine.connect() as conn:
-        
-
-
 
         # tech_id = f"select tech_id from technician where tech_name = '{data.tech_name}'"
         tech_id = 3
@@ -67,4 +111,4 @@ def add_list(data):
                   
 
         return "DATA INSERTED WITH UNIT AND PARTS" 
-        
+

@@ -17,171 +17,261 @@ var JobOrder = () => {
   })
 
   var job_list;
-  data == null? job_list = "loading":
+  data === (null || undefined)? job_list = "loading":
   job_list = data.map((row)=>{
     return(
       <tr>
-              <td>{row.order_id}</td>
-              <td>
-               <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
-                <a href="/" data-bs-target="#modal-1" data-bs-toggle="modal">
-                 <h6
-                  style={{
-                   fontSize: "12px",
-                   color: "rgb(0,0,0)",
-                   marginBottom: "0px",
-                   marginTop: "4px",
-                   paddingRight: "0px",
-                  }}>
-                  <strong>{row.job_name}</strong>
-                 </h6>
-                 <div
-                  style={{
-                   fontSize: "8px",
-                   paddingTop: "12px",
-                   marginTop: "-12px",
-                  }}>
-                  <span className="w-auto" style={{ fontSize: "9px" }}>
-                   Created {row.order_date}
-                  </span>
-                 </div>
-                 <div
-                  style={{
-                   paddingTop: "0px",
-                   marginTop: "-12px",
-                  }}>
-                  <span className="w-auto" style={{ fontSize: "9px" }}>
-                   Created by: Anya Kuan
-                  </span>
-                 </div>
-                </a>
-               </div>
-              </td>
-              <td>
-               <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
-                <h6
-                 style={{
-                  fontSize: "12px",
-                  color: "rgb(0,0,0)",
-                  marginBottom: "0px",
-                  marginTop: "4px",
-                  paddingRight: "0px",
-                 }}>
-                 <strong>{row.cust_name}</strong>
-                </h6>
-                <div
-                 style={{
-                  marginTop: "-9px",
-                  marginLeft: "9px",
-                  paddingTop: "1px",
-                 }}>
-                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1em"
-                  height="1em"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                  className="bi bi-telephone-fill"
-                  style={{
-                   color: "rgb(61,61,61)",
-                   fontSize: "9px",
-                   marginRight: "2px",
-                  }}>
-                  <path
-                   fillRule="evenodd"
-                   d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
-                 </svg>
-                 <span style={{ fontSize: "9px" }}>{row.cust_phone}</span>
-                </div>
-               </div>
-              </td>
-              <td>
-               <div className="col-lg-11 col-xl-11 col-xxl-12 justify-content-center w-auto">
-                <h6
-                 style={{
-                  fontSize: "12px",
-                  color: "rgb(0,0,0)",
-                  marginBottom: "0px",
-                  marginTop: "4px",
-                  paddingRight: "0px",
-                 }}>
-                 <strong>{row.tech_name}</strong>
-                </h6>
-                <div
-                 className="w-auto"
-                 style={{
-                  marginTop: "-9px",
-                  marginLeft: "9px",
-                  paddingTop: "1px",
-                 }}>
-                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  style={{
-                   color: "rgb(61,61,61)",
-                   fontSize: "9px",
-                   marginRight: "2px",
-                  }}>
-                  <path
-                   d="M2.00333 5.88355L9.99995 9.88186L17.9967 5.8835C17.9363 4.83315 17.0655 4 16 4H4C2.93452 4 2.06363 4.83318 2.00333 5.88355Z"
-                   fill="currentColor"
-                  />
-                  <path
-                   d="M18 8.1179L9.99995 12.1179L2 8.11796V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V8.1179Z"
-                   fill="currentColor"
-                  />
-                 </svg>
-                 <span style={{ fontSize: "9px" }}>{row.tech_email}</span>
-                </div>
-                <div
-                 className="w-auto"
-                 style={{
-                  marginLeft: "9px",
-                  paddingTop: "0px",
-                  marginTop: "-13px",
-                 }}>
-                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1em"
-                  height="1em"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                  className="bi bi-telephone-fill"
-                  style={{
-                   color: "rgb(61,61,61)",
-                   fontSize: "9px",
-                   marginRight: "2px",
-                  }}>
-                  <path
-                   fillRule="evenodd"
-                   d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
-                 </svg>
-                 <span style={{ fontSize: "9px" }}>{row.tech_phone}</span>
-                </div>
-               </div>
-              </td>
-              <td className="text-center" style={{ fontSize: "11px" }}>
-               {row.est_completion}
-              </td>
-              <td className="text-center">
-               <span
-                className="badge bg-primary"
-                style={{ background: "rgb(1,139,32)" }}>
-                With warranty
-               </span>
-              </td>
-              <td className="text-center">
-               <span className="badge bg-primary" style={{ fontSize: "11px" }}>
-                Scheduling Delivery
-               </span>
-              </td>
-             </tr>
+      <td>{row.order_id}</td>
+      <td>
+        <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+        <a href="/" onClick={() => modalData(row.order_id)} data-bs-target="#modal-1" data-bs-toggle="modal" id={row.order_id}>
+          <h6
+          style={{
+            fontSize: "12px",
+            color: "rgb(0,0,0)",
+            marginBottom: "0px",
+            marginTop: "4px",
+            paddingRight: "0px",
+          }}>
+          <strong>{row.job_name}</strong>
+          </h6>
+          <div
+          style={{
+            fontSize: "8px",
+            paddingTop: "12px",
+            marginTop: "-12px",
+          }}>
+          <span className="w-auto" style={{ fontSize: "9px" }}>
+            Created {row.order_date}
+          </span>
+          </div>
+          <div
+          style={{
+            paddingTop: "0px",
+            marginTop: "-12px",
+          }}>
+          <span className="w-auto" style={{ fontSize: "9px" }}>
+            Created by: Anya Kuan
+          </span>
+          </div>
+        </a>
+        </div>
+      </td>
+      <td>
+        <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
+        <h6
+          style={{
+          fontSize: "12px",
+          color: "rgb(0,0,0)",
+          marginBottom: "0px",
+          marginTop: "4px",
+          paddingRight: "0px",
+          }}>
+          <strong>{row.cust_name}</strong>
+        </h6>
+        <div
+          style={{
+          marginTop: "-9px",
+          marginLeft: "9px",
+          paddingTop: "1px",
+          }}>
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+          className="bi bi-telephone-fill"
+          style={{
+            color: "rgb(61,61,61)",
+            fontSize: "9px",
+            marginRight: "2px",
+          }}>
+          <path
+            fillRule="evenodd"
+            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
+          </svg>
+          <span style={{ fontSize: "9px" }}>{row.cust_phone}</span>
+        </div>
+        </div>
+      </td>
+      <td>
+        <div className="col-lg-11 col-xl-11 col-xxl-12 justify-content-center w-auto">
+        <h6
+          style={{
+          fontSize: "12px",
+          color: "rgb(0,0,0)",
+          marginBottom: "0px",
+          marginTop: "4px",
+          paddingRight: "0px",
+          }}>
+          <strong>{row.tech_name}</strong>
+        </h6>
+        <div
+          className="w-auto"
+          style={{
+          marginTop: "-9px",
+          marginLeft: "9px",
+          paddingTop: "1px",
+          }}>
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 20 20"
+          fill="none"
+          style={{
+            color: "rgb(61,61,61)",
+            fontSize: "9px",
+            marginRight: "2px",
+          }}>
+          <path
+            d="M2.00333 5.88355L9.99995 9.88186L17.9967 5.8835C17.9363 4.83315 17.0655 4 16 4H4C2.93452 4 2.06363 4.83318 2.00333 5.88355Z"
+            fill="currentColor"
+          />
+          <path
+            d="M18 8.1179L9.99995 12.1179L2 8.11796V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V8.1179Z"
+            fill="currentColor"
+          />
+          </svg>
+          <span style={{ fontSize: "9px" }}>{row.tech_email}</span>
+        </div>
+        <div
+          className="w-auto"
+          style={{
+          marginLeft: "9px",
+          paddingTop: "0px",
+          marginTop: "-13px",
+          }}>
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+          className="bi bi-telephone-fill"
+          style={{
+            color: "rgb(61,61,61)",
+            fontSize: "9px",
+            marginRight: "2px",
+          }}>
+          <path
+            fillRule="evenodd"
+            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
+          </svg>
+          <span style={{ fontSize: "9px" }}>{row.tech_phone}</span>
+        </div>
+        </div>
+      </td>
+      <td className="text-center" style={{ fontSize: "11px" }}>
+        {row.est_completion}
+      </td>
+      <td className="text-center">
+        <span
+        className="badge bg-primary"
+        style={{ background: "rgb(1,139,32)" }}>
+        With warranty
+        </span>
+      </td>
+      <td className="text-center">
+        <span className="badge bg-primary" style={{ fontSize: "11px" }}>
+        Scheduling Delivery
+        </span>
+      </td>
+      </tr>
     )
   })
 
+
+
+  // modal preview js
+
+  var [modData,setModData] = useState({
+    "order": {
+      "job_name": "",
+      "cust_name": "",
+      "order_date": "",
+      "order_id": ""
+    },
+    "units" : [],
+    "parts" : []
+  });
+  
+  const modalData = (id) => {
+
+    fetch("/api/"+id)
+    .then((res)=>res.json())
+    .then((d)=>{
+      console.log(d)
+      setModData(d);
+    })
+
+    
+  }
+
+
+  var unit_list;
+  unit_list = modData.units.map((unit)=>{
+    // console.log(unit)
+    return(
+      <>
+      <div className="row">
+          <div className="col">
+           <span>Unit Name:</span>
+           <span>{unit.unit_name}</span>
+          </div>
+          <div className="col">
+           <span>{unit.warranty? "WITH WARRANTY" : "WITHOUT WARRANTY"}</span>
+          </div>
+          <div className="col">
+           <span>{unit.returning? "RETURNING" : "NON RETURNING"}</span>
+          </div>
+         </div>
+         <div className="row">
+          <div className="col">
+           <span className="text-uppercase fw-bold">Defect Description:</span>
+          </div>
+         </div>
+         <div className="row">
+          <div className="col">
+           <span>
+            {unit.defect_description}
+           </span>
+          </div>
+         </div>
+      </>
+    )
+  });
+
+  var part_list = modData.parts.map((part)=>{
+    return(
+      <>
+      <div className="row">
+        <div className="col">
+          <span>Item:&nbsp;</span>
+          <span>{part.item_name}</span>
+        </div>
+        </div>
+        <div className="row">
+        <div className="col">
+          <span>Details:</span>
+        </div>
+        </div>
+        <div className="row">
+        <div className="col">
+          <span>Brand:&nbsp;</span>
+          <span>{part.brand}</span>
+        </div>
+        </div>
+        <div className="row">
+        <div className="col">
+          <span>Estimated Price:&nbsp;</span>
+          <span>{part.est_price}</span>
+        </div>
+        </div>
+      </>
+    )
+  })
 
   return (
    <div id="page-top" class="overflow-hidden">
@@ -655,111 +745,35 @@ var JobOrder = () => {
            <div className="row">
             <div className="col">
              <span>Job Title:&nbsp;</span>
-             <span>Acer Laptop: Broken Battery</span>
+             <span>{modData.order.job_name}</span>
             </div>
             <div className="col">
              <span>Customer:&nbsp;</span>
-             <span>Ninya Anne Paraiso</span>
+             <span>{modData.order.cust_name}</span>
             </div>
             <div className="col">
              <span>Created:&nbsp;</span>
-             <span>09/14/22/2023</span>
+             <span>{modData.order.order_date}</span>
             </div>
            </div>
            <div className="row">
             <div className="col">
              <span>Job Id:&nbsp;</span>
-             <span>32819-232</span>
+             <span>{modData.order.order_id}</span>
             </div>
-            <div className="col">
-             <span>WITH WARRANTY</span>
-            </div>
-            <div className="col">
-             <span>Bought in:&nbsp;</span>
-             <span>OCCC</span>
-            </div>
-           </div>
-           <div className="row">
-            <div className="col">
-             <span className="text-uppercase fw-bold">Defect Description:</span>
-            </div>
-           </div>
-           <div className="row">
-            <div className="col">
-             <span>
-              Peter Piper Pick a peck from pickled pepper a peck of peter piper
-              pick if peter piper pick a peck of pickeled pepper where is the
-              peck of pickled piper peter piper pick.
-             </span>
-            </div>
-           </div>
+          </div>
+
+          {unit_list}
+            
+          
+
            <div className="row">
             <div className="col">
              <span className="fw-bold">Parts Needed:</span>
              <div className="row">
               <div className="col">
-               <div className="row">
-                <div className="col">
-                 <span>Item #1:&nbsp;</span>
-                 <span>Battery</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Details:</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Brand:&nbsp;</span>
-                 <span>Acer</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Unit:&nbsp;</span>
-                 <span>th-w1-34</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Price:&nbsp;</span>
-                 <span>$12</span>
-                </div>
-               </div>
-              </div>
-             </div>
-             <div className="row">
-              <div className="col">
-               <div className="row">
-                <div className="col">
-                 <span>Item #1:&nbsp;</span>
-                 <span>Battery</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Details:</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Brand:&nbsp;</span>
-                 <span>Acer</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Unit:&nbsp;</span>
-                 <span>th-w1-34</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Price:&nbsp;</span>
-                 <span>$12</span>
-                </div>
-               </div>
+               
+               {part_list}
               </div>
              </div>
             </div>
@@ -789,8 +803,8 @@ var JobOrder = () => {
             </div>
             <div className="row ">
              <div className="coln text-end">
-              <Link to={"/Edit_Job_Order"}>
-               <Button>Edit</Button>
+              <Link to={"/Edit_Job_Order/"+modData.order.order_id}>
+               <Button data-bs-dismiss="modal" >Edit</Button>
               </Link>
               &nbsp;
               <Button className="mr-4">Delete</Button>
