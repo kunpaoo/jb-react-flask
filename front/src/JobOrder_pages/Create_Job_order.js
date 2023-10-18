@@ -88,6 +88,8 @@ var Create_job = () => {
   var form = document.getElementById("input-form");
   form.insertAdjacentHTML("beforeend", newDiv);
  }
+
+ 
  return (
   <div id="page-top" class="overflow-hidden">
    <div id="wrapper">
@@ -590,18 +592,6 @@ var Create_job = () => {
                </div>
               </div>
               <div className="row mt-2">
-               <div className="col">
-                <div>
-                 <button
-                  className="btn btn-primary"
-                  type="button"
-                  style={{ background: "rgb(23,59,62)", marginLeft: "0px" }}
-                  data-bs-target="#modal-1"
-                  data-bs-toggle="modal">
-                  &nbsp;Add New Service
-                 </button>
-                </div>
-               </div>
                <div className="col text-end">
                 <span>Total Amount:</span>
                </div>
@@ -764,31 +754,31 @@ var Create_job = () => {
              </div>
             </div>
            </div>
+           <div className="row justify-content-between">
+            <div className="col-auto">
+             <button 
+              type="button"
+              className="btn btn-secondary"
+              data-enchanter="previous">
+              Previous
+             </button>
+            </div>
+            <div className="col-auto">
+             <button
+              type="button"
+              className="btn btn-primary"
+              data-enchanter="next">
+              Next
+             </button>
+             <button
+              type="submit"
+              className="btn btn-primary"
+              data-enchanter="finish">
+              Finish
+             </button>
+            </div>
+           </div>
           </form>
-          <div className="row justify-content-between">
-           <div className="col-auto">
-            <button
-             type="button"
-             className="btn btn-secondary"
-             data-enchanter="previous">
-             Previous
-            </button>
-           </div>
-           <div className="col-auto">
-            <button
-             type="button"
-             className="btn btn-primary"
-             data-enchanter="next">
-             Next
-            </button>
-            <button
-             type="submit"
-             className="btn btn-primary"
-             data-enchanter="finish">
-             Finish
-            </button>
-           </div>
-          </div>
          </div>
         </div>
        </div>
