@@ -2,94 +2,477 @@ import Navbar from "../Navbar";
 import Header from "../Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-var Create_job = () => {
+var Createjob = () => {
+ var dat = {};
+
+ // add values to preview
+
+ const preview = (key, radio) => {
+  console.log(document.getElementsByName(key)[0].checked);
+  let value = radio
+   ? document.getElementsByName(key)[0].checked
+     ? "yes"
+     : "no"
+   : document.getElementById(key).value;
+  value != null ? (dat[key] = value) : (dat[key] = "loading");
+
+  console.log(dat);
+ };
+
+ // next buttons
+
+ 
+
+
+ //   itemize units
+
+ const [numunits, setUnits] = useState(1);
+ const [newUnits, setNewUnits] = useState([]);
+
+ // Remove defected Inputs 
+function RemoveInputs() {
+ var DefectInputs = document.getElementById("defectsinfo");
+ DefectInputs.remove();
+}
+
+ function add_more() {
+  setUnits(numunits + 1);
+  console.log(numunits);
+  var units = numunits + 1;
+  const newDiv = (
+   <>
+    <div className="row row-auto" id="defectsinfo" style={{ margin: "6pt" }}>
+     <div
+      id={"product_row" + { units }}
+      className="row row-auto mt-2 p-4 "
+      style={{ background: "#ebf0ec" }}>
+      <div class="col">
+       <span>
+        Unit name:{" "}
+        <input
+         id="unit_name"
+         name={"unit_name" + { units }}
+         class="form-control"
+         type="text"
+        />
+       </span>
+      </div>
+      <div class="col">
+       <span>Brand:&nbsp;</span>
+       <input
+        id="brand_name"
+        name={"brand" + { units }}
+        class="form-control"
+        type="text"
+       />
+      </div>
+     </div>
+     <div class="row p-4" style={{ background: "#ebf0ec" }}>
+      <div class="col-xl-5 col-xxl-7">
+       <span>Defect Description:&nbsp;</span>
+       <textarea
+        name={"desc" + { units }}
+        id="defect_descrip"
+        class="form-control"
+        style={{ height: "111px;" }}
+        required></textarea>
+      </div>
+      <div class="col">
+       <div class="row">
+        <div class="col">
+         <span>Product from OCCC?:</span>
+         <div class="row">
+          <div class="col">
+           <div class="form-check">
+            <input
+             value="yes"
+             name={"returning" + { units }}
+             class="form-check-input"
+             type="radio"
+             id="formCheck-1"
+            />
+            <label class="form-check-label" for="formCheck-1">
+             Yes
+            </label>
+           </div>
+          </div>
+          <div class="col">
+           <div class="form-check">
+            <input
+             value="no"
+             name={"returning" + { units }}
+             class="form-check-input"
+             type="radio"
+             id="formCheck-2"
+            />
+            <label class="form-check-label" for="formCheck-2">
+             No
+            </label>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="col">
+         <span>With warranty?</span>
+         <div class="row">
+          <div class="col">
+           <div class="form-check">
+            <input
+             value="yes"
+             name={"warranty" + { units }}
+             class="form-check-input"
+             type="radio"
+             id="formCheck-3"
+            />
+            <label class="form-check-label" for="formCheck-3">
+             Yes
+            </label>
+           </div>
+          </div>
+          <div class="col">
+           <div class="form-check">
+            <input
+             value="no"
+             name={"warranty" + { units }}
+             class="form-check-input"
+             type="radio"
+             id="formCheck-4"
+            />
+            <label class="form-check-label" for="formCheck-4">
+             No
+            </label>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="row">
+        <div class="col">
+         <span>If not from OCCC, where?</span>
+         <textarea class="form-control" style={{ height: "31px" }}></textarea>
+        </div>
+       </div>
+      </div>
+     </div>
+     <a
+      name=""
+      id=""
+      onClick={RemoveInputs}
+      className="btn btn-danger"
+      href="#"
+      role="button">
+      Remove
+     </a>
+    </div>
+   </>
+  );
+
+  // <a
+  //  name=""
+  //  className="btn btn-danger"
+  //  id=""
+  //  href="#"
+  //  role="button"
+  //  onClick={RemoveInputs}>
+  //  <i class="fa fa-trash-o" aria-hidden="true"></i>
+  // </a>;
+  setNewUnits([...newUnits, newDiv]);
+ }
+
+ // remove parts
+
+ 
+
  // adding parts needed
  const [parts, setParts] = useState([]);
+ const [numparts, setNumParts] = useState(1);
+
+ 
+  // remove parts
+  function RemovePartsInput() {
+    var PartsInput = document.getElementById("Parts");
+    PartsInput.remove();
+  }
+ 
  function AddInput() {
+  setNumParts(numparts + 1);
+  console.log(numparts);
+  var p = numparts + 1;
+  var item_name = "item_name" + p;
+  var brand = "item_brand" + p;
+  var est_price = "est_price" + p;
   const newPart = (
-   <div className="flex" key={parts.length}>
-    <input
-     type="text"
-     placeholder="Enter name of parts"
-     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-    />
-    <input
-     type="text"
-     placeholder="Enter price"
-     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-    />
-    <input
-     type="text"
-     placeholder="Enter brand"
-     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-    />
-    <input
-     type="text"
-     placeholder="Enter unit"
-     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-    />
+   <div className="row row-auto mt-2" id="Parts" key={parts.length}>
+    <div className="col">
+     <input
+      id="item_name"
+      name={item_name}
+      type="text"
+      className="form-control"
+      placeholder="Enter name of part"
+     />
+    </div>
+
+    <div className="col">
+     <input
+     id="brand_name"
+      name={brand}
+      type="text"
+      className="form-control"
+      placeholder="Enter brand"
+     />
+    </div>
+    <div className="col">
+     <input
+     id="est_price"
+      name={est_price}
+      type="text"
+      className="form-control"
+      placeholder="Enter estimated price"
+     />
+    </div>
+    <div className="col">
+     <a
+      id=""
+      class="btn btn-primary btn-danger"
+      role="button"
+      onClick={RemovePartsInput}>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+     </a>
+    </div>
    </div>
   );
+  
+
 
   setParts([...parts, newPart]);
  }
 
- var name_of_parts = 1;
- function add_more() {
-  name_of_parts++;
-  var newDiv = `
-    <div id="product_row${name_of_parts}" class="row row-auto">
-                        <div class="col"><span>Unit name: <input id="unit_name" class="form-control" type="text"></span></div>
-                        <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" class="form-control" type="text"></div>
-                    </div>
-                    <div class="row">
-                        
-                                <div class="col-xl-5 col-xxl-7"><span>Defect
-                                        Description:&nbsp;</span><textarea id="defect_descrip" class="form-control" style="height: 111px;"
-                                        required></textarea></div>
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="col"><span>Product from OCCC?:</span>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1"><label
-                                                            class="form-check-label" for="formCheck-1">Yes</label></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2"><label
-                                                            class="form-check-label" for="formCheck-2">No</label></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col"><span>With warranty?</span>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label
-                                                            class="form-check-label" for="formCheck-3">Yes</label></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4"><label
-                                                            class="form-check-label" for="formCheck-4">No</label></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col"><span>If not from OCCC,
-                                                where?</span><textarea class="form-control" style="height: 31px;"></textarea></div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
- 
-                    
-                    </div>`;
-  var form = document.getElementById("input-form");
-  form.insertAdjacentHTML("beforeend", newDiv);
- }
+ const navigate = useNavigate();
+ const [formData, setFormData] = useState();
 
- 
+ //function for trashcan
+
+
+
+ // get data from forms
+
+ const getData = () => {
+  var formm = new FormData(document.querySelector("form"));
+  var dat = {
+   order_date: formm.get("order_date"),
+   cust_name: formm.get("cust_name"),
+   job_name: formm.get("job_name"),
+   est_completion: formm.get("est_completion"),
+   numunits: numunits,
+   num_of_parts: numparts,
+  };
+
+  console.log(typeof dat.order_date);
+
+  var u = [dat];
+
+  for (var x = 1; x <= numunits; x++) {
+   u.push({
+    unit_name: dat["unit_name" + x],
+    brand: dat["brand" + x],
+    desc: dat["desc" + x],
+    returning: dat["returning" + x],
+    warranty: dat["warranty" + x],
+   });
+   // console.log(numunits);
+   // dat["unit_name"+x] = formm.get("unit_name"+x);
+   // dat["brand"+x] = formm.get("brand"+x);
+   // dat["desc"+x] = formm.get("desc"+x);
+   // dat["returning"+x] = formm.get("returning"+x);
+   // dat["warranty"+x] = formm.get("warranty"+x);
+  }
+
+  for (x = 1; x <= numparts; x++) {
+   // console.log(numparts);
+   // dat["item_name"+x] = formm.get("item_name"+x);
+   // dat["item_brand"+x] = formm.get("item_brand"+x);
+   // dat["est_price"+x] = formm.get("est_price"+x);
+   u.push({
+    item_name: dat["item_name" + x],
+    item_brand: dat["item_brand" + x],
+    est_price: dat["est_price" + x],
+   });
+  }
+
+  console.log(u);
+
+  return JSON.stringify(dat);
+ };
+
+ //submit to api
+
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  setFormData(e.currentTarget);
+  var dat = getData();
+
+  fetch("/add", {
+   method: "POST",
+   headers: {
+    "Content-Type": "application/json",
+   },
+   body: dat,
+  })
+   .then((res) => res.text())
+   .then((a) => console.log("NEXT: ", a));
+  // console.log(formData);
+  // console.log(JSON.stringify(dat));
+  navigate("/job_order");
+ };
+
+ //   function getFormData(){
+ //     var data = $('form').serializeArray().reduce(function(obj, item) {
+ //         obj[item.name] = item.value;
+ //         return obj;
+ //     }, {});
+ //     setFormData(data);
+ //     fetch('/add',{
+ //         method:"POST",
+ //         form: 'cors',
+ //         body: formData
+ //       })
+ //     // eslint-disable-next-line no-restricted-globals
+ //     location.replace("/job_order");
+ //   }
+
+ const displayData = (e) => {
+  var dat = getData();
+  //  var warranty = dat["warranty"] === "yes"?  "WITH WARRANTY" : "WITHOUT WARRANTY";
+  //  var returning = dat["returning"] === "yes"? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
+
+  // multiple units
+
+  var unitsprev = [];
+  for (var x = 1; x <= dat["units"]; x++) {
+   var warranty =
+    dat["warranty"] === "yes" ? "WITH WARRANTY" : "WITHOUT WARRANTY";
+   var returning =
+    dat["returning"] === "yes" ? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
+   unitsprev += (
+    <>
+     <div className="row">
+      <div className="col">
+       <span>Unit {x}:</span>
+       <br />
+       <span>{dat["unit_name" + x]}</span>
+      </div>
+      <div className="col">
+       <span>Brand: &nbsp;</span>
+       <span>{dat["unit_brand" + x]}</span>
+      </div>
+     </div>
+     <div className="row">
+      <div className="col">
+       <span>{warranty}</span>
+      </div>
+      <div className="col">
+       <span>Bought in OCCC?&nbsp;</span>
+       <span>{returning}</span>
+      </div>
+     </div>
+     <div className="row">
+      <div className="col">
+       <span className="text-uppercase fw-bold">Defect Description:</span>
+      </div>
+     </div>
+     <div className="row">
+      <div className="col">
+       <span>{dat["desc" + x]}</span>
+      </div>
+     </div>
+    </>
+   );
+  }
+
+  // multiple items
+
+  var itemsprev;
+  for (x = 1; x <= dat["num_of_parts"]; x++) {
+   itemsprev += (
+    <>
+     <div className="row">
+      <div className="col">
+       <div className="row">
+        <div className="col">
+         <span>Part {x}: &nbsp;</span>
+         <span>{dat["item_name"]}</span>
+        </div>
+       </div>
+       <div className="row">
+        <div className="col">
+         <span>Details:</span>
+        </div>
+       </div>
+       <div className="row">
+        <div className="col">
+         <span>Brand:&nbsp;</span>
+         <span>{dat["item_brand" + x]}</span>
+        </div>
+       </div>
+       <div className="row">
+        <div className="col">
+         <span>Estimated Price:&nbsp;</span>
+         <span>{dat["est_price" + x]}</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </>
+   );
+  }
+  console.log(dat["item_name"]);
+
+  document.getElementById("prev").innerHTML = `
+        <div className="row">
+            <div className="col">
+                <span>Job Title:&nbsp;</span>
+                <span>${dat["job_name"]}</span>
+            </div>
+            <div className="col">
+                <span>Customer:&nbsp;</span>
+                <span>${dat["cust_name"]}</span>
+            </div>
+            <div className="col">
+                <span>Created:&nbsp;</span>
+                <span>${dat["order_date"]}</span>
+            </div>
+            </div>
+
+            ${unitsprev}
+            ${itemsprev}
+        `;
+  // return (
+  //     <>
+  //     <div className="row">
+  //     <div className="col">
+  //         <span>Job Title:&nbsp;</span>
+  //         <span>{dat["job_name"]}</span>
+  //     </div>
+  //     <div className="col">
+  //         <span>Customer:&nbsp;</span>
+  //         <span>{dat["cust_name"]}</span>
+  //     </div>
+  //     <div className="col">
+  //         <span>Created:&nbsp;</span>
+  //         <span>{dat["order_date"]}</span>
+  //     </div>
+  //     </div>
+
+  //     {unitsprev}
+  //     {itemsprev}
+  //     </>
+
+  // );
+ };
+
  return (
   <div id="page-top" class="overflow-hidden">
    <div id="wrapper">
@@ -129,11 +512,13 @@ var Create_job = () => {
       </div>
       <div className="container-fluid">
        <div />
+
        {/* Start: Multi step form */}
+
        <div className="row py-4 ">
         <div className="w-100 row justify-content-center">
          <div className>
-          <form action method="post" id="registration">
+          <form method="POST" onSubmit={handleSubmit} id="addOrder">
            <nav>
             <div
              className="nav nav-pills nav-fill navbar-dark bg-dark text-white"
@@ -171,6 +556,7 @@ var Create_job = () => {
            </nav>
            <div className="tab-content">
             {/* Step 1*/}
+
             <div
              className="tab-pane fade show active rounded bg-white p-4"
              id="step1">
@@ -184,8 +570,10 @@ var Create_job = () => {
                  <input
                   className="form-control search-input"
                   type="text"
-                  name="search-bar"
+                  name="cust_name"
                   placeholder="Search..."
+                  id="cust_name"
+                  onInput={() => preview("cust_name")}
                  />
                  <button className="btn btn-light search-btn" type="button">
                   {" "}
@@ -197,37 +585,64 @@ var Create_job = () => {
               </div>
               <div className="row">
                <div className="col">
-                <span>Job Title:&nbsp;</span>
-                <input className="form-control" type="text" required />
+                <span>Job Name:&nbsp;</span>
+                <input
+                 name="job_name"
+                 className="form-control"
+                 type="text"
+                 id="job_name"
+                 onInput={() => preview("job_name", false)}
+                 required
+                />
                </div>
                <div className="col">
                 <span>Date:</span>
-                <input className="form-control" type="date" />
+                <input
+                 name="order_date"
+                 className="form-control"
+                 type="date"
+                 id="order_date"
+                 onInput={() => preview("order_date", false)}
+                />
                </div>
               </div>
-              <div className="row">
+              <div className="row" >
                <div id="input-form">
                 <div id="product_row" className="row row-auto">
                  <div className="col">
                   <span>
                    Unit name:{" "}
-                   <input id="unit_name" className="form-control" type="text" />
+                   <input
+                    id="unit_name1"
+                    name="unit_name1"
+                    className="form-control"
+                    type="text"
+                    onInput={() => preview("unit_name1", false)}
+                   />
                   </span>
                  </div>
                  <div className="col">
                   <span>Brand:&nbsp;</span>
-                  <input id="brand_name" className="form-control" type="text" />
+                  <input
+                   id="brand1"
+                   name="brand1"
+                   className="form-control"
+                   type="text"
+                   onInput={() => preview("brand1", false)}
+                  />
                  </div>
                 </div>
                 <div className="row">
                  <div className="col-xl-5 col-xxl-7">
                   <span>Defect Description:&nbsp;</span>
                   <textarea
-                   id="defect_descrip"
+                   name="desc1"
+                   id="desc1"
                    className="form-control"
                    style={{ height: "111px" }}
                    required
                    defaultValue={""}
+                   onInput={() => preview("desc1", false)}
                   />
                  </div>
                  <div className="col">
@@ -238,9 +653,12 @@ var Create_job = () => {
                      <div className="col">
                       <div className="form-check">
                        <input
+                        name="returning1"
                         className="form-check-input"
                         type="radio"
                         id="formCheck-1"
+                        value="yes"
+                        onInput={() => preview("returning1", true)}
                        />
                        <label
                         className="form-check-label"
@@ -252,9 +670,12 @@ var Create_job = () => {
                      <div className="col">
                       <div className="form-check">
                        <input
+                        name="returning1"
                         className="form-check-input"
                         type="radio"
                         id="formCheck-2"
+                        value="no"
+                        onInput={() => preview("returning1", true)}
                        />
                        <label
                         className="form-check-label"
@@ -271,13 +692,14 @@ var Create_job = () => {
                      <div className="col">
                       <div className="form-check">
                        <input
+                        name="warranty1"
                         className="form-check-input"
                         type="radio"
-                        id="formCheck-3"
+                        id="warranty1"
+                        value="yes"
+                        onInput={() => preview("warranty1", true)}
                        />
-                       <label
-                        className="form-check-label"
-                        htmlFor="formCheck-3">
+                       <label className="form-check-label" htmlFor="wararnty1">
                         Yes
                        </label>
                       </div>
@@ -285,9 +707,12 @@ var Create_job = () => {
                      <div className="col">
                       <div className="form-check">
                        <input
+                        name="warranty1"
                         className="form-check-input"
                         type="radio"
-                        id="formCheck-4"
+                        id="warranty1"
+                        value="no"
+                        onInput={() => preview("warranty1", true)}
                        />
                        <label
                         className="form-check-label"
@@ -312,40 +737,55 @@ var Create_job = () => {
                  </div>
                 </div>
                </div>
-               <div className>
-                <button className="add" onClick={add_more}>
-                 Add More
-                </button>
+               <div className="row">
+                <div className="inp-group">{newUnits.map((unit) => unit)}</div>
+               </div>
+               <div className="col col-auto">
+                <a
+                 
+                 className="btn btn-primary mt-2"
+                 onClick={add_more}
+                 role="button">
+                 Add more
+                </a>
                </div>
               </div>
+
               <div className="row row-auto">
                <div className="row mt-4">
-                <h5>Parts/Items needed for the job:</h5>
+                <h5>Parts needed for the job:</h5>
                </div>
                <div className="col">
-                <span>Name of Parts:&nbsp;</span>
-                <input className="form-control" type="text" />
-               </div>
-               <div className="col">
-                <span>Price:&nbsp;</span>
-                <input className="form-control" type="text" />
+                <span>Name of Part:&nbsp;</span>
+                <input name="item_name" className="form-control" type="text" />
                </div>
                <div className="col">
                 <span>Brand:&nbsp;</span>
-                <input className="form-control" type="text" />
+                <input name="item_brand" className="form-control" type="text" />
                </div>
+
                <div className="col">
-                <div className="row">
-                 <div className="col">
-                  <span>Unit:&nbsp;</span>
-                  <input className="form-control" type="text" />
-                 </div>
-                </div>
+                <span>Estimated Price:&nbsp;</span>
+                <input name="est_price" className="form-control" type="text" />
                </div>
+
+               {/* <div className="col">
+                 <div className="row">
+                  <div className="col">
+                   <span>Unit:&nbsp;</span>
+                   <input className="form-control" type="text" />
+                  </div>
+                 </div>
+                </div> */}
                <div className="col col-auto">
-                <a href="#" className="add" onClick={AddInput}>
-                 <i className="fa fa-plus-circle" aria-hidden="true" />
+                <a
+                 className="btn btn-primary rounded-circle mt-4"
+                 href="#"
+                 role="button"
+                 onClick={AddInput}>
+                 <i className="fa fa-plus-circle" />
                 </a>
+
                 <span />
                </div>
               </div>
@@ -355,9 +795,14 @@ var Create_job = () => {
              </div>
              <div className="row mt-4">
               <span>Estimated Time Completion:</span>
-              <input className="form-control w-25" type="date" />
+              <input
+               name="est_completion"
+               className="form-control w-25"
+               type="date"
+              />
              </div>
             </div>
+
             {/* Step 2*/}
             <div className="tab-pane fade rounded bg-white p-4" id="step2">
              <h4>Assign Employee</h4>
@@ -368,7 +813,7 @@ var Create_job = () => {
                 <label className="selectgroup-item">
                  <input
                   type="checkbox"
-                  name="value"
+                  name="3"
                   defaultValue="CSS"
                   className="selectgroup-input"
                  />
@@ -376,6 +821,7 @@ var Create_job = () => {
                   <div className="col">
                    {/* Start: Gravatar Image */}
                    <img
+                    alt=""
                     className="rounded-circle"
                     src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                     width={70}
@@ -402,6 +848,7 @@ var Create_job = () => {
                   <div className="col">
                    {/* Start: Gravatar Image */}
                    <img
+                    alt=""
                     className="rounded-circle"
                     src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                     width={70}
@@ -428,6 +875,7 @@ var Create_job = () => {
                   <div className="col">
                    {/* Start: Gravatar Image */}
                    <img
+                    alt=""
                     className="rounded-circle"
                     src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                     width={70}
@@ -454,6 +902,7 @@ var Create_job = () => {
                   <div className="col">
                    {/* Start: Gravatar Image */}
                    <img
+                    alt=""
                     className="rounded-circle"
                     src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                     width={70}
@@ -480,6 +929,7 @@ var Create_job = () => {
                   <div className="col">
                    {/* Start: Gravatar Image */}
                    <img
+                    alt="technician profile"
                     className="rounded-circle"
                     src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
                     width={70}
@@ -497,7 +947,9 @@ var Create_job = () => {
               </div>
              </div>
             </div>
+
             {/* Step 3*/}
+
             <div className="tab-pane fade rounded bg-white p-4" id="step3">
              <h4 className="text-start">Breakdown of Fees</h4>
              <div className>
@@ -508,7 +960,7 @@ var Create_job = () => {
                  <div className="col">
                   <div className="row">
                    <div className="col">
-                    <span>Item #1:&nbsp;</span>
+                    <span>Part #1:&nbsp;</span>
                     <span>Battery</span>
                    </div>
                    <div className="col text-center">
@@ -538,7 +990,7 @@ var Create_job = () => {
                  <div className="col">
                   <div className="row">
                    <div className="col">
-                    <span>Item #1:&nbsp;</span>
+                    <span>Part #2:&nbsp;</span>
                     <span>Battery</span>
                    </div>
                    <div className="col text-center">
@@ -592,6 +1044,18 @@ var Create_job = () => {
                </div>
               </div>
               <div className="row mt-2">
+               {/* <div className="col">
+                 <div>
+                  <button
+                   className="btn btn-primary"
+                   type="button"
+                   style={{ background: "rgb(23,59,62)", marginLeft: "0px" }}
+                   data-bs-target="#modal-1"
+                   data-bs-toggle="modal">
+                   &nbsp;Add New Service
+                  </button>
+                 </div>
+                </div> */}
                <div className="col text-end">
                 <span>Total Amount:</span>
                </div>
@@ -607,146 +1071,144 @@ var Create_job = () => {
               </div>
              </div>
             </div>
+
             {/* Step 4*/}
             <div className="tab-pane fade rounded bg-white p-4" id="step4">
              <h4 className="text-start">Preview &amp; Save</h4>
-             <div className>
+             <div id="prev" className>
+              {displayData}
+
+              {/* <div className="row">
+                <div className="col">
+                 <span>Job Title:&nbsp;</span>
+                 <span>{getData()["job_name"]}</span>
+                </div>
+                <div className="col">
+                 <span>Customer:&nbsp;</span>
+                 <span>{getData()["cust_name"]}</span>
+                </div>
+                <div className="col">
+                 <span>Created:&nbsp;</span>
+                 <span>{getData()["order_date"]}</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>Unit 1:</span><br/>
+                 <span>NAME</span>
+                </div>
+                <div className="col">
+                 <span>Brand: &nbsp;</span>
+                 <span>BRAND</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>With Warranty? {getData()["warranty"].toUpperCase()}</span>
+                </div>
+                <div className="col">
+                 <span>Bought in OCCC?&nbsp;</span>
+                 <span>{getData()["returning"].toUpperCase()}</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span className="text-uppercase fw-bold">
+                  Defect Description:
+                 </span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>
+                  {getData()["desc"]}
+                 </span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span className="fw-bold">Parts Needed:</span>
+                 
+                 <div className="row">
+                  <div className="col">
+                   <div className="row">
+                    <div className="col">
+                     <span>Part #1:&nbsp;</span>
+                     <span>Battery</span>
+                    </div>
+                   </div>
+                   <div className="row">
+                    <div className="col">
+                     <span>Details:</span>
+                    </div>
+                   </div>
+                   <div className="row">
+                    <div className="col">
+                     <span>Brand:&nbsp;</span>
+                     <span>Acer</span>
+                    </div>
+                   </div>
+                   <div className="row">
+                    <div className="col">
+                     <span>Estimated Price:&nbsp;</span>
+                     <span>$12</span>
+                    </div>
+                   </div>
+                  </div>
+                 </div> */}
+              {/* <div className="row">
+                  <div className="col">
+                   <div className="row">
+                    <div className="col">
+                     <span>Part #2:&nbsp;</span>
+                     <span>Battery</span>
+                    </div>
+                   </div>
+                   <div className="row">
+                    <div className="col">
+                     <span>Details:</span>
+                    </div>
+                   </div>
+                   <div className="row">
+                    <div className="col">
+                     <span>Brand:&nbsp;</span>
+                     <span>Acer</span>
+                    </div>
+                   </div>
+                   <div className="row">
+                    <div className="col">
+                     <span>Unit:&nbsp;</span>
+                     <span>th-w1-34</span>
+                    </div>
+                   </div>
+                   <div className="row">
+                    <div className="col">
+                     <span>Price:&nbsp;</span>
+                     <span>$12</span>
+                    </div>
+                   </div>
+                  </div>
+                 </div> */}
+             </div>
+             <div className="col">
               <div className="row">
                <div className="col">
-                <span>Job Title:&nbsp;</span>
-                <span>Acer Laptop: Broken Battery</span>
-               </div>
-               <div className="col">
-                <span>Customer:&nbsp;</span>
-                <span>Ninya Anne Paraiso</span>
-               </div>
-               <div className="col">
-                <span>Created:&nbsp;</span>
-                <span>09/14/22/2023</span>
-               </div>
-              </div>
-              <div className="row">
-               <div className="col">
-                <span>Job Id:&nbsp;</span>
-                <span>32819-232</span>
-               </div>
-               <div className="col">
-                <span>WITH WARRANTY</span>
-               </div>
-               <div className="col">
-                <span>Bought in:&nbsp;</span>
-                <span>OCCC</span>
-               </div>
-              </div>
-              <div className="row">
-               <div className="col">
-                <span className="text-uppercase fw-bold">
-                 Defect Description:
-                </span>
-               </div>
-              </div>
-              <div className="row">
-               <div className="col">
-                <span>
-                 Peter Piper Pick a peck from pickled pepper a peck of peter
-                 piper pick if peter piper pick a peck of pickeled pepper where
-                 is the peck of pickled piper peter piper pick.
-                </span>
-               </div>
-              </div>
-              <div className="row">
-               <div className="col">
-                <span className="fw-bold">Parts Needed:</span>
                 <div className="row">
                  <div className="col">
-                  <div className="row">
-                   <div className="col">
-                    <span>Item #1:&nbsp;</span>
-                    <span>Battery</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Details:</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Brand:&nbsp;</span>
-                    <span>Acer</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Unit:&nbsp;</span>
-                    <span>th-w1-34</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Price:&nbsp;</span>
-                    <span>$12</span>
-                   </div>
-                  </div>
+                  <span>Assigned Technician:&nbsp;</span>
+                  <span>Mr. Tech K. One</span>
                  </div>
                 </div>
                 <div className="row">
                  <div className="col">
-                  <div className="row">
-                   <div className="col">
-                    <span>Item #1:&nbsp;</span>
-                    <span>Battery</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Details:</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Brand:&nbsp;</span>
-                    <span>Acer</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Unit:&nbsp;</span>
-                    <span>th-w1-34</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Price:&nbsp;</span>
-                    <span>$12</span>
-                   </div>
-                  </div>
+                  <span>Total Amount to be Paid:&nbsp;</span>
+                  <span>$34</span>
                  </div>
                 </div>
-               </div>
-               <div className="col">
-                <span />
-                <span />
                 <div className="row">
                  <div className="col">
-                  <div className="row">
-                   <div className="col">
-                    <span>Assigned Technician:&nbsp;</span>
-                    <span>Mr. Tech K. One</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Total Amount to be Paid:&nbsp;</span>
-                    <span>$34</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Estimated Completion:&nbsp;</span>
-                    <span>09/14/2023</span>
-                   </div>
-                  </div>
+                  <span>Estimated Completion:&nbsp;</span>
+                  <span>09/14/2023</span>
                  </div>
                 </div>
                </div>
@@ -754,9 +1216,10 @@ var Create_job = () => {
              </div>
             </div>
            </div>
+
            <div className="row justify-content-between">
             <div className="col-auto">
-             <button 
+             <button
               type="button"
               className="btn btn-secondary"
               data-enchanter="previous">
@@ -770,12 +1233,11 @@ var Create_job = () => {
               data-enchanter="next">
               Next
              </button>
-             <button
+             <input
               type="submit"
               className="btn btn-primary"
-              data-enchanter="finish">
-              Finish
-             </button>
+              data-enchanter="finish"
+             />
             </div>
            </div>
           </form>
@@ -783,6 +1245,7 @@ var Create_job = () => {
         </div>
        </div>
        {/* End: Multi step form */}
+
        {/* modal for Add charges*/}
        <div className="modal fade" role="dialog" tabIndex={-1} id="modal-1">
         <div className="modal-dialog" role="document">
@@ -914,4 +1377,4 @@ var Create_job = () => {
  );
 };
 
-export default Create_job;
+export default Createjob;
