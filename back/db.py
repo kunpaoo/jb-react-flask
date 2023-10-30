@@ -40,11 +40,15 @@ def load_row(id):
         ures = result.all()
         unit_list = []
 
+
+        warr = False
         for row in ures:
+            x = row._asdict()
+            if x['warranty'] is True: warr = True
             unit_list.append(row._asdict())
 
-        unit_columns = "order_id, item_name, brand, est_price"
-        q = f"select {unit_columns} from order_part where order_id = {id}"
+        part_columns = "order_id, item_name, brand, est_price"
+        q = f"select {part_columns} from order_part where order_id = {id}"
         result = conn.execute(text(q))
         pres = result.all()
         part_list = []
@@ -52,10 +56,22 @@ def load_row(id):
         for row in pres:
             part_list.append(row._asdict())
 
+
+
+        q=f"select * from delivery where order_id = {id}"
+        result = conn.execute(text(q))
+        delivery =  result.all()
+        deli_list = []
+        for row in delivery:
+            deli_list.append(row._asdict())
+
+
         out = {
             "order": order,
+            "warranty":warr,
             "units": unit_list,
-            "parts": part_list
+            "parts": part_list,
+            "delivery": deli_list
         }
 
         return out
@@ -113,14 +129,25 @@ def add_list(data):
         return "DATA INSERTED WITH UNIT AND PARTS" 
 
 
+def set_deli(data):
+    with engine.connect() as conn:
+        q = f"insert into delivery(order_id,deli_date,destination,origin,notes) values ({data['id']},'{data['deli_date']}','{data['destination']}','{data['origin']}','{data['notes']}');"
+        conn.execute(text(q))
+        conn.commit()
+
+        return "DELIVERY INSERTED"
+
 def update_list(data,id):
     with engine.connect() as conn:
+
+        old_data = load_row(id)
+
         tech_id = 3
-        cust = f"select cust_id from customer where cust_name = '{data['cust_name']}' limit 1"
+        cust = f"select cust_id from customer where cust_name = '{old_data['order']['cust_name']}' limit 1"
         cust_id = conn.execute(text(cust)).all()[0][0]
         fee_id = 1
         
-        q=f"update job_order set order_date = '{data['order_date']}', job_name = '{data['job_name']}', est_completion = '{data['est_completion']}', cust_id = {cust_id}, tech_id = {tech_id} where order_id = {id});"
+        q=f"update job_order set job_name = '{data['job_name']}', est_completion = '{data['est_completion']}', cust_id = {cust_id}, tech_id = {tech_id} where order_id = {id};"
         result = conn.execute(text(q))
         conn.commit()
          
@@ -131,50 +158,170 @@ def update_list(data,id):
         # update existing items, not add 
         # select count() as num_of_x
 
-        num_units = conn.execute(text(f"select count(unit_id) as num_unit from unit_item where order_id={id};").all()[0][0])
+
+
+        # nunitsq = conn.execute(text(f"select count(unit_id) as num_unit from unit_item where order_id={id};"))
+        num_units = len(old_data["units"])
+        num_parts = len(old_data["parts"])
+
         
-        for unit in range(1,num_units+1):
-            unitq = f"select unit_id from unit_item where order_id = {id}, unit_name = {data[f'unit_name{unit}']}"
-            u_id = conn.execute(text(unitq)).all()[0][0]
-            if data[f"warranty{unit}"] == "yes" : warranty = True
+       
+
+        # # excess units to delete
+        # elif(data["numunits"]<num_units):
+        #     excess = num_units - data["numunits"]
+        #     dropq = f"delete from unit_item where order_id = {id} limit {excess}"
+        #     udelu=excess
+        #     conn.execute(text(dropq))
+        #     conn.commit()
+        #     num_units-=excess
+
+        delted = ""
+        updated=""
+        ids = []
+        # def updateUnit(id,unit):
+        #     a = id
+        #     ids.append(id)
+        #     if data[f'unit_name{unit}'] is None:
+        #         delted = "DELETED"
+        #         dropq = f"delete from unit_item where u_id = {a}"
+        #         conn.execute(text(dropq))
+        #         conn.commit()
+        #         return None
+
+        #     if (data[f"warranty{unit}"] == "yes") : warranty = True
+        #     else : warranty = False
+
+        #     if (data[f"returning{unit}"] == "yes") : returning = True
+        #     else: returning = False
+        #     updated = "UPDATED"
+        #     u = f"update unit_item set unit_name = '{data[f'unit_name{unit}']}', brand = '{data[f'brand{unit}']}', warranty = {warranty}, warranty = {returning}, defect_description = '{data[f'desc{unit}']}' where unit_id = {a};"
+        #     unit_update = conn.execute(text(u))
+        #     conn.commit()
+
+
+        # get all old units from order
+        unitq = f"select unit_id from unit_item where order_id = {id};"
+        u = conn.execute(text(unitq))
+        u_id = u.all()
+
+        # update existing rows
+        # for unit in range(1,num_units):
+            
+        # map(updateUnit,u_id,range(1,len(u_id)+1))
+        unit = 0
+        for entry in u_id:
+            a = entry[0]
+            unit+=1
+            if data[f'unit_name{unit}'] is None:
+                delted = "DELETED"
+                dropq = f"delete from unit_item where unit_id = {a}"
+                conn.execute(text(dropq))
+                conn.commit()
+                break
+
+
+            if (data[f"warranty{unit}"] == "yes") : warranty = True
             else : warranty = False
 
-            if data[f"returning{unit}"] == "yes" : returning = True
+            if (data[f"returning{unit}"] == "yes") : returning = True
             else: returning = False
-            
-            u = f"update unit_item set unit_name = '{data[f'unit_name{unit}']}', brand = '{data[f'brand{unit}']}', warranty = {warranty}, warranty = {returning}, defect_description = '{data[f'desc{unit}']}') where unit_id = {u_id};"
+            updated = "UPDATED"
+            u = f"update unit_item set unit_name = '{data[f'unit_name{unit}']}', brand = '{data[f'brand{unit}']}', warranty = {warranty}, warranty = {returning}, defect_description = '{data[f'desc{unit}']}' where unit_id = {a};"
             unit_update = conn.execute(text(u))
-            conn.commit()  
+            conn.commit()
 
-
-
+        unit_adds = "not added"
         # excess units to add
         if(data['numunits']>num_units):
-            for unit in range(num_units,data["numunits"]+1):
+            unit_adds="UNIT ADDED"
+            for unit in range(num_units+1,data["numunits"]+1):
                 unit_columns = "order_id, unit_name, brand, warranty, returning, defect_description"
-                u = f"insert into unit_item({unit_columns}) values('{id}','{data[f'unit_name{unit}']}','{data[f'brand{unit}']}',{warranty},{returning},'{data[f'desc{unit}']}')"
+                u = f"insert into unit_item({unit_columns}) values({id},'{data[f'unit_name{unit}']}','{data[f'brand{unit}']}',{warranty},{returning},'{data[f'desc{unit}']}');"
                 unit_add = conn.execute(text(u))
                 conn.commit()
 
 
-        num_parts = conn.execute(text(f"select count(op_id) as num_parts from order_part where op_id={p_id};").all()[0][0])
+        partq = f"select op_id from order_part where order_id = {id};"
+        p = conn.execute(text(partq))
+        p_id = p.all()
 
-        # part itemize
-        if data["item_name1"] is not None:
-            for part in range(1,data['num_of_parts']+1):
-                partq = f"select op_id from order_part where order_id = {id}, item_name = {data[f'item_name{unit}']}"
-                p_id = conn.execute(text(partq)).all()[0][0]
-                unit_columns = "order_id, item_name, brand, est_price"
-                u = f"update order_part set item_name = '{data[f'item_name{part}']}', brand = '{data[f'item_brand{part}']}', est_price = '{data[f'est_price{part}']}' where op_id = {p_id};"
+        # update existing rows
+        # for unit in range(1,num_units):
+            
+        # map(updateUnit,u_id,range(1,len(u_id)+1))
+        part = 0
+        for entry in p_id:
+            a = entry[0]
+            part+=1
+            if data[f'item_name{part}'] is None:
+                delted = "DELETED"
+                dropq = f"delete from order_part where op_id = {a}"
+                conn.execute(text(dropq))
+                conn.commit()
+                break
+
+            updated = "UPDATED"
+            p = f"update order_part set item_name = '{data[f'item_name{part}']}', brand = '{data[f'item_brand{part}']}', est_price = {data[f'est_price{part}']} where op_id = {a};"
+            part_update = conn.execute(text(u))
+            conn.commit()
+
+
+        part_adds = "parts not added"
+        # excess parts to add
+        if(data['num_of_parts']>num_parts):
+            parts_adds="PART ADDED"
+            for part in range(num_units+1,data["numunits"]+1):
+                unit_columns = "order_id,item_name,brand,est_price"
+                u = f"insert into order_part({unit_columns}) values({id},'{data[f'item_name{part}']}','{data[f'brand{part}']}','{data[f'est_price{part}']}');"
                 unit_add = conn.execute(text(u))
-                conn.commit()  
+                conn.commit()
 
-        if data["num_of_parts"] > num_parts:
-            for part in range(num_parts,data["num_of_parts"]+1):
-                unit_columns = "order_id, item_name, brand, est_price"
-                u = f"insert into order_part({unit_columns}) values('{id}','{data[f'item_name{part}']}','{data[f'item_brand{part}']}','{data[f'est_price{part}']}')"
-                unit_add = conn.execute(text(u))
-                conn.commit()  
 
+
+        # # num_parts = conn.execute(text(f"select count(op_id) as num_parts from order_part where order_id={id};")).first().num_parts
+        # num_parts = len(old_data["parts"])
+        # # part itemize``
+
+
+      
+
+        # unames = []
+        
+        # uadd = []
+        # udelu=0
+        # udelp=0
+
+        # if (data["num_of_parts"] > num_parts):
+        #     for part in range(num_parts+1,data["num_of_parts"]+1):
+        #         uadd.append({data[f'item_name{part}']})
+        #         unit_columns = "order_id, item_name, brand, est_price"
+        #         u = f"insert into order_part({unit_columns}) values({id},'{data[f'item_name{part}']}','{data[f'item_brand{part}']}','{data[f'est_price{part}']}')"
+        #         unit_add = conn.execute(text(u))
+        #         conn.commit()  
+        # elif(data["num_of_parts"]<num_parts):
+        #     excess = num_parts - data["num_of_parts"]
+        #     udelp = excess
+        #     dropq = f"delete from order_parts where order_id = {id} limit {excess}"
+        #     conn.execute(text(dropq))
+        #     conn.commit()
+        #     num_parts-=excess
+
+        # for part in range(1,num_parts):
+
+        #     # delete part => search for part name in system, if doesn't exist delete
+        #     # what if part name ang i-edit
+
+        #     unames.append(data[f"item_name{part}"])
+        #     partq = f"select op_id from order_part where order_id = {id} and item_name = '{old_data['parts'][part]['item_name']}'"
+        #     p_id = conn.execute(text(partq)).all()[0][0]
+        #     unit_columns = "order_id, item_name, brand, est_price"
+        #     u = f"update order_part set item_name = '{data[f'item_name{part}']}', brand = '{data[f'item_brand{part}']}', est_price = '{data[f'est_price{part}']}' where op_id = {p_id};"
+        #     unit_add = conn.execute(text(u))
+        #     conn.commit()  
+
+        
+
+        return f"UNIT IDS = {u_id} LIST UPDATED {unit_adds} and {delted} {len(u_id)}"
     
 

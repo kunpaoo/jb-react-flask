@@ -8,6 +8,7 @@ import Edit_tech from './tech_pages/Edit_technician';
 import Create_tech from './tech_pages/Create_tech';
 import JobOrder from './JobOrder_pages/Job_order';
 import Createjob from './JobOrder_pages/Create_Job_order';
+import Deliveries from './JobOrder_pages/Deliveries';
 import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
 import Create_customer from './Cust_pages/Create_Customer';
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
  {
   path: "/Edit_Job_Order/:id",
   element: <EditJobOrder />,
+ },
+ {
+  path:"/deliveries",
+  element: <Deliveries/>
  },
  {
   path: "/customer",

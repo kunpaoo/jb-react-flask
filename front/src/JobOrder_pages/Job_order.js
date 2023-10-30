@@ -3,8 +3,12 @@ import Header from "../Header";
 import Navbar from "../Navbar";
 import React, {useEffect, useState} from 'react';
 import { Link, useNavigate } from "react-router-dom";
+// import './Job_order.css'
 
 var JobOrder = () => {
+
+
+
 
   const [data,setData] = useState();
 
@@ -197,6 +201,8 @@ var JobOrder = () => {
     "parts" : []
   });
   
+  const [modDeli,setModDeli] = useState([]);
+
   const modalData = (id) => {
 
     fetch("/api/"+id)
@@ -207,7 +213,10 @@ var JobOrder = () => {
     })
 
     
+    
   }
+
+  
 
 
   var unit_list;
@@ -215,30 +224,20 @@ var JobOrder = () => {
     // console.log(unit)
     return(
       <>
-      <div className="row">
-          <div className="col">
-           <span>Unit Name:</span>
-           <span>{unit.unit_name}</span>
-          </div>
-          <div className="col">
-           <span>{unit.warranty? "WITH WARRANTY" : "WITHOUT WARRANTY"}</span>
-          </div>
-          <div className="col">
-           <span>{unit.returning? "RETURNING" : "NON RETURNING"}</span>
-          </div>
-         </div>
-         <div className="row">
-          <div className="col">
-           <span className="text-uppercase fw-bold">Defect Description:</span>
-          </div>
-         </div>
-         <div className="row">
-          <div className="col">
-           <span>
-            {unit.defect_description}
-           </span>
-          </div>
-         </div>
+      <table className="mt-2 table table-bordered w-100 ">
+        <tbody>
+          <tr>
+            <td width={'20%'} className="bg-gray-100">Name</td>
+            <td>{unit.unit_name}</td>
+            <td width={'30%'}>{unit.warranty? "WITH WARRANTY" : "WITHOUT WARRANTY"}</td>
+            <td width={'30%'}>{unit.returning? "RETURNING" : "NON RETURNING"}</td>
+          </tr>
+          <tr>
+            <td className="bg-gray-100">Defect Description</td>
+            <td colSpan={3}>{unit.defect_description}</td>
+          </tr>
+        </tbody>
+      </table>
       </>
     )
   });
@@ -246,33 +245,64 @@ var JobOrder = () => {
   var part_list = modData.parts.map((part)=>{
     return(
       <>
-      <div className="row">
-        <div className="col">
-          <span>Item:&nbsp;</span>
-          <span>{part.item_name}</span>
-        </div>
-        </div>
-        <div className="row">
-        <div className="col">
-          <span>Details:</span>
-        </div>
-        </div>
-        <div className="row">
-        <div className="col">
-          <span>Brand:&nbsp;</span>
-          <span>{part.brand}</span>
-        </div>
-        </div>
-        <div className="row">
-        <div className="col">
-          <span>Estimated Price:&nbsp;</span>
-          <span>{part.est_price}</span>
-        </div>
-        </div>
+        <tr>
+        <td>{part.item_name}</td>
+        <td>{part.brand}</td>
+        <td>{part.est_price}</td>
+        </tr>
       </>
     )
   })
 
+
+
+
+  const setDelivery = (event,id) => {
+    event.preventDefault();
+    //get data
+    var formm = new FormData(document.querySelector('form'));
+    var dat = {
+        deli_date:formm.get("deli_date"),
+        destination:formm.get("destination"),
+        origin:formm.get("origin"),
+        notes:formm.get("notes"),
+        id:id
+    }
+
+    let deli_dat = JSON.stringify(dat);
+
+    fetch('/deli',{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:deli_dat
+    })
+    .then((res)=>(res.text()))
+    .then((a)=>console.log("NEXT: ",a))
+    // navigate
+
+    setModDeli(modData.delivery.map((deli) => {
+      return(
+        <>
+        <tr>
+          <td>{deli.deli_date}</td>
+          <td>{deli.destination}</td>
+          <td>{deli.origin}</td>
+          <td>{deli.deli_status}</td>
+        </tr>
+        </>
+      )
+    }))
+
+  }
+
+
+  
+
+
+
+  // render
   return (
    <div id="page-top" class="overflow-hidden">
     <div id="wrapper">
@@ -385,7 +415,7 @@ var JobOrder = () => {
               marginRight: "-2px",
               marginLeft: "12px",
              }}
-             href="/View_Deliveries.html">
+             href="/deliveries">
              View Deliveries
             </a>
            </div>
@@ -741,77 +771,208 @@ var JobOrder = () => {
             data-bs-dismiss="modal"
            />
           </div>
-          <div className="modal-body">
+
+          <div className="modal-body p-4">
            <div className="row">
             <div className="col">
-             <span>Job Title:&nbsp;</span>
+             <span className="fw-bold">Order Title: &nbsp;</span>
              <span>{modData.order.job_name}</span>
             </div>
             <div className="col">
-             <span>Customer:&nbsp;</span>
+             <span className="fw-bold">Customer: &nbsp;</span>
              <span>{modData.order.cust_name}</span>
             </div>
             <div className="col">
-             <span>Created:&nbsp;</span>
+             <span className="fw-bold">Created: &nbsp;</span>
              <span>{modData.order.order_date}</span>
             </div>
            </div>
            <div className="row">
             <div className="col">
-             <span>Job Id:&nbsp;</span>
+             <span className="fw-bold">Order ID: &nbsp;</span>
              <span>{modData.order.order_id}</span>
+            </div>
+            <div className="col">
+              <span className="fw-bold">Technician: &nbsp;</span>
+              <span>{modData.order.tech_name}</span>
+            </div>
+            <div className="col">
+              <span className="fw-bold">Estimated Completion: &nbsp;</span>
+              <span>{modData.order.est_completion}</span>
             </div>
           </div>
 
+          <div className="mt-3 pe-3">
+          <b>UNITS</b>
           {unit_list}
             
           
-
+          <br/>
            <div className="row">
             <div className="col">
-             <span className="fw-bold">Parts Needed:</span>
-             <div className="row">
+             <span className="fw-bold text-uppercase">Required Parts</span>
+             <div className="row mt-2">
               <div className="col">
+              
+              <table className="table text-start table-bordered w-100">
+              <thead className="table-gray-100">
+                <tr>
+                  <th width={'33%'}>Item</th>
+                  <th>Brand</th>
+                  <th width={'33%'}>Estimated Price</th>
+                </tr>
+              </thead>
+              <tbody>
+              {part_list}
+              </tbody>
+              </table>
+
                
-               {part_list}
               </div>
              </div>
             </div>
             <div className="col">
-             <div className="row">
-              <div className="col">
-               <div className="row">
-                <div className="col">
-                 <span>Assigned Technician:&nbsp;</span>
-                 <span>Mr. Tech K. One</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Total Amount to be Paid:&nbsp;</span>
-                 <span>$34</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Estimated Completion:&nbsp;</span>
-                 <span>09/14/2023</span>
-                </div>
-               </div>
-              </div>
-             </div>
+              <b>ESTIMATED COST</b>
+              <table className="table table-bordered mt-2 w-100">
+                <tbody>
+                <tr>
+                  <td className="bg-gray-100" width={'50%'}>Parts</td>
+                  <td>Php 300</td>
+                </tr>
+                <tr>
+                  <td className="bg-gray-100">Warranty Service</td>
+                  <td>Php 200</td>
+                </tr>
+                <tr>
+                  <td className="bg-gray-100">Labor</td>
+                  <td>Php 200</td>
+                </tr>
+              </tbody>
+              </table>
+              <table className="table table-bordered mt-2">
+                <tbody>
+                <tr>
+                  <td width={'50%'} className="fw-bold bg-gray-100">Total</td>
+                  <td>Php 700</td>
+                </tr>
+                <tr>
+                  <td className="bg-gray-100">Downpayment</td>
+                  <td>Php 200</td>
+                </tr>
+                </tbody>
+              </table>              
             </div>
-            <div className="row ">
-             <div className="coln text-end">
+            </div>
+
+            <div className="row my-3">
+                <div className="col">
+                  <div className="card bg-outline-info text-black w-100 h-auto">
+                    <div className="card-header">
+                      <b>Delivery</b>
+                    </div>
+                    <div className="card-body">
+                      <div className="card-text text-center">
+
+                        {/* table */}
+
+                        <table className="text-start table table-striped table-bordered">
+                          <thead className="thead-light">
+                            <tr>
+                            <th>Delivery Date</th>
+                            <th>Destination</th>
+                            <th>Origin</th>
+                            <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {(modData.delivery !== undefined) ? 
+                          modData.delivery.length === 0 ?
+                          <tr>
+                          <td class="text-center" colSpan={4}> No Deliveries </td>
+                          </tr>
+                          :modData.delivery.map((deli)=>{
+                            return(
+                              <tr>
+                                <td>{deli.deli_date}</td>
+                                <td>{deli.destination}</td>
+                                <td>{deli.origin}</td>
+                                <td>{deli.deli_status}</td>
+                              </tr>
+                            )
+                          })
+                          :"loading"}
+                          </tbody>
+                        </table>
+
+
+
+                        <form action="POST" className="w-75 m-auto text-start">
+                          <div className="row">
+                            <div className="col">
+                              Delivery Date
+                            </div>
+                            <div className="col">
+                              Destination
+                            </div>
+                            <div className="col">
+                              Origin
+                            </div>
+                          </div>
+                          <div className="row mb-3 mt-1">
+                            <div className="col">
+                          
+                            <input className="p-1 w-100" type="date" name="deli_date" id="deli_date"/>
+                            </div>
+                            <div className="col">
+                          
+                            <input className="p-1 w-100" type="text" name="destination" id="destination" />
+                            </div>
+                            <div className="col">
+                            <input className="p-1 w-100" type="text" name="origin" id="origin" />
+                            </div>
+                          </div>
+
+                          <div className="row">
+                            <div className="col">
+                              Notes <br/>
+                            <textarea name="notes" id="notes" rows="5" className="w-100 mt-1 p-2"></textarea>
+                            </div>
+                          </div>
+                          <div className="row mt-2">
+                            <div className="col text-center">
+                            <button className="btn btn-secondary btn-md" onClick={(event) => setDelivery(event,modData.order.order_id)}>Set Delivery</button>
+                    
+                            </div>
+                          </div>
+                          
+                          
+                        </form>
+
+                        
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                
+                
+              </div>
+              </div>
+            <div className="row">
+             <div className="col text-end">
               <Link to={"/Edit_Job_Order/"+modData.order.order_id}>
                <Button data-bs-dismiss="modal" >Edit</Button>
               </Link>
               &nbsp;
               <Button className="mr-4">Delete</Button>
+              
              </div>
             </div>
            </div>
+
           </div>
+
          </div>
         </div>
        </div>

@@ -22,9 +22,11 @@ useEffect(()=>{
     fetch("/api/"+id)
     .then((res)=>res.json())
     .then((d)=>{
-      console.log(d)
+      console.log("FROM API: ",d)
       setRowData(d);
-
+      setUnits(d.units.length)
+      setNumParts(d.parts.length)
+      
     })
 }, []);
     
@@ -47,12 +49,18 @@ const preview = (key,radio) => {
 
 
 
+
+
 //   itemize units
 
-const [numunits,setUnits] = useState(rowData.units.length);
+const [numunits,setUnits] = useState(0);
 const [newUnits,setNewUnits] = useState([]);
 
+function removeInput(event,id) {
+    var defectInput = document.getElementById("product_row"+id);
+    defectInput.remove();
 
+}
 
 function add_more() {
  setUnits(numunits+1);
@@ -60,47 +68,56 @@ function add_more() {
  var units = numunits+1;
  const newDiv = (
  <>
-  <div id={"product_row"+{units}} class="row row-auto">
-      <div class="col"><span>Unit name: <input id="unit_name" name={"unit_name"+{units}} class="form-control" type="text"/></span></div>
-      <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name={"brand"+{units}} class="form-control" type="text"/></div>
+  <div id={"product_row"+units} className="row row_auto p-4 mt-3 mb-3" style={{ background: "#ebf0ec" }}>
+  <div className="row row-auto">
+      <div className="col"><span>Unit name: <input id="unit_name" name={"unit_name"+units} className="form-control" type="text"/></span></div>
+      <div className="col"><span>Brand:&nbsp;</span><input id="brand_name" name={"brand"+units} className="form-control" type="text"/></div>
   </div>
-  <div class="row">
-      
-      <div class="col-xl-5 col-xxl-7"><span>Defect
-              Description:&nbsp;</span><textarea name={"desc"+{units}} id="defect_descrip" class="form-control" style={{height:"111px;"}} 
+  <div className="row mt-3">
+      <div className="col-xl-5 col-xxl-7"><span>Defect
+              Description:&nbsp;</span><textarea name={"desc"+units} id="defect_descrip" className="form-control" style={{height:"111px;"}} 
               required></textarea></div>
-      <div class="col">
-          <div class="row">
-              <div class="col"><span>Product from OCCC?:</span>
-                  <div class="row">
-                      <div class="col">
-                          <div class="form-check"><input value="yes" name={"returning"+{units}} class="form-check-input" type="radio" id="formCheck-1"/><label
-                                  class="form-check-label" for="formCheck-1">Yes</label></div>
+      <div className="col">
+          <div className="row">
+              <div className="col"><span>Product from OCCC?:</span>
+                  <div className="row">
+                      <div className="col">
+                          <div className="form-check"><input value="yes" name={"returning"+units} className="form-check-input" type="radio" id="formCheck-1"/><label
+                                  className="form-check-label" for="formCheck-1">Yes</label></div>
                       </div>
-                      <div class="col">
-                          <div class="form-check"><input value="no" name={"returning" +{units}} class="form-check-input" type="radio" id="formCheck-2"/><label
-                                  class="form-check-label" for="formCheck-2">No</label></div>
+                      <div className="col">
+                          <div className="form-check"><input value="no" name={"returning" +units} className="form-check-input" type="radio" id="formCheck-2"/><label
+                                  className="form-check-label" for="formCheck-2">No</label></div>
                       </div>
                   </div>
               </div>
-              <div class="col"><span>With warranty?</span>
-                  <div class="row">
-                      <div class="col">
-                          <div class="form-check"><input value="yes" name={"warranty"+{units}} class="form-check-input" type="radio" id="formCheck-3"/><label
-                                  class="form-check-label" for="formCheck-3">Yes</label></div>
+              <div className="col"><span>With warranty?</span>
+                  <div className="row">
+                      <div className="col">
+                          <div className="form-check"><input value="yes" name={"warranty"+units} className="form-check-input" type="radio" id="formCheck-3"/><label
+                                  className="form-check-label" for="formCheck-3">Yes</label></div>
                       </div>
-                      <div class="col">
-                          <div class="form-check"><input value="no" name={"warranty"+{units}} class="form-check-input" type="radio" id="formCheck-4"/><label
-                                  class="form-check-label" for="formCheck-4">No</label></div>
+                      <div className="col">
+                          <div className="form-check"><input value="no" name={"warranty"+units} className="form-check-input" type="radio" id="formCheck-4"/><label
+                                  className="form-check-label" for="formCheck-4">No</label></div>
                       </div>
                   </div>
               </div>
           </div>
-          <div class="row">
-              <div class="col"><span>If not from OCCC,
-                      where?</span><textarea class="form-control" style={{height:"31px"}}></textarea></div>
+          <div className="row">
+              <div className="col">
+                <span>If not from OCCC, where?</span><textarea class="form-control" style={{height:"31px"}}></textarea>
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
+                <button onClick={event => removeInput(event,units)} className="btn btn-danger me-md-2">    
+                Remove Unit
+                </button>
+                </div>
+              </div>
           </div>
       </div>
+      
+      </div>
+      
       </div>
   </>);
 
@@ -115,25 +132,25 @@ function load_units(){
     for(var i=1; i<=units.length;i++){
         u_list.push(
             <>
-         <div id={"product_row"+{i}} class="row row-auto">
-             <div class="col"><span>Unit name: <input id="unit_name" name={"unit_name"+{i}} class="form-control" type="text" /></span></div>
-             <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name={"brand"+{i}} class="form-control" type="text"/></div>
+         <div id={"product_row"+i} class="row row-auto">
+             <div class="col"><span>Unit name: <input id="unit_name" name={"unit_name"+i} class="form-control" type="text" /></span></div>
+             <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name={"brand"+i} class="form-control" type="text"/></div>
          </div>
          <div class="row">
              
              <div class="col-xl-5 col-xxl-7"><span>Defect
-                     Description:&nbsp;</span><textarea name={"desc"+{i}} id="defect_descrip" class="form-control" style={{height:"111px;"}} 
+                     Description:&nbsp;</span><textarea name={"desc"+i} id="defect_descrip" class="form-control" style={{height:"111px;"}} 
                      required></textarea></div>
              <div class="col">
                  <div class="row">
                      <div class="col"><span>Product from OCCC?:</span>
                          <div class="row">
                              <div class="col">
-                                 <div class="form-check"><input value="yes" name={"returning"+{i}} class="form-check-input" type="radio" id="formCheck-1"/><label
+                                 <div class="form-check"><input value="yes" name={"returning"+i} class="form-check-input" type="radio" id="formCheck-1"/><label
                                          class="form-check-label" for="formCheck-1">Yes</label></div>
                              </div>
                              <div class="col">
-                                 <div class="form-check"><input value="no" name={"returning" +{i}} class="form-check-input" type="radio" id="formCheck-2"/><label
+                                 <div class="form-check"><input value="no" name={"returning" +i} class="form-check-input" type="radio" id="formCheck-2"/><label
                                          class="form-check-label" for="formCheck-2">No</label></div>
                              </div>
                          </div>
@@ -141,11 +158,11 @@ function load_units(){
                      <div class="col"><span>With warranty?</span>
                          <div class="row">
                              <div class="col">
-                                 <div class="form-check"><input value="yes" name={"warranty"+{i}} class="form-check-input" type="radio" id="formCheck-3"/><label
+                                 <div class="form-check"><input value="yes" name={"warranty"+i} class="form-check-input" type="radio" id="formCheck-3"/><label
                                          class="form-check-label" for="formCheck-3">Yes</label></div>
                              </div>
                              <div class="col">
-                                 <div class="form-check"><input value="no" name={"warranty"+{i}} class="form-check-input" type="radio" id="formCheck-4"/><label
+                                 <div class="form-check"><input value="no" name={"warranty"+i} class="form-check-input" type="radio" id="formCheck-4"/><label
                                          class="form-check-label" for="formCheck-4">No</label></div>
                              </div>
                          </div>
@@ -164,90 +181,69 @@ function load_units(){
     return u_list;
 
     
-    // const newDiv = (
-    //     <>
-    //      <div id={"product_row"+{units}} class="row row-auto">
-    //          <div class="col"><span>Unit name: <input id="unit_name" name={"unit_name"+{units}} class="form-control" type="text"/></span></div>
-    //          <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name={"brand"+{units}} class="form-control" type="text"/></div>
-    //      </div>
-    //      <div class="row">
-             
-    //          <div class="col-xl-5 col-xxl-7"><span>Defect
-    //                  Description:&nbsp;</span><textarea name={"desc"+{units}} id="defect_descrip" class="form-control" style={{height:"111px;"}} 
-    //                  required></textarea></div>
-    //          <div class="col">
-    //              <div class="row">
-    //                  <div class="col"><span>Product from OCCC?:</span>
-    //                      <div class="row">
-    //                          <div class="col">
-    //                              <div class="form-check"><input value="yes" name={"returning"+{units}} class="form-check-input" type="radio" id="formCheck-1"/><label
-    //                                      class="form-check-label" for="formCheck-1">Yes</label></div>
-    //                          </div>
-    //                          <div class="col">
-    //                              <div class="form-check"><input value="no" name={"returning" +{units}} class="form-check-input" type="radio" id="formCheck-2"/><label
-    //                                      class="form-check-label" for="formCheck-2">No</label></div>
-    //                          </div>
-    //                      </div>
-    //                  </div>
-    //                  <div class="col"><span>With warranty?</span>
-    //                      <div class="row">
-    //                          <div class="col">
-    //                              <div class="form-check"><input value="yes" name={"warranty"+{units}} class="form-check-input" type="radio" id="formCheck-3"/><label
-    //                                      class="form-check-label" for="formCheck-3">Yes</label></div>
-    //                          </div>
-    //                          <div class="col">
-    //                              <div class="form-check"><input value="no" name={"warranty"+{units}} class="form-check-input" type="radio" id="formCheck-4"/><label
-    //                                      class="form-check-label" for="formCheck-4">No</label></div>
-    //                          </div>
-    //                      </div>
-    //                  </div>
-    //              </div>
-    //              <div class="row">
-    //                  <div class="col"><span>If not from OCCC,
-    //                          where?</span><textarea class="form-control" style={{height:"31px"}}></textarea></div>
-    //              </div>
-    //          </div>
-    //          </div>
-    //      </>)
 }
 
 // adding parts needed
 const [parts, setParts] = useState([]);
-const [numparts,setNumParts] = useState(rowData.parts.length);
+const [numparts,setNumParts] = useState(0);
+
+function removePart(event,id) {
+    var defectInput = document.getElementById("part"+id);
+    defectInput.remove();
+
+}
+
 function AddInput() {
   setNumParts(numparts+1);
-  console.log(numparts)
+  console.log("Parts ",numparts)
   var p = numparts+1;
-  var item_name = "item_name"+p;
-  var brand = "item_brand"+p;
-  var est_price = "est_price"+p;
  const newPart = 
- ( <div className="flex" key={parts.length}>
-   <input
-    name={item_name}
-    type="text"
-    placeholder="Enter name of part"
-    style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-   />
+ ( 
+    <div className="row row-auto mt-1" id={"part"+p}>
+    <div className="col">
+    <input name={"item_name"+p} className="form-control" type="text" placeholder="Enter part name" />
+    </div>
+    <div className="col">
+    <input name={"item_brand"+p} className="form-control" type="text" placeholder="Enter brand"/>
+    </div>
+
+    <div className="col">
+    <input name={"est_price"+p} className="form-control" type="text" placeholder="Enter estimated price" />
+    </div>
+
+    <div className="col">
+    <button className="btn btn-primary btn-danger btn-md" onClick={event=>removePart(event,p)}>
+    <i className="fa fa-trash" aria-hidden="true"></i>
+    </button>
+    </div>
+    </div>
+ 
+//    <div id="" className="flex" key={parts.length}>
+//    <input
+//     name={item_name}
+//     type="text"
+//     placeholder="Enter name of part"
+//     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
+//    />
    
-   <input
-    name={brand}
-    type="text"
-    placeholder="Enter brand"
-    style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-   />
-   <input
-    name={est_price}
-    type="text"
-    placeholder="Enter estimated price"
-    style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-   />
-   {/* <input
-    type="text"
-    placeholder="Enter unit"
-    style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
-   /> */}
-  </div>
+//    <input
+//     name={brand}
+//     type="text"
+//     placeholder="Enter brand"
+//     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
+//    />
+//    <input
+//     name={est_price}
+//     type="text"
+//     placeholder="Enter estimated price"
+//     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
+//    />
+//    {/* <input
+//     type="text"
+//     placeholder="Enter unit"
+//     style={{ marginRight: "19pt", marginTop: "10pt", width: "14rem" }}
+//    /> */}
+//   </div>
   
  );
  
@@ -287,31 +283,32 @@ function AddInput() {
    var u = [];
 
    for(var x = 1; x<=numunits; x++){
-       u.push({
-           "unit_name":dat["unit_name"+x],
-           "brand":dat["brand"+x],
-           "desc":dat["desc"+x],
-           "returning":dat["returning"+x],
-           "warranty":dat["warranty"+x]
-       })
+    //    u.push({
+    //        "unit_name":dat["unit_name"+x],
+    //        "brand":dat["brand"+x],
+    //        "desc":dat["desc"+x],
+    //        "returning":dat["returning"+x],
+    //        "warranty":dat["warranty"+x]
+    //    })
        // console.log(numunits);
-       // dat["unit_name"+x] = formm.get("unit_name"+x);
-       // dat["brand"+x] = formm.get("brand"+x);
-       // dat["desc"+x] = formm.get("desc"+x);
-       // dat["returning"+x] = formm.get("returning"+x);
-       // dat["warranty"+x] = formm.get("warranty"+x);
+       dat["unit_name"+x] = formm.get("unit_name"+x);
+       console.log(dat["unit_name"+x])
+       dat["brand"+x] = formm.get("brand"+x);
+       dat["desc"+x] = formm.get("desc"+x);
+       dat["returning"+x] = formm.get("returning"+x);
+       dat["warranty"+x] = formm.get("warranty"+x);
    }
 
    for(x = 1; x<=numparts; x++){
        // console.log(numparts);
-       // dat["item_name"+x] = formm.get("item_name"+x);
-       // dat["item_brand"+x] = formm.get("item_brand"+x);
-       // dat["est_price"+x] = formm.get("est_price"+x);
-       u.push({
-           "item_name":dat["item_name"+x],
-           "item_brand":dat["item_brand"+x],
-           "est_price":dat["est_price"+x]
-       })
+       dat["item_name"+x] = formm.get("item_name"+x);
+       dat["item_brand"+x] = formm.get("item_brand"+x);
+       dat["est_price"+x] = formm.get("est_price"+x);
+    //    u.push({
+    //        "item_name":dat["item_name"+x],
+    //        "item_brand":dat["item_brand"+x],
+    //        "est_price":dat["est_price"+x]
+    //    })
    }
 
    return JSON.stringify(dat);
@@ -324,8 +321,8 @@ function AddInput() {
    e.preventDefault();
    setFormData(e.currentTarget);
    var dat = getData()
-
-   fetch('/add',{
+    console.log("DATA"+dat)
+   fetch('/update/'+id,{
        method:"POST",
        headers: {
            "Content-Type": "application/json",
@@ -336,7 +333,7 @@ function AddInput() {
    .then((a)=>console.log("NEXT: ",a));
    // console.log(formData);
    // console.log(JSON.stringify(dat));
-    navigate('/job_order');
+    // navigate('/job_order');
 
 
  }
@@ -628,69 +625,75 @@ const displayData = (e) => {
               {/* units */}
                <div className="row">
                <div id="input-form">
-                <div className="row">
-               
-                
-<>
+
                  {rowData.units.map((unit,a)=>{
                     let i = a+1;
+                    console.log(i)
                     return(<>
-                        <div id={"product_row"+{i}} class="row row-auto">
-             <div class="col"><span>Unit name: <input id="unit_name" name={"unit_name"+{i}} class="form-control" type="text" defaultValue={unit.unit_name}/></span></div>
-             <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name={"brand"+{i}} class="form-control" type="text" defaultValue={unit.brand}/></div>
-         </div>
-         <div class="row">
-             
-             <div class="col-xl-5 col-xxl-7"><span>Defect
-                     Description:&nbsp;</span><textarea name={"desc"+{i}} id="defect_descrip" class="form-control" style={{height:"111px;"}} defaultValue={unit.defect_description}
-                     required></textarea></div>
-             <div class="col">
-                 <div class="row">
-                     <div class="col"><span>Product from OCCC?:</span>
-                         <div class="row">
-                             <div class="col">
-                                 <div class="form-check"><input value="yes" name={"returning"+i} class="form-check-input" type="radio" defaultChecked={unit.returning}/><label
-                                         class="form-check-label" for="formCheck-1">Yes</label></div>
-                             </div>
-                             <div class="col">
-                                 <div class="form-check"><input value="no" name={"returning" +i} class="form-check-input" type="radio" defaultChecked={!unit.returning} /><label
-                                         class="form-check-label" for="formCheck-2">No</label></div>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col"><span>With warranty?</span>
-                         <div class="row">
-                             <div class="col">
-                                 <div class="form-check"><input value="yes" name={"warranty"+i} class="form-check-input" type="radio"  defaultChecked={unit.warranty}/><label
-                                         class="form-check-label" for="formCheck-3">Yes</label></div>
-                             </div>
-                             <div class="col">
-                                 <div class="form-check"><input value="no" name={"warranty"+i} class="form-check-input" type="radio" defaultChecked={!unit.warranty}/><label
-                                         class="form-check-label" for="formCheck-4">No</label></div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col"><span>If not from OCCC,
-                             where?</span><textarea class="form-control" style={{height:"31px"}}></textarea></div>
-                 </div>
-             </div>
-             </div>
-              </>      )
-                 })}
+                        <div id={"product_row"+i} className="row row-auto p-4 mt-3 mb-3" style={{ background: "#ebf0ec" }}>
+                            <div className="row row-auto">
+                            <div className="col"><span>Unit name: <input name={"unit_name"+i} className="form-control" type="text" defaultValue={unit.unit_name}/></span></div>
+                            <div className="col"><span>Brand:&nbsp;</span><input name={"brand"+i} className="form-control" type="text" defaultValue={unit.brand}/></div>
+                            </div>
+                        <div className="row row-auto mt-3">
+                            <div className="col-xl-5 col-xxl-7"><span>Defect
+                                    Description:&nbsp;</span><textarea name={"desc"+i} id="defect_descrip" className="form-control" style={{height:"111px;"}} defaultValue={unit.defect_description}
+                                    required></textarea></div>
+                            <div className="col">
+                                <div className="row">
+                                    <div className="col"><span>Product from OCCC?:</span>
+                                        <div className="row">
+                                            <div className="col">
+                                                <div className="form-check"><input value="yes" name={"returning"+i} className="form-check-input" type="radio" defaultChecked={unit.returning}/><label
+                                                        className="form-check-label" for="formCheck-1">Yes</label></div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="form-check"><input value="no" name={"returning" +i} className="form-check-input" type="radio" defaultChecked={!unit.returning} /><label
+                                                        className="form-check-label" for="formCheck-2">No</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col"><span>With warranty?</span>
+                                        <div className="row">
+                                            <div className="col">
+                                                <div className="form-check"><input value="yes" name={"warranty"+i} className="form-check-input" type="radio"  defaultChecked={unit.warranty}/><label
+                                                        className="form-check-label" for="formCheck-3">Yes</label></div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="form-check"><input value="no" name={"warranty"+i} class="form-check-input" type="radio" defaultChecked={!unit.warranty}/><label
+                                                        className="form-check-label" for="formCheck-4">No</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col"><span>If not from OCCC, where?</span><textarea className="form-control" style={{height:"31px"}}></textarea>
+                                    {i>1? 
+                                    <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
+                                    <button onClick={event => removeInput(event,i)} className="btn btn-danger me-md-2">    
+                                    Remove Unit
+                                    </button>
+                                    </div>
+                                    : ""}
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        </>      )
+                            })}
 
-                 </>
-                </div> 
+                
                 {/* row */}
+                <div className="inp-group">{newUnits.map((unit) => unit)}</div>
                </div> 
 
-               <div className="row">
-                <div className="inp-group">{newUnits.map((unit) => unit)}</div>
-               </div>
+               
+                
+               
                <div className>
-                <button className="add" onClick={add_more}>
-                 Add More
+                <button className="btn btn-md btn-secondary" onClick={add_more}>
+                 Add Unit
                 </button>
                </div>
               </div>
@@ -699,29 +702,47 @@ const displayData = (e) => {
               {/* parts */}
               <div className="row row-auto">
                <div className="row mt-4">
-                <h5>Parts needed for the job:</h5>
+                <h5>Required Parts</h5>
                </div>
-               
-
-               
-               
+                
+               <div className="row row-auto">
+                <div className="col">
+                    Part Name
+                </div>
+                <div className="col">
+                    Brand
+                </div>
+                <div className="col">
+                    Estimated Price
+                </div>
+                <div className="col">
+                
+                </div>
+               </div>
+                
                {rowData.parts.map((part,a)=>{
                 var i = a+1;
                  return <>
-                <div className="row row-auto">
+                <div className="row row-auto mt-1" id={"part"+i}>
+               
                <div className="col">
-                <span>Name of Part:&nbsp;</span>
-                <input name={"item_name"+i} className="form-control" type="text" defaultValue={part.item_name}/>
+                <input name={"item_name"+i} className="form-control w-100" type="text" defaultValue={part.item_name}/>
                </div>
+
                <div className="col">
-                <span>Brand:&nbsp;</span>
                 <input name={"item_brand"+i} className="form-control" type="text" defaultValue={part.brand} />
                </div>
 
                <div className="col">
-                <span>Estimated Price:&nbsp;</span>
                 <input name={"est_price"+i} className="form-control" type="text" defaultValue={part.est_price} />
                </div>
+
+               <div className="col">
+                <button className="btn btn-primary btn-danger" onClick={event=>removePart(event,i)}>
+                <i className="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                </div>
+
                </div>
                 </>
                })}
@@ -735,16 +756,16 @@ const displayData = (e) => {
                  </div>
                 </div>
                </div> */}
-               <div className="col col-auto">
+               
+              
+              
+            {parts.map((part) => part)}
+            </div>
+             </div>
+             <div className="col col-auto">
                 <button type="button" className="add" onClick={AddInput}>
                  <i className="fa fa-plus-circle"/>
                 </button>
-                <span />
-               </div>
-              </div>
-              <div className="row">
-               <div className="inp-group">{parts.map((part) => part)}</div>
-              </div>
              </div>
              <div className="row mt-4">
               <span>Estimated Time Completion:</span>
