@@ -1,32 +1,35 @@
 import React, {useState, useEffect} from 'react'
 import Navbar from './Navbar';
 import Header from './Header';
-import Dashboard from './Dashboard';
+import Dashboard from './Dashboard/Dashboard';
 
 function App() {
 
   const [data, setData] = useState();
 
   useEffect(() => {
-    fetch('/api').then(
-      res => res.json()
-    ).then(
-      
-      data => {setData(data);}
-      
-    )
+    fetch("/api")
+    .then((res) => res.json())
+    .then((data) => {
+      setData(data);
+    })
   },[])
   
   
   /* generate customer list */
   var cust_list;
-  data == null? cust_list = "loading" : (cust_list = data.map((row) => {
-    return(<tr>
+  data == null
+  ? (cust_list = "loading")
+  : (cust_list = data.map((row) => {
+    return(
+    <tr>
       <td>{row.id}</td>
       <td>{row.name}</td>
       <td>{row.address}</td>
       <td>{row.cont_num}</td>
-    </tr>)}))
+    </tr>
+    );
+  }));
 
   return (
     /* BODY CONTAINER */
@@ -55,7 +58,6 @@ function App() {
                     <th>Contact</th>
                     <th></th>
                 </tr>
-
                 {cust_list}
                 </tbody>
             </table>
