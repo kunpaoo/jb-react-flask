@@ -3,6 +3,9 @@ import Header from "../Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "bootstrap";
+
+
 
 var Createjob = () => {
  var dat = {};
@@ -21,8 +24,9 @@ var Createjob = () => {
   console.log(dat);
  };
 
+ 
  // next buttons
-
+ 
  
 
 
@@ -485,7 +489,7 @@ function RemoveInputs() {
       id="content-wrapper"
       style={{ padding: "0px" }}></div>
      <Header />
-
+     
      <div>
       <div
        style={{

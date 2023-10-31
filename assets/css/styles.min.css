@@ -1255,13 +1255,6 @@ footer {
     margin-top: 20pt
 }
 
-#image {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: -19pt;
-    margin-top: 22pt
-}
-
 .rounded-circle {
     position: relative;
     left: auto
