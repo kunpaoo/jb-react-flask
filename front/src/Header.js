@@ -1,4 +1,3 @@
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,9 +7,45 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useState } from "react";
+import Notifications from "react-notifications-menu";
+import { ThemeProvider } from "styled-components"; 
 
+const DEFAULT_NOTIFICATION = {
+ image:
+  "https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png",
+ message: "Notification one.",
+ detailPage: "/events",
+ receivedTime: "12h ago",
+};
 
 const Header = () => {
+  const [data, setData] = useState([DEFAULT_NOTIFICATION]);
+  const [message, setMessage] = useState("");
+
+  const onClick = () => {
+   if (message.length > 0) {
+    setData([
+     ...data,
+     {
+      ...DEFAULT_NOTIFICATION,
+      message,
+     },
+    ]);
+    setMessage("");
+    alert("notification added");
+   }
+  };
+
+  const customTheme = {
+   // Customize styles here
+   // Example:
+   colors: {
+    primary: "red",
+   },
+  };
+
+
       const [anchorEl, setAnchorEl] = React.useState(null);
       const open = Boolean(anchorEl);
       const handleClick = (event) => {
@@ -31,7 +66,7 @@ const Header = () => {
      <div
       className="row"
       id="row_header"
-      style={{ height: "100%", width: "112vw" }}>
+      style={{ height: "100%", width: "110vw" }}>
       <div
        className="col-xl-1 col-auto w-auto"
        style={{
@@ -81,30 +116,29 @@ const Header = () => {
       <div
        className="col-xxl-2 col-auto w-auto h-auto"
        style={{
-        paddingLeft: "0px",
-        marginRight: "1px",
+        marginRight: "5px",
         paddingRight: "0px",
+        marginTop: "12pt",
        }}>
-
-       <NotificationsIcon
-        sx={{
-         color: "#023c3f",
-         width: "1em",
-         height: "1em",
-         fontSize: "40px",
-         marginTop: "15px",
-        }}
-       />
-       
-       
-       
+       <ThemeProvider theme={customTheme}>
+        <Notifications
+         data={data}
+         height="500px"
+         width="300px"
+         header={{
+          title: "Notifications",
+          option: { text: "View All", onClick: () => console.log("Clicked") },
+         }}
+         markAsRead={(data) => {
+          console.log(data);
+         }}
+        />
+       </ThemeProvider>
       </div>
       <div
        className="col-xxl-2 col-auto w-auto h-auto justify-content-end"
        style={{ paddingRight: "0px", paddingLeft: "1px" }}>
-       <div
-        id="position"
-        className="w-auto d-flex flex-wrap">
+       <div id="position" className="w-auto d-flex flex-wrap">
         <div
          className="col-xl-12 w-auto col-auto"
          style={{ paddingRight: "2px", marginRight: "10px" }}>
@@ -137,16 +171,15 @@ const Header = () => {
          </div>
         </div>
         <IconButton
-        className="align-items-center"
+         className="align-items-center"
          size="small"
-         sx={{marginBottom: "8pt", marginRight: "6pt", marginLeft: "-3pt" }}>
+         sx={{ marginBottom: "8pt", marginRight: "6pt", marginLeft: "-3pt" }}>
          <ArrowDropDownIcon
           onClick={handleClick}
           size="small"
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          ></ArrowDropDownIcon>
+          aria-expanded={open ? "true" : undefined}></ArrowDropDownIcon>
         </IconButton>
         <Menu
          anchorEl={anchorEl}
