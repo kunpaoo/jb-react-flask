@@ -22,7 +22,6 @@ var job_order = () => {
        <div
         style={{
          paddingTop: "0px",
-         background: "#ffffff",
          paddingLeft: "0px",
          paddingRight: "0px",
          marginRight: "2px",
@@ -34,8 +33,6 @@ var job_order = () => {
          style={{
           paddingRight: "0px",
           marginRight: "0px",
-          background: "#ffffff",
-          boxShadow: "0px 0px 20px 1px",
          }}>
          <h3 className="text-dark mb-0" style={{ marginLeft: "24px" }}>
           Jobs

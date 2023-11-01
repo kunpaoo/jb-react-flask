@@ -1,32 +1,51 @@
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import * as React from 'react';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import IconButton from '@mui/material/IconButton';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 
 const Header = () => {
+      const [anchorEl, setAnchorEl] = React.useState(null);
+      const open = Boolean(anchorEl);
+      const handleClick = (event) => {
+       setAnchorEl(event.currentTarget);
+      };
+      const handleClose = () => {
+       setAnchorEl(null);
+      };
+
+
  return (
   <nav
-   className="navbar navbar-expand bg-white shadow static-top navbar-light navbar-collapse"
+   className="navbar navbar-expand bg-white shadow static-top navbar-light "
    id="header"
    style={{ paddingBottom: "0px", marginBottom: "6px" }}>
    <div className="container-fluid">
-    <div className="col-xl-11 col-xxl-11 flex-wrap d-flex" id="top">
-     <div className="row" id="row_header">
+    <div className="col-xxl-12 " id="top">
+     <div
+      className="row"
+      id="row_header"
+      style={{ height: "100%", width: "112vw" }}>
       <div
-       className="col-lg-3 col-xl-1 col-auto w-auto"
+       className="col-xl-1 col-auto w-auto"
        style={{
         paddingLeft: "4px",
         marginRight: "5px",
         paddingRight: "0px",
        }}>
-       <div style={{ paddingTop: "8px", paddingLeft: "8px" }}>
+       <div style={{ paddingTop: "8px", paddingLeft: "20px" }}>
         <span
          style={{
           fontWeight: "bold",
           fontSize: "37px",
           color: "rgb(2,60,63)",
           fontFamily: "Adamina, serif",
-          marginBottom: "1px",
-          paddingBottom: "0px",
-          paddingTop: "0px",
-          marginTop: "0px",
          }}>
          OCCC
         </span>
@@ -51,46 +70,41 @@ const Header = () => {
         {/* End: Clock-Real-Time */}
        </div>
       </div>
-      <div className="col-xl-2 col-xxl-2 col-auto w-auto h-auto" />
-      <div className="col justify-content-center">
+      <div className="col-xxl-2 col-auto w-auto h-auto" />
+      <div className="col ">
        {/* Start: Search form block */}
-       <div
-        className="container flex-column position-relative d-flex w-auto"
-        style={{
-         paddingLeft: "0px",
-         marginRight: "3px",
-         paddingRight: "0px",
-        }}>
+       <div className="container flex-column position-relative d-flex w-auto">
         <div className="col-auto ml-auto mr-auto" />
        </div>
        {/* End: Search form block */}
       </div>
       <div
-       className="col-1 col-sm-1 col-xl-1 col-xxl-1 col-auto w-auto justify-content-end"
+       className="col-xxl-2 col-auto w-auto h-auto"
        style={{
         paddingLeft: "0px",
         marginRight: "1px",
         paddingRight: "0px",
        }}>
+
        <NotificationsIcon
         sx={{
          color: "#023c3f",
          width: "1em",
          height: "1em",
-         marginLeft: "1px",
-         fontSize: "47px",
-         paddingTop: "0px",
-         marginTop: "11px",
+         fontSize: "40px",
+         marginTop: "15px",
         }}
        />
+       
+       
+       
       </div>
       <div
-       className="col-10 col-sm-7 col-md-5 col-lg-2 col-xl-2 col-xxl-3 col-auto w-auto justify-content-end"
+       className="col-xxl-2 col-auto w-auto h-auto justify-content-end"
        style={{ paddingRight: "0px", paddingLeft: "1px" }}>
        <div
         id="position"
-        className="w-auto d-flex flex-wrap"
-        style={{ paddingRight: "0px", marginRight: "0px" }}>
+        className="w-auto d-flex flex-wrap">
         <div
          className="col-xl-12 w-auto col-auto"
          style={{ paddingRight: "2px", marginRight: "10px" }}>
@@ -98,19 +112,15 @@ const Header = () => {
           id="name"
           className="flex-fill d-flex w-auto w-auto"
           style={{
-           paddingRight: "0px",
-           marginRight: "2px",
-           paddingLeft: "0px",
            height: "auto",
            width: "94.9px",
            paddingBottom: "0px",
-           marginBottom: "-1px",
            paddingTop: "7px",
            color: "rgb(2,41,20)",
            fontSize: "21px",
            fontWeight: "500",
            textAlign: "right",
-           marginTop: "10px",
+           marginTop: "8px",
           }}>
           Nina Paraiso
          </span>
@@ -120,55 +130,58 @@ const Header = () => {
            className="d-inline-flex w-auto h-auto"
            style={{
             paddingBottom: "1px",
-            marginBottom: "0px",
-            paddingTop: "0px",
             marginTop: "-10px",
            }}>
            Manager
           </span>
          </div>
         </div>
-        <div
-         className="dropdown"
-         style={{
-          marginRight: "0px",
-          paddingTop: "0px",
-          paddingBottom: "11px",
-         }}>
-         <a
-          className="dropdown-toggle"
-          aria-expanded="false"
-          data-bs-toggle="dropdown"
-          id="drop_Button"
-          href="#dropdown"
-          style={{
-           paddingRight: "8px",
-           marginLeft: "1px",
-           marginRight: "6px",
-           paddingBottom: "0px",
-           marginBottom: "0px",
-           paddingTop: "0px",
-           marginTop: "2px",
-          }}
-         />
-         <div className="dropdown-menu flex-wrap" id="dropdown">
-          <a className="dropdown-item" href="/profile.html">
-           Profile
-          </a>
-          <a className="dropdown-item">Log out</a>
-          <a className="dropdown-item" id="another_acc" href="#">
-           Log in to another account
-          </a>
-         </div>
-        </div>
+        <IconButton
+        className="align-items-center"
+         size="small"
+         sx={{marginBottom: "8pt", marginRight: "6pt", marginLeft: "-3pt" }}>
+         <ArrowDropDownIcon
+          onClick={handleClick}
+          size="small"
+          aria-controls={open ? "account-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          ></ArrowDropDownIcon>
+        </IconButton>
+        <Menu
+         anchorEl={anchorEl}
+         id="account-menu"
+         open={open}
+         onClose={handleClose}
+         onClick={handleClose}
+         transformOrigin={{ horizontal: "right", vertical: "top" }}
+         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
+         <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+           <PersonAdd fontSize="small" />
+          </ListItemIcon>
+          Log in to another account
+         </MenuItem>
+         <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+           <Settings fontSize="small" />
+          </ListItemIcon>
+          My profile
+         </MenuItem>
+         <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+           <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+         </MenuItem>
+        </Menu>
        </div>
       </div>
       <div
-       className="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-auto w-auto"
+       className="col align-item-end"
        style={{
         paddingLeft: "0px",
         paddingRight: "1px",
-        marginRight: "-1px",
        }}>
        {/* Start: Gravatar Image */}
        <img
