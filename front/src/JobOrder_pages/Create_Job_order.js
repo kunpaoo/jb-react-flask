@@ -1,13 +1,17 @@
-import Navbar from "../Navbar";
-import Header from "../Header";
-import "bootstrap/dist/css/bootstrap.min.css";
+// src/MultiStepForm.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "bootstrap";
+import Navbar from "../Navbar";
+import Header from "../Header";
+import { Tab, Tabs } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
+const Create_Job_order = () => {
+ const [activeStep, setActiveStep] = useState(0);
 
-
-var Createjob = () => {
+ const handleTabClick = (step) => {
+  setActiveStep(step);
+ };
  var dat = {};
 
  // add values to preview
@@ -24,22 +28,18 @@ var Createjob = () => {
   console.log(dat);
  };
 
- 
  // next buttons
- 
- 
-
 
  //   itemize units
 
  const [numunits, setUnits] = useState(1);
  const [newUnits, setNewUnits] = useState([]);
 
- // Remove defected Inputs 
-function RemoveInputs() {
- var DefectInputs = document.getElementById("defectsinfo");
- DefectInputs.remove();
-}
+ // Remove defected Inputs
+ function RemoveInputs() {
+  var DefectInputs = document.getElementById("defectsinfo");
+  DefectInputs.remove();
+ }
 
  function add_more() {
   setUnits(numunits + 1);
@@ -187,19 +187,16 @@ function RemoveInputs() {
 
  // remove parts
 
- 
-
  // adding parts needed
  const [parts, setParts] = useState([]);
  const [numparts, setNumParts] = useState(1);
 
- 
-  // remove parts
-  function RemovePartsInput() {
-    var PartsInput = document.getElementById("Parts");
-    PartsInput.remove();
-  }
- 
+ // remove parts
+ function RemovePartsInput() {
+  var PartsInput = document.getElementById("Parts");
+  PartsInput.remove();
+ }
+
  function AddInput() {
   setNumParts(numparts + 1);
   console.log(numparts);
@@ -221,7 +218,7 @@ function RemoveInputs() {
 
     <div className="col">
      <input
-     id="brand_name"
+      id="brand_name"
       name={brand}
       type="text"
       className="form-control"
@@ -230,7 +227,7 @@ function RemoveInputs() {
     </div>
     <div className="col">
      <input
-     id="est_price"
+      id="est_price"
       name={est_price}
       type="text"
       className="form-control"
@@ -248,8 +245,6 @@ function RemoveInputs() {
     </div>
    </div>
   );
-  
-
 
   setParts([...parts, newPart]);
  }
@@ -258,8 +253,6 @@ function RemoveInputs() {
  const [formData, setFormData] = useState();
 
  //function for trashcan
-
-
 
  // get data from forms
 
@@ -453,30 +446,7 @@ function RemoveInputs() {
             ${unitsprev}
             ${itemsprev}
         `;
-  // return (
-  //     <>
-  //     <div className="row">
-  //     <div className="col">
-  //         <span>Job Title:&nbsp;</span>
-  //         <span>{dat["job_name"]}</span>
-  //     </div>
-  //     <div className="col">
-  //         <span>Customer:&nbsp;</span>
-  //         <span>{dat["cust_name"]}</span>
-  //     </div>
-  //     <div className="col">
-  //         <span>Created:&nbsp;</span>
-  //         <span>{dat["order_date"]}</span>
-  //     </div>
-  //     </div>
-
-  //     {unitsprev}
-  //     {itemsprev}
-  //     </>
-
-  // );
  };
-
  return (
   <div id="page-top" class="overflow-hidden">
    <div id="wrapper">
@@ -489,7 +459,6 @@ function RemoveInputs() {
       id="content-wrapper"
       style={{ padding: "0px" }}></div>
      <Header />
-     
      <div>
       <div
        style={{
@@ -514,56 +483,24 @@ function RemoveInputs() {
         </h3>
        </div>
       </div>
-      <div className="container-fluid">
+      <div className="container">
        <div />
-
-       {/* Start: Multi step form */}
-
-       <div className="row py-4 ">
-        <div className="w-100 row justify-content-center">
-         <div className>
-          <form method="POST" onSubmit={handleSubmit} id="addOrder">
-           <nav>
-            <div
-             className="nav nav-pills nav-fill navbar-dark bg-dark text-white"
-             id="nav-tab"
-             role="tablist">
-             <a
-              className="nav-link active"
-              id="step1-tab"
-              data-bs-toggle="tab"
-              href="#step1">
-              Job Details
-             </a>
-             <a
-              className="nav-link"
-              id="step2-tab"
-              data-bs-toggle="tab"
-              href="#step2">
-              Assign Employee
-             </a>
-             <a
-              className="nav-link"
-              id="step3-tab"
-              data-bs-toggle="tab"
-              href="#step3">
-              Breakdown of Fees
-             </a>
-             <a
-              className="nav-link"
-              id="step4-tab"
-              data-bs-toggle="tab"
-              href="#step4">
-              Preview &amp; Save
-             </a>
-            </div>
-           </nav>
-           <div className="tab-content">
-            {/* Step 1*/}
-
-            <div
-             className="tab-pane fade show active rounded bg-white p-4"
-             id="step1">
+       <div className="row py-4 ml-9 ">
+        <div className="w-100 ml-9 row justify-content-center">
+         <div className="ml-9">
+          <Tabs
+           activeKey={activeStep}
+           onSelect={handleTabClick}
+           id="step-tabs"
+           className="bg-dark container text-white align-items-center"
+           style={{width: "100vw",marginRight:"4pt"}}>
+           <Tab
+            eventKey={0}
+            title="Job Details"
+            className="align-items-center"
+            >
+            {/* Step 1 Form */}
+            <form>
              <h3 className="multisteps-form__title text-start">Job Details</h3>
              <div id="input-grp-double" className="form-row mt-2">
               <div className="row">
@@ -610,7 +547,7 @@ function RemoveInputs() {
                 />
                </div>
               </div>
-              <div className="row" >
+              <div className="row">
                <div id="input-form">
                 <div id="product_row" className="row row-auto">
                  <div className="col">
@@ -746,7 +683,6 @@ function RemoveInputs() {
                </div>
                <div className="col col-auto">
                 <a
-                 
                  className="btn btn-primary mt-2"
                  onClick={add_more}
                  role="button">
@@ -805,13 +741,13 @@ function RemoveInputs() {
                type="date"
               />
              </div>
-            </div>
-
-            {/* Step 2*/}
-            <div className="tab-pane fade rounded bg-white p-4" id="step2">
-             <h4>Assign Employee</h4>
-             {/* Start: Multiple Input Select Pills */}
+             {/* Add your form fields here */}
+            </form>
+           </Tab>
+           <Tab eventKey={1} title="Assign Employee">
+            <form>
              <div>
+              <h4 className="text-start">Assign Employee</h4>
               <div className="selectgroup selectgroup-pills">
                <div className="row">
                 <label className="selectgroup-item">
@@ -950,13 +886,12 @@ function RemoveInputs() {
                </div>
               </div>
              </div>
-            </div>
-
-            {/* Step 3*/}
-
-            <div className="tab-pane fade rounded bg-white p-4" id="step3">
-             <h4 className="text-start">Breakdown of Fees</h4>
+            </form>
+           </Tab>
+           <Tab eventKey={2} title="Breakdown of Fees">
+            <form>
              <div className>
+              <h4 className="text-start">Breakdown of Fees</h4>
               <div className="row">
                <div className="col">
                 <span className="fw-bold">Parts Needed:</span>
@@ -1074,306 +1009,34 @@ function RemoveInputs() {
                <textarea name id cols={30} rows={3} defaultValue={""} />
               </div>
              </div>
-            </div>
-
-            {/* Step 4*/}
-            <div className="tab-pane fade rounded bg-white p-4" id="step4">
+            </form>
+           </Tab>
+           <Tab eventKey={3} title="Preview & Save">
+            <form>
              <h4 className="text-start">Preview &amp; Save</h4>
              <div id="prev" className>
               {displayData}
+             </div>
+            </form>
+           </Tab>
+          </Tabs>
 
-              {/* <div className="row">
-                <div className="col">
-                 <span>Job Title:&nbsp;</span>
-                 <span>{getData()["job_name"]}</span>
-                </div>
-                <div className="col">
-                 <span>Customer:&nbsp;</span>
-                 <span>{getData()["cust_name"]}</span>
-                </div>
-                <div className="col">
-                 <span>Created:&nbsp;</span>
-                 <span>{getData()["order_date"]}</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>Unit 1:</span><br/>
-                 <span>NAME</span>
-                </div>
-                <div className="col">
-                 <span>Brand: &nbsp;</span>
-                 <span>BRAND</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>With Warranty? {getData()["warranty"].toUpperCase()}</span>
-                </div>
-                <div className="col">
-                 <span>Bought in OCCC?&nbsp;</span>
-                 <span>{getData()["returning"].toUpperCase()}</span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span className="text-uppercase fw-bold">
-                  Defect Description:
-                 </span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span>
-                  {getData()["desc"]}
-                 </span>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <span className="fw-bold">Parts Needed:</span>
-                 
-                 <div className="row">
-                  <div className="col">
-                   <div className="row">
-                    <div className="col">
-                     <span>Part #1:&nbsp;</span>
-                     <span>Battery</span>
-                    </div>
-                   </div>
-                   <div className="row">
-                    <div className="col">
-                     <span>Details:</span>
-                    </div>
-                   </div>
-                   <div className="row">
-                    <div className="col">
-                     <span>Brand:&nbsp;</span>
-                     <span>Acer</span>
-                    </div>
-                   </div>
-                   <div className="row">
-                    <div className="col">
-                     <span>Estimated Price:&nbsp;</span>
-                     <span>$12</span>
-                    </div>
-                   </div>
-                  </div>
-                 </div> */}
-              {/* <div className="row">
-                  <div className="col">
-                   <div className="row">
-                    <div className="col">
-                     <span>Part #2:&nbsp;</span>
-                     <span>Battery</span>
-                    </div>
-                   </div>
-                   <div className="row">
-                    <div className="col">
-                     <span>Details:</span>
-                    </div>
-                   </div>
-                   <div className="row">
-                    <div className="col">
-                     <span>Brand:&nbsp;</span>
-                     <span>Acer</span>
-                    </div>
-                   </div>
-                   <div className="row">
-                    <div className="col">
-                     <span>Unit:&nbsp;</span>
-                     <span>th-w1-34</span>
-                    </div>
-                   </div>
-                   <div className="row">
-                    <div className="col">
-                     <span>Price:&nbsp;</span>
-                     <span>$12</span>
-                    </div>
-                   </div>
-                  </div>
-                 </div> */}
-             </div>
-             <div className="col">
-              <div className="row">
-               <div className="col">
-                <div className="row">
-                 <div className="col">
-                  <span>Assigned Technician:&nbsp;</span>
-                  <span>Mr. Tech K. One</span>
-                 </div>
-                </div>
-                <div className="row">
-                 <div className="col">
-                  <span>Total Amount to be Paid:&nbsp;</span>
-                  <span>$34</span>
-                 </div>
-                </div>
-                <div className="row">
-                 <div className="col">
-                  <span>Estimated Completion:&nbsp;</span>
-                  <span>09/14/2023</span>
-                 </div>
-                </div>
-               </div>
-              </div>
-             </div>
-            </div>
-           </div>
-
-           <div className="row justify-content-between">
-            <div className="col-auto">
-             <button
-              type="button"
-              className="btn btn-secondary"
-              data-enchanter="previous">
-              Previous
-             </button>
-            </div>
-            <div className="col-auto">
-             <button
-              type="button"
-              className="btn btn-primary"
-              data-enchanter="next">
-              Next
-             </button>
-             <input
-              type="submit"
-              className="btn btn-primary"
-              data-enchanter="finish"
-             />
-            </div>
-           </div>
-          </form>
-         </div>
-        </div>
-       </div>
-       {/* End: Multi step form */}
-
-       {/* modal for Add charges*/}
-       <div className="modal fade" role="dialog" tabIndex={-1} id="modal-1">
-        <div className="modal-dialog" role="document">
-         <div className="modal-content">
-          <div className="modal-header align-self-center">
-           <h4 className="modal-title">Pricing Details</h4>
-          </div>
-          <div className="modal-body">
-           <div className="row">
-            <div className="col">
-             <span>Name of Service:</span>
-            </div>
-           </div>
-           <div className="row">
-            <div className="col">
-             <input type="text" style={{ width: "457px" }} />
-            </div>
-           </div>
-           <div className="row">
-            <div className="col">
-             <span>Price:</span>
-            </div>
-           </div>
-           <div className="row">
-            <div className="col">
-             <input type="text" style={{ width: "457px" }} />
-            </div>
-           </div>
-          </div>
-          <div className="modal-footer">
-           <button
-            className="btn btn-light"
-            type="button"
-            data-bs-dismiss="modal">
-            Cancel
-           </button>
-           <button
-            className="btn btn-primary"
-            type="button"
-            style={{ background: "rgb(36,51,37)" }}>
-            Add &amp; Save
-           </button>
-          </div>
-         </div>
-        </div>
-       </div>
-       {/* end: modal for Add charges*/}
-       {/*modal for request purchase*/}
-       <div className="modal fade" role="dialog" tabIndex={-1} id="modal-2">
-        <div className="modal-dialog" role="document">
-         <div className="modal-content">
-          <div className="modal-header">
-           <h4 className="modal-title">Request Item Details</h4>
-           <button
-            className="btn-close"
-            type="button"
-            aria-label="Close"
-            data-bs-dismiss="modal"
-           />
-          </div>
-          <div className="modal-body">
-           <div className="row">
-            <div className="col">
-             <span>Name of Item:</span>
-             <div className="row">
-              <div className="col">
-               <input type="text" style={{ width: "464px" }} />
-              </div>
-             </div>
-            </div>
-            <div className="col">
-             <span>Brand:</span>
-             <div className="row">
-              <div className="col">
-               <input type="text" style={{ width: "464px" }} />
-              </div>
-             </div>
-            </div>
-            <div className="col">
-             <span>Unit:</span>
-             <div className="row">
-              <div className="col">
-               <input type="text" style={{ width: "222px" }} />
-              </div>
-             </div>
-            </div>
-            <div className="col">
-             <span>Quantity:</span>
-             <div className="row">
-              <div className="col">
-               <input type="number" style={{ width: "213px" }} />
-              </div>
-             </div>
-            </div>
-            <div className="col">
-             <span>Other Specifications:</span>
-             <div className="row">
-              <div className="col">
-               <textarea style={{ width: "456px" }} defaultValue={""} />
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div className="modal-footer align-self-center">
-           <button className="btn btn-primary" type="button">
-            Submit
-           </button>
+          {/* Previous and Next Buttons */}
+          <div>
+           {activeStep > 0 && (
+            <button onClick={() => setActiveStep(activeStep - 1)}>
+             Previous
+            </button>
+           )}
+           {activeStep < 3 && (
+            <button onClick={() => setActiveStep(activeStep + 1)}>Next</button>
+           )}
+           {activeStep >= 3 && <button>Submit</button>}
           </div>
          </div>
         </div>
        </div>
       </div>
-      <footer className="bg-white sticky-footer">
-       <div className="container my-auto">
-        <div className="text-center my-auto copyright">
-         <span>Copyright © OCCC 2023</span>
-        </div>
-       </div>
-      </footer>
-      <a className="border rounded d-inline scroll-to-top" href="#page-top">
-       <i className="fas fa-angle-up" />
-      </a>
-      <div />
      </div>
     </div>
    </div>
@@ -1381,4 +1044,4 @@ function RemoveInputs() {
  );
 };
 
-export default Createjob;
+export default Create_Job_order;

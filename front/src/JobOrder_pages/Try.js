@@ -159,6 +159,7 @@ class Bills_Payments extends React.Component {
             </nav>
 
             <div className="tab-content">
+             <p>Step {this.state.currentStep} </p>
              {/* Step 1*/}
              <div
               className="tab-pane fade show active rounded bg-white p-4"
@@ -173,32 +174,28 @@ class Bills_Payments extends React.Component {
              {/* Step 2*/}
              <div className="tab-pane fade rounded bg-white p-4" id="step2">
               <h4>Assign Employee</h4>
-              <Step2
-               currentStep={this.state.currentStep}
-               handleChange={this.handleChange}
-              />
 
               {/* Start: Multiple Input Select Pills */}
              </div>
+             <Step2
+              currentStep={this.state.currentStep}
+              handleChange={this.handleChange}
+             />
 
              {/* Step 3*/}
              <div className="tab-pane fade rounded bg-white p-4" id="step3">
               <h4 className="text-start">Breakdown of Fees</h4>
-              <Step3
-               currentStep={this.state.currentStep}
-               handleChange={this.handleChange}
-              />
              </div>
+             <Step3
+              currentStep={this.state.currentStep}
+              handleChange={this.handleChange}
+             />
 
              {/* Step 4*/}
              <div className="tab-pane fade rounded bg-white p-4" id="step4">
               <h4 className="text-start">Preview &amp; Save</h4>
-              <div id="prev" className>
-               <Step4
-                currentStep={this.state.currentStep}
-                handleChange={this.handleChange}
-               />
-              </div>
+
+              <div id="prev" className></div>
              </div>
             </div>
            </form>
@@ -206,13 +203,13 @@ class Bills_Payments extends React.Component {
          </div>
         </div>
        </div>
+
+       <div className="row">
+        <div className="col">{this.previousButton()}</div>
+        <div className="col">{this.nextButton()}</div>
+       </div>
       </div>
      </div>
-    </div>
-    <p>Step {this.state.currentStep} </p>
-    <div className="row">
-     {this.previousButton()}
-     {this.nextButton()}
     </div>
    </>
   );

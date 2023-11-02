@@ -1,3 +1,4 @@
+import Footer from "../Footer";
 import Header from "../Header";
 import Navbar from "../Navbar";
 
@@ -1059,13 +1060,7 @@ var Bill_Payment = () => {
       {/* ========== End Preview and print of G-cash ========== */}
       {/* ========== Start Preview and of Cash ========== */}
       {/* ========== End Preview and of Cash ========== */}
-      <footer className="bg-white sticky-footer">
-       <div className="container my-auto">
-        <div className="text-center my-auto copyright">
-         <span>Copyright © OCCC 2023</span>
-        </div>
-       </div>
-      </footer>
+      <Footer/>
      </div>
     </div>
    </div>
