@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 var JobOrder = () => {
 
 
-
+  const navigate = useNavigate();
 
   const [data,setData] = useState();
 
@@ -26,78 +26,29 @@ var JobOrder = () => {
     return(
       <tr>
       <td>{row.order_id}</td>
-      <td>
-        <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
-        <a href="/" onClick={() => modalData(row.order_id)} data-bs-target="#modal-1" data-bs-toggle="modal" id={row.order_id}>
-          <h6
-          style={{
-            fontSize: "12px",
-            color: "rgb(0,0,0)",
-            marginBottom: "0px",
-            marginTop: "4px",
-            paddingRight: "0px",
-          }}>
-          <strong>{row.job_name}</strong>
-          </h6>
-          <div
-          style={{
-            fontSize: "8px",
-            paddingTop: "12px",
-            marginTop: "-12px",
-          }}>
-          <span className="w-auto" style={{ fontSize: "9px" }}>
-            Created {row.order_date}
-          </span>
-          </div>
-          <div
-          style={{
-            paddingTop: "0px",
-            marginTop: "-12px",
-          }}>
-          <span className="w-auto" style={{ fontSize: "9px" }}>
-            Created by: Anya Kuan
-          </span>
-          </div>
+      <td className="lh-sm text-start ps-4" style={{fontSize:"9px"}}>
+        <a className="text-decoration-none text-reset" href="/" onClick={() => modalData(row.order_id)} data-bs-target="#modal-1" data-bs-toggle="modal" id={row.order_id}>
+          <strong style={{fontSize:"12px"}}>{row.job_name}</strong><br/>
+          Created {row.order_date}<br/>
+          Created by: Anya Kuan
         </a>
-        </div>
       </td>
-      <td>
-        <div className="col-lg-11 col-xl-11 col-xxl-12 w-auto">
-        <h6
-          style={{
-          fontSize: "12px",
-          color: "rgb(0,0,0)",
-          marginBottom: "0px",
-          marginTop: "4px",
-          paddingRight: "0px",
-          }}>
-          <strong>{row.cust_name}</strong>
-        </h6>
-        <div
-          style={{
-          marginTop: "-9px",
-          marginLeft: "9px",
-          paddingTop: "1px",
-          }}>
+      <td className="lh-md text-start ps-4" style={{fontSize:"9px"}}>
+        <strong style={{fontSize: "12px"}}>{row.cust_name}</strong><br/>
           <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1em"
           height="1em"
           fill="currentColor"
           viewBox="0 0 16 16"
-          className="bi bi-telephone-fill"
-          style={{
-            color: "rgb(61,61,61)",
-            fontSize: "9px",
-            marginRight: "2px",
-          }}>
+          className="bi bi-telephone-fill me-1"
+          style={{color: "rgb(61,61,61)"}}>
           <path
             fillRule="evenodd"
             d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
           </svg>
           <span style={{ fontSize: "9px" }}>{row.cust_phone}</span>
-        </div>
-        </div>
+        
       </td>
       <td>
         <div className="col-lg-11 col-xl-11 col-xxl-12 justify-content-center w-auto">
@@ -167,10 +118,10 @@ var JobOrder = () => {
         </div>
         </div>
       </td>
-      <td className="text-center" style={{ fontSize: "11px" }}>
-        {row.est_completion}
-      </td>
-      <td className="text-center">
+      <td style={{fontSize:"1em"}}>{row.est_completion}</td>
+      <td>
+
+        {}
         <span
         className="badge bg-primary"
         style={{ background: "rgb(1,139,32)" }}>
@@ -190,7 +141,7 @@ var JobOrder = () => {
 
   // modal preview js
 
-  var [modData,setModData] = useState({
+  const [modData,setModData] = useState({
     "order": {
       "job_name": "",
       "cust_name": "",
@@ -198,22 +149,58 @@ var JobOrder = () => {
       "order_id": ""
     },
     "units" : [],
-    "parts" : []
+    "parts" : [],
+    "delivery" : []
   });
+
   
   const [modDeli,setModDeli] = useState([]);
 
   const modalData = (id) => {
-
     fetch("/api/"+id)
-    .then((res)=>res.json())
-    .then((d)=>{
-      console.log(d)
-      setModData(d);
-    })
+      .then((res)=>res.json())
+      .then((d)=>{
+        console.log(d);
+        setModData(d);
+        let list = d.delivery.length === 0?
+        <tr>
+        <td class="text-center" colSpan={4}> No Deliveries </td>
+        </tr>:
+        d.delivery.map((deli)=>{
+          return(
+            <>
+            <tr>
+            <td>{deli.deli_date}</td>
+            <td>{deli.destination}</td>
+            <td>{deli.origin}</td>
+            <td>{deli.deli_status}</td>
+            </tr>
+            </>
+          )
+        });
+        setModDeli([list])
+      });
+  }
 
-    
-    
+  const modDataDeli = () => {
+    let list = modData.delivery.length === 0?
+    <tr>
+    <td class="text-center" colSpan={4}> No Deliveries </td>
+    </tr>:
+    modData.delivery.map((deli)=>{
+      return(
+        <>
+        <tr>
+        <td>{deli.deli_date}</td>
+        <td>{deli.destination}</td>
+        <td>{deli.origin}</td>
+        <td>{deli.deli_status}</td>
+        </tr>
+        </>
+      )
+    });
+
+  setModDeli([list])
   }
 
   
@@ -255,7 +242,19 @@ var JobOrder = () => {
   })
 
 
+  const deleteOrder = (event,id) => {
+    event.preventDefault();
+    fetch('/delete/'+id,{
+      method:"POST"
+    }).then((res)=>(res.text()))
+    .then((a)=>{
+      console.log("DEL: ",a)
+      navigate('/job_order')
+    })
+  }
 
+  
+  const [deliAdded, setAdded] = useState(0);
 
   const setDelivery = (event,id) => {
     event.preventDefault();
@@ -268,7 +267,6 @@ var JobOrder = () => {
         notes:formm.get("notes"),
         id:id
     }
-
     let deli_dat = JSON.stringify(dat);
 
     fetch('/deli',{
@@ -280,20 +278,26 @@ var JobOrder = () => {
     })
     .then((res)=>(res.text()))
     .then((a)=>console.log("NEXT: ",a))
+
+    let newDeli = (<>
+    <tr>
+      <td>{dat.deli_date}</td>
+      <td>{dat.destination}</td>
+      <td>{dat.origin}</td>
+      <td>{dat.deli_status}</td>
+    </tr>
+    </>);
+    
+    deliAdded === 0 && modDeli.length === 1 ?   // if has no deliveries, replace 
+    setModDeli([newDeli])
+    :
+    setModDeli([...modDeli, newDeli]);
+    setAdded((prev) => prev+1);
+    console.log("SET : "+modDeli)
     // navigate
 
-    setModDeli(modData.delivery.map((deli) => {
-      return(
-        <>
-        <tr>
-          <td>{deli.deli_date}</td>
-          <td>{deli.destination}</td>
-          <td>{deli.origin}</td>
-          <td>{deli.deli_status}</td>
-        </tr>
-        </>
-      )
-    }))
+
+    
 
   }
 
@@ -322,15 +326,7 @@ var JobOrder = () => {
 
 
       <div className="d-flex flex-column" id="content-wrapper">
-       <div
-        style={{
-         paddingTop: "0px",
-         background: "#ffffff",
-         paddingLeft: "0px",
-         paddingRight: "0px",
-         marginRight: "2px",
-         marginTop: "-1px",
-        }}>
+       <div className="border border-black">
         <div
          className="d-sm-flex justify-content-between align-items-center"
          id="head2"
@@ -516,26 +512,22 @@ var JobOrder = () => {
 
         {/* TABLE START */}
         <div className="card shadow">
-         <div className="card-body" style={{ paddingTop: "0px" }}>
+         <div className="card-body">
           <div
            className="table-responsive table mt-2"
            id="dataTable-2"
            role="grid"
            aria-describedby="dataTable_info">
-           <table className="table my-0" id="dataTable">
+           <table className="table table-hover my-0 text-center align-middle" id="dataTable">
             <thead>
              <tr>
-              <th className="text-center">ID</th>
-              <th className="text-center" style={{ fontSize: "19px" }}>
-               Job Description
-              </th>
-              <th className="text-center" style={{ fontSize: "18px" }}>
-               Customer
-              </th>
-              <th className="text-center">Assigned</th>
-              <th className="text-center">Estimated Completion</th>
-              <th className="text-center">Warranty</th>
-              <th className="text-center">Status</th>
+              <th>ID</th>
+              <th>Job Description</th>
+              <th>Customer</th>
+              <th>Assigned</th>
+              <th>Estimated Completion</th>
+              <th>Warranty</th>
+              <th>Status</th>
              </tr>
             </thead>
 
@@ -885,22 +877,11 @@ var JobOrder = () => {
                           </tr>
                           </thead>
                           <tbody>
-                          {(modData.delivery !== undefined) ? 
-                          modData.delivery.length === 0 ?
-                          <tr>
-                          <td class="text-center" colSpan={4}> No Deliveries </td>
-                          </tr>
-                          :modData.delivery.map((deli)=>{
-                            return(
-                              <tr>
-                                <td>{deli.deli_date}</td>
-                                <td>{deli.destination}</td>
-                                <td>{deli.origin}</td>
-                                <td>{deli.deli_status}</td>
-                              </tr>
-                            )
-                          })
-                          :"loading"}
+                          {
+                          modDeli.map((deli) => deli)
+
+                
+                        }
                           </tbody>
                         </table>
 
@@ -961,11 +942,11 @@ var JobOrder = () => {
               </div>
             <div className="row">
              <div className="col text-end">
-              <Link to={"/Edit_Job_Order/"+modData.order.order_id}>
-               <Button data-bs-dismiss="modal" >Edit</Button>
-              </Link>
+              <Button onClick={(event)=> navigate("/Edit_Job_Order/"+modData.order.order_id) } className="btn-secondary" data-bs-dismiss="modal">
+                Edit
+              </Button>
               &nbsp;
-              <Button className="mr-4">Delete</Button>
+              <Button className="mr-4" onClick={(event)=>{if(window.confirm('Delete order?')){deleteOrder(event,modData.order.order_id)}}}>Delete</Button>
               
              </div>
             </div>

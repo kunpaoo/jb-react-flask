@@ -13,12 +13,11 @@ import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
 import Create_customer from './Cust_pages/Create_Customer';
 import Edit_cust from './Cust_pages/Edit_Cust';
+import PartList from './Parts/PartList';
+import PurchaseOrders from './Parts/PurchaseOrders';
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Edit_job from './JobOrder_pages/Edit_JobOrder';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+
 const router = createBrowserRouter([
  {
   path: "/",
@@ -55,6 +54,14 @@ const router = createBrowserRouter([
  {
   path:"/deliveries",
   element: <Deliveries/>
+ },
+ {
+  path:"/parts",
+  element: <PartList/>
+ },
+ {
+  path:"/parts/purchaseorders",
+  element: <PurchaseOrders/>
  },
  {
   path: "/customer",

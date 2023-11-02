@@ -14,22 +14,7 @@ function App() {
       setData(data);
     })
   },[])
-  
-  
-  /* generate customer list */
-  var cust_list;
-  data == null
-  ? (cust_list = "loading")
-  : (cust_list = data.map((row) => {
-    return(
-    <tr>
-      <td>{row.id}</td>
-      <td>{row.name}</td>
-      <td>{row.address}</td>
-      <td>{row.cont_num}</td>
-    </tr>
-    );
-  }));
+
 
   return (
     /* BODY CONTAINER */
@@ -46,22 +31,7 @@ function App() {
 
     <Dashboard/>
 
-    <div className="app">
-      Main App
-      Data table:
-      <table>
-        <tbody>
-              <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Contact</th>
-                    <th></th>
-                </tr>
-                {cust_list}
-                </tbody>
-            </table>
-    </div>
+  
     </div>
     </div>
     
