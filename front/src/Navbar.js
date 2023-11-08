@@ -25,71 +25,41 @@ const Navbar = () => {
      </div>
     </div>
 
-    <ul className="navbar-nav text-light d-flex" id="accordionSidebar">
+    <ul className="navbar-nav d-inline-flex text-light ms-3 mt-4">
      <li className="nav-item">
-      <a
-       className="nav-link p-0"
-       style={{ marginLeft: 12, marginTop: 2 }}
-       href="/Dashboard">
+      <a className="nav-link p-2 " href="/Dashboard">
        <DashboardIcon fontSize="large" />
-       <span style={{ paddingInline: 5 }} className="fs-5" pt-2>
-        Dashboard
-       </span>
+       <span className="fs-5 ps-1">Dashboard</span>
       </a>
      </li>
      <li className="nav-item">
-      <a
-       className="nav-link p-0"
-       style={{ marginLeft: 12, marginTop: 4 }}
-       href="/technician">
+      <a className="nav-link p-2" href="/technician">
        <Groups2Icon fontSize="large" />
-       <span style={{ paddingInline: 5 }} className="fs-5" pt-2>
-        Technicians
-       </span>
+       <span className="fs-5 ps-1">Technicians</span>
       </a>
      </li>
      <li className="nav-item">
-      <a
-       className="nav-link p-0"
-       style={{ marginLeft: 12, marginTop: 4 }}
-       href="/customer">
+      <a className="nav-link p-2" href="/customer">
        <PortraitIcon fontSize="large" />
-       <span style={{ paddingInline: 5 }} className="fs-5" pt-2>
-        Customers
-       </span>
+       <span className="fs-5 ps-1">Customers</span>
       </a>
      </li>
      <li className="nav-item">
-      <a
-       className="nav-link p-0"
-       style={{ marginLeft: 12, marginTop: 4 }}
-       href="/job_order">
+      <a className="nav-link p-2" href="/job_order">
        <WorkIcon fontSize="large" />
-       <span style={{ paddingInline: 5 }} className="fs-5" pt-2>
-        Job Order
-       </span>
+       <span className="fs-5 ps-1">Job Order</span>
       </a>
      </li>
      <li className="nav-item">
-      <a
-       className="nav-link p-0"
-       style={{ marginLeft: 12, marginTop: 4 }}
-       href="/parts_list">
+      <a className="nav-link p-2" href="/parts_list">
        <MemoryIcon fontSize="large" />
-       <span style={{ paddingInline: 5 }} className="fs-5" pt-2>
-        Items/Parts
-       </span>
+       <span className="fs-5 ps-1">Items/Parts</span>
       </a>
      </li>
      <li className="nav-item">
-      <a
-       className="nav-link p-0"
-       style={{ marginLeft: 12, marginTop: 4 }}
-       href="/Bill_Payment">
+      <a className="nav-link p-2" href="/Bill_Payment">
        <CreditCard fontSize="large" />
-       <span style={{ paddingInline: 5 }} className="fs-5" pt-2>
-        Bills/Payments
-       </span>
+       <span className="fs-5 ps-1">Bills/Payments</span>
       </a>
      </li>
     </ul>

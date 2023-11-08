@@ -9,7 +9,7 @@ import Logout from '@mui/icons-material/Logout';
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useState } from "react";
 import Notifications from "react-notifications-menu";
-import { ThemeProvider } from "styled-components"; 
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const DEFAULT_NOTIFICATION = {
  image:
@@ -37,15 +37,6 @@ const Header = () => {
    }
   };
 
-  const customTheme = {
-   // Customize styles here
-   // Example:
-   colors: {
-    primary: "red",
-   },
-  };
-
-
       const [anchorEl, setAnchorEl] = React.useState(null);
       const open = Boolean(anchorEl);
       const handleClick = (event) => {
@@ -57,168 +48,118 @@ const Header = () => {
 
 
  return (
-  <nav
-   className="navbar navbar-expand bg-white shadow static-top navbar-light "
-   id="header"
-   style={{ paddingBottom: "0px", marginBottom: "6px" }}>
-   <div className="container-fluid">
-    <div className="col-xxl-12 " id="top">
-     <div
-      className="row"
-      id="row_header"
-      style={{ height: "100%", width: "110vw" }}>
-      <div
-       className="col-xl-1 col-auto w-auto"
+  <nav className="d-flex mb-3 navbar bg-white shadow static-top navbar-light w-100 h-auto">
+   <div className="row w-100">
+    <div className="ps-2 ms-3 col-auto w-auto">
+     <div className="pt-2 ps-1">
+      <span
        style={{
-        paddingLeft: "4px",
-        marginRight: "5px",
-        paddingRight: "0px",
+        fontWeight: "bold",
+        fontSize: "37px",
+        color: "rgb(2,60,63)",
+        fontFamily: "Adamina, serif",
        }}>
-       <div style={{ paddingTop: "8px", paddingLeft: "20px" }}>
-        <span
-         style={{
-          fontWeight: "bold",
-          fontSize: "37px",
-          color: "rgb(2,60,63)",
-          fontFamily: "Adamina, serif",
-         }}>
-         OCCC
+       OCCC
+      </span>
+     </div>
+    </div>
+    <div className="w-auto h-auto">
+     <div className="pt-2">
+      {/* Start: Clock-Real-Time */}
+      <div
+       id="time"
+       style={{
+        borderStyle: "solid",
+        borderColor: "rgb(2,60,63)",
+        marginBottom: "18px",
+        paddingLeft: "23px",
+        borderRadius: 20,
+       }}></div>
+      {/* End: Clock-Real-Time */}
+     </div>
+    </div>
+    <div className="col-xxl-2 col-auto w-auto h-auto" />
+    <div className="col ">
+     {/* Start: Search form block */}
+     <div className="container flex-column position-relative d-flex w-auto">
+      <div className="col-auto ml-auto mr-auto" />
+     </div>
+     {/* End: Search form block */}
+    </div>
+    <div className="mt-4 col-auto">
+      <Notifications
+       data={data}
+       height="500px"
+       width="300px"
+       header={{
+        title: "Notifications",
+        option: { text: "View All", onClick: () => console.log("Clicked") },
+       }}
+       markAsRead={(data) => {
+        console.log(data);
+       }}
+      />
+    </div>
+    <div className="col-auto justify-content-end pe-1">
+     <div id="position" className="w-auto d-flex">
+      <div className="me-2 mt-2 w-auto col-auto">
+       <span
+        id="name"
+        className="w-auto h-auto pt-4"
+        style={{
+         width: "94.9px",
+         color: "rgb(2,41,20)",
+         fontSize: "21px",
+         fontWeight: "500",
+         textAlign: "right",
+        }}>
+        Nina Paraiso
+       </span>
+       <div className="w-auto">
+        <span id="down" className="h-auto" style={{ marginTop: "-10px" }}>
+         Manager
         </span>
        </div>
       </div>
-      <div className="col-xl-1 col-auto w-auto h-auto">
-       <div style={{ paddingTop: "6px" }}>
-        {/* Start: Clock-Real-Time */}
-        <div
-         id="time"
-         style={{
-          background: "#ffffff",
-          borderStyle: "solid",
-          borderColor: "rgb(2,60,63)",
-          marginBottom: "18px",
-          paddingTop: "0px",
-          paddingLeft: "23px",
-          paddingBottom: "0px",
-          borderRadius: 20,
-          boxShadow: "0px 0px",
-         }}></div>
-        {/* End: Clock-Real-Time */}
-       </div>
-      </div>
-      <div className="col-xxl-2 col-auto w-auto h-auto" />
-      <div className="col ">
-       {/* Start: Search form block */}
-       <div className="container flex-column position-relative d-flex w-auto">
-        <div className="col-auto ml-auto mr-auto" />
-       </div>
-       {/* End: Search form block */}
-      </div>
-      <div
-       className="col-xxl-2 col-auto w-auto h-auto"
-       style={{
-        marginRight: "5px",
-        paddingRight: "0px",
-        marginTop: "12pt",
-       }}>
-       <ThemeProvider theme={customTheme}>
-        <Notifications
-         data={data}
-         height="500px"
-         width="300px"
-         header={{
-          title: "Notifications",
-          option: { text: "View All", onClick: () => console.log("Clicked") },
-         }}
-         markAsRead={(data) => {
-          console.log(data);
-         }}
-        />
-       </ThemeProvider>
-      </div>
-      <div
-       className="col-xxl-2 col-auto w-auto h-auto justify-content-end"
-       style={{ paddingRight: "0px", paddingLeft: "1px" }}>
-       <div id="position" className="w-auto d-flex flex-wrap">
-        <div
-         className="col-xl-12 w-auto col-auto"
-         style={{ paddingRight: "2px", marginRight: "10px" }}>
-         <span
-          id="name"
-          className="flex-fill d-flex w-auto w-auto"
-          style={{
-           height: "auto",
-           width: "94.9px",
-           paddingBottom: "0px",
-           paddingTop: "7px",
-           color: "rgb(2,41,20)",
-           fontSize: "21px",
-           fontWeight: "500",
-           textAlign: "right",
-           marginTop: "8px",
-          }}>
-          Nina Paraiso
-         </span>
-         <div className="w-auto">
-          <span
-           id="down"
-           className="d-inline-flex w-auto h-auto"
-           style={{
-            paddingBottom: "1px",
-            marginTop: "-10px",
-           }}>
-           Manager
-          </span>
-         </div>
-        </div>
-        <IconButton
-         className="align-items-center"
-         size="small"
-         sx={{ marginBottom: "8pt", marginRight: "6pt", marginLeft: "-3pt" }}>
-         <ArrowDropDownIcon
-          onClick={handleClick}
-          size="small"
-          aria-controls={open ? "account-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}></ArrowDropDownIcon>
-        </IconButton>
-        <Menu
-         anchorEl={anchorEl}
-         id="account-menu"
-         open={open}
-         onClose={handleClose}
-         onClick={handleClose}
-         transformOrigin={{ horizontal: "right", vertical: "top" }}
-         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
-         <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-           <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Log in to another account
-         </MenuItem>
-         <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-           <Settings fontSize="small" />
-          </ListItemIcon>
-          My profile
-         </MenuItem>
-         <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-           <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-         </MenuItem>
-        </Menu>
-       </div>
-      </div>
-      <div
-       className="col align-item-end"
-       style={{
-        paddingLeft: "0px",
-        paddingRight: "1px",
-       }}>
+      <IconButton className="align-items-center mb-2" size="small">
+       <ArrowDropDownIcon
+        onClick={handleClick}
+        size="small"
+        aria-controls={open ? "account-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}></ArrowDropDownIcon>
+      </IconButton>
+      <Menu
+       anchorEl={anchorEl}
+       id="account-menu"
+       open={open}
+       onClose={handleClose}
+       onClick={handleClose}
+       transformOrigin={{ horizontal: "right", vertical: "top" }}
+       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
+       <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+         <PersonAdd fontSize="small" />
+        </ListItemIcon>
+        Log in to another account
+       </MenuItem>
+       <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+         <Settings fontSize="small" />
+        </ListItemIcon>
+        My profile
+       </MenuItem>
+       <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+         <Logout fontSize="small" />
+        </ListItemIcon>
+        Logout
+       </MenuItem>
+      </Menu>
+      <div className="">
        {/* Start: Gravatar Image */}
        <img
-        className="rounded-circle"
+        className="rounded-circle ms-2"
         src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
         width={70}
         height={68}
