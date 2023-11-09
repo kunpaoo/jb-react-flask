@@ -8,33 +8,17 @@ var job_order = () => {
    <div id="page-top" class="overflow-hidden">
     <div id="wrapper">
      <Navbar />
-
      {/* MAIN CONTENT */}
-     <div
-      id="wrapper container-fluid border border-black"
-      style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
+     <div className="h-100vh overflow-y-auto w-100" >
       <div
        className="d-flex flex-column container-fluid"
-       id="content-wrapper"
-       style={{ padding: "0px" }}></div>
+       id="content-wrapper"></div>
       <Header />
-      <div className="d-flex flex-column" id="content-wrapper">
-       <div
-        style={{
-         paddingTop: "0px",
-         paddingLeft: "0px",
-         paddingRight: "0px",
-         marginRight: "2px",
-         marginTop: "-1px",
-        }}>
+      <div className="d-flex flex-column ms-1" id="content-wrapper">
         <div
          className="d-sm-flex justify-content-between align-items-center"
-         id="head2"
-         style={{
-          paddingRight: "0px",
-          marginRight: "0px",
-         }}>
-         <h3 className="text-dark mb-0" style={{ marginLeft: "24px" }}>
+         id="head2">
+         <h3 className="text-dark ms-3">
           Jobs
          </h3>
          <a
@@ -85,16 +69,13 @@ var job_order = () => {
           <div className="col h-auto">
            <div
             id="dataTable_filter-1"
-            className="dataTables_filter mh-100"
-            style={{ marginTop: "21px" }}>
+            className="dataTables_filter m-4 mh-100">
             <label className="form-label">
              <input
               type="search"
-              className="form-control form-control-sm"
+              className="form-control form-control-sm mt-2"
               aria-controls="dataTable"
-              placeholder="Search"
-              style={{ paddingTop: "0px", marginTop: "8px" }}
-             />
+              placeholder="Search"/>
             </label>
             <a
              className="btn btn-primary btn-sm d-none d-sm-inline-block"
@@ -115,7 +96,7 @@ var job_order = () => {
            </div>
           </div>
           <div
-           className="col-xxl-4 col-auto w-auto flex-wrap d-flex position-relative"
+           className="col-auto w-auto  d-flex position-relative"
            style={{ paddingTop: "14px" }}>
            <div
             style={{
@@ -743,7 +724,6 @@ var job_order = () => {
       </div>
      </div>
     </div>
-   </div>
   );
 };
 

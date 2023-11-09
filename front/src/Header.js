@@ -100,12 +100,11 @@ const Header = () => {
        }}
       />
     </div>
-    <div className="col-auto justify-content-end pe-1">
-     <div id="position" className="w-auto d-flex">
-      <div className="me-2 mt-2 w-auto col-auto">
+    <div className="col-auto">
+     <div id="position" className="d-flex">
+      <div className="pb-1">
        <span
         id="name"
-        className="w-auto h-auto pt-4"
         style={{
          width: "94.9px",
          color: "rgb(2,41,20)",

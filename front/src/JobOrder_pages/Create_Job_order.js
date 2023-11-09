@@ -28,8 +28,6 @@ const Create_Job_order = () => {
   console.log(dat);
  };
 
- // next buttons
-
  //   itemize units
 
  const [numunits, setUnits] = useState(1);
@@ -325,27 +323,8 @@ const Create_Job_order = () => {
   navigate("/job_order");
  };
 
- //   function getFormData(){
- //     var data = $('form').serializeArray().reduce(function(obj, item) {
- //         obj[item.name] = item.value;
- //         return obj;
- //     }, {});
- //     setFormData(data);
- //     fetch('/add',{
- //         method:"POST",
- //         form: 'cors',
- //         body: formData
- //       })
- //     // eslint-disable-next-line no-restricted-globals
- //     location.replace("/job_order");
- //   }
-
  const displayData = (e) => {
   var dat = getData();
-  //  var warranty = dat["warranty"] === "yes"?  "WITH WARRANTY" : "WITHOUT WARRANTY";
-  //  var returning = dat["returning"] === "yes"? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
-
-  // multiple units
 
   var unitsprev = [];
   for (var x = 1; x <= dat["units"]; x++) {
@@ -447,6 +426,7 @@ const Create_Job_order = () => {
             ${itemsprev}
         `;
  };
+
  return (
   <div id="page-top" class="overflow-hidden">
    <div id="wrapper">
@@ -454,587 +434,550 @@ const Create_Job_order = () => {
     <div
      id="wrapper container-fluid border border-black"
      style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
-     <div
-      className="d-flex flex-column container-fluid"
-      id="content-wrapper"
-      style={{ padding: "0px" }}></div>
      <Header />
      <div>
-      <div
-       style={{
-        paddingTop: "0px",
-        background: "#ffffff",
-        paddingLeft: "0px",
-        paddingRight: "0px",
-        marginRight: "2px",
-        marginTop: "-1px",
-       }}>
-       <div
-        className="text-start"
-        style={{
-         background: "#ffffff",
-         boxShadow: "6px 0px 20px",
-         height: "53.8203px",
-        }}>
-        <h3
-         className="text-dark mb-0"
-         style={{ marginLeft: "24px", paddingTop: "9px" }}>
-         Jobs &gt;<span>Text</span>
+      <div>
+       <div className="text-start">
+        <h3 className="text-dark mb-0 ms-3 pt-1">
+         Jobs &gt;<span> Create Job Order</span>
         </h3>
        </div>
       </div>
-      <div className="container">
-       <div />
-       <div className="row py-4 ml-9 ">
-        <div className="w-100 ml-9 row justify-content-center">
-         <div className="ml-9">
-          <Tabs
-           activeKey={activeStep}
-           onSelect={handleTabClick}
-           id="step-tabs"
-           className="bg-dark container text-white align-items-center"
-           style={{width: "100vw",marginRight:"4pt"}}>
-           <Tab
-            eventKey={0}
-            title="Job Details"
-            className="align-items-center"
-            >
-            {/* Step 1 Form */}
-            <form>
-             <h3 className="multisteps-form__title text-start">Job Details</h3>
-             <div id="input-grp-double" className="form-row mt-2">
-              <div className="row">
-               <div className="col">
-                <span>Customer:</span>
-                {/* Start: Search Field With Icon */}
-                <div className="search-container">
-                 <input
-                  className="form-control search-input"
-                  type="text"
-                  name="cust_name"
-                  placeholder="Search..."
-                  id="cust_name"
-                  onInput={() => preview("cust_name")}
-                 />
-                 <button className="btn btn-light search-btn" type="button">
-                  {" "}
-                  <i className="fa fa-search" />
-                 </button>
-                </div>
-                {/* End: Search Field With Icon */}
-               </div>
-              </div>
-              <div className="row">
-               <div className="col">
-                <span>Job Name:&nbsp;</span>
+      <div className="row py-4 p-3">
+       <Tabs
+        activeKey={activeStep}
+        onSelect={handleTabClick}
+        id="step-tabs"
+        className="bg-dark"
+        style={{width:"75 rem"}}>
+        <Tab
+         eventKey={0}e
+         title="Job Details"
+         className="align-items-center bg-body-secondary w-100 p-4">
+         {/* Step 1 Form */}
+         <form>
+          <h3 className="multisteps-form__title text-start">Job Details</h3>
+          <div id="input-grp-double" className="form-row mt-2">
+           <div className="row">
+            <div className="col">
+             <span>Customer:</span>
+             {/* Start: Search Field With Icon */}
+             <div className="search-container">
+              <input
+               className="form-control search-input"
+               type="text"
+               name="cust_name"
+               placeholder="Search..."
+               id="cust_name"
+               onInput={() => preview("cust_name")}
+              />
+              <button className="btn btn-light search-btn" type="button">
+               {" "}
+               <i className="fa fa-search" />
+              </button>
+             </div>
+             {/* End: Search Field With Icon */}
+            </div>
+           </div>
+           <div className="row">
+            <div className="col">
+             <span>Job Name:&nbsp;</span>
+             <input
+              name="job_name"
+              className="form-control"
+              type="text"
+              id="job_name"
+              onInput={() => preview("job_name", false)}
+              required
+             />
+            </div>
+            <div className="col">
+             <span>Date:</span>
+             <input
+              name="order_date"
+              className="form-control"
+              type="date"
+              id="order_date"
+              onInput={() => preview("order_date", false)}
+             />
+            </div>
+           </div>
+           <div className="row">
+            <div id="input-form">
+             <div id="product_row" className="row row-auto">
+              <div className="col">
+               <span>
+                Unit name:{" "}
                 <input
-                 name="job_name"
+                 id="unit_name1"
+                 name="unit_name1"
                  className="form-control"
                  type="text"
-                 id="job_name"
-                 onInput={() => preview("job_name", false)}
-                 required
+                 onInput={() => preview("unit_name1", false)}
                 />
-               </div>
-               <div className="col">
-                <span>Date:</span>
-                <input
-                 name="order_date"
-                 className="form-control"
-                 type="date"
-                 id="order_date"
-                 onInput={() => preview("order_date", false)}
-                />
-               </div>
+               </span>
               </div>
-              <div className="row">
-               <div id="input-form">
-                <div id="product_row" className="row row-auto">
-                 <div className="col">
-                  <span>
-                   Unit name:{" "}
-                   <input
-                    id="unit_name1"
-                    name="unit_name1"
-                    className="form-control"
-                    type="text"
-                    onInput={() => preview("unit_name1", false)}
-                   />
-                  </span>
-                 </div>
-                 <div className="col">
-                  <span>Brand:&nbsp;</span>
-                  <input
-                   id="brand1"
-                   name="brand1"
-                   className="form-control"
-                   type="text"
-                   onInput={() => preview("brand1", false)}
-                  />
-                 </div>
-                </div>
-                <div className="row">
-                 <div className="col-xl-5 col-xxl-7">
-                  <span>Defect Description:&nbsp;</span>
-                  <textarea
-                   name="desc1"
-                   id="desc1"
-                   className="form-control"
-                   style={{ height: "111px" }}
-                   required
-                   defaultValue={""}
-                   onInput={() => preview("desc1", false)}
-                  />
-                 </div>
-                 <div className="col">
-                  <div className="row">
-                   <div className="col">
-                    <span>Product from OCCC?:</span>
-                    <div className="row">
-                     <div className="col">
-                      <div className="form-check">
-                       <input
-                        name="returning1"
-                        className="form-check-input"
-                        type="radio"
-                        id="formCheck-1"
-                        value="yes"
-                        onInput={() => preview("returning1", true)}
-                       />
-                       <label
-                        className="form-check-label"
-                        htmlFor="formCheck-1">
-                        Yes
-                       </label>
-                      </div>
-                     </div>
-                     <div className="col">
-                      <div className="form-check">
-                       <input
-                        name="returning1"
-                        className="form-check-input"
-                        type="radio"
-                        id="formCheck-2"
-                        value="no"
-                        onInput={() => preview("returning1", true)}
-                       />
-                       <label
-                        className="form-check-label"
-                        htmlFor="formCheck-2">
-                        No
-                       </label>
-                      </div>
-                     </div>
-                    </div>
-                   </div>
-                   <div className="col">
-                    <span>With warranty?</span>
-                    <div className="row">
-                     <div className="col">
-                      <div className="form-check">
-                       <input
-                        name="warranty1"
-                        className="form-check-input"
-                        type="radio"
-                        id="warranty1"
-                        value="yes"
-                        onInput={() => preview("warranty1", true)}
-                       />
-                       <label className="form-check-label" htmlFor="wararnty1">
-                        Yes
-                       </label>
-                      </div>
-                     </div>
-                     <div className="col">
-                      <div className="form-check">
-                       <input
-                        name="warranty1"
-                        className="form-check-input"
-                        type="radio"
-                        id="warranty1"
-                        value="no"
-                        onInput={() => preview("warranty1", true)}
-                       />
-                       <label
-                        className="form-check-label"
-                        htmlFor="formCheck-4">
-                        No
-                       </label>
-                      </div>
-                     </div>
-                    </div>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>If not from OCCC, where?</span>
-                    <textarea
-                     className="form-control"
-                     style={{ height: "31px" }}
-                     defaultValue={""}
-                    />
-                   </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
+              <div className="col">
+               <span>Brand:&nbsp;</span>
+               <input
+                id="brand1"
+                name="brand1"
+                className="form-control"
+                type="text"
+                onInput={() => preview("brand1", false)}
+               />
+              </div>
+             </div>
+             <div className="row">
+              <div className="col-xl-5 col-xxl-7">
+               <span>Defect Description:&nbsp;</span>
+               <textarea
+                name="desc1"
+                id="desc1"
+                className="form-control"
+                style={{ height: "111px" }}
+                required
+                defaultValue={""}
+                onInput={() => preview("desc1", false)}
+               />
+              </div>
+              <div className="col">
                <div className="row">
-                <div className="inp-group">{newUnits.map((unit) => unit)}</div>
-               </div>
-               <div className="col col-auto">
-                <a
-                 className="btn btn-primary mt-2"
-                 onClick={add_more}
-                 role="button">
-                 Add more
-                </a>
-               </div>
-              </div>
-
-              <div className="row row-auto">
-               <div className="row mt-4">
-                <h5>Parts needed for the job:</h5>
-               </div>
-               <div className="col">
-                <span>Name of Part:&nbsp;</span>
-                <input name="item_name" className="form-control" type="text" />
-               </div>
-               <div className="col">
-                <span>Brand:&nbsp;</span>
-                <input name="item_brand" className="form-control" type="text" />
-               </div>
-
-               <div className="col">
-                <span>Estimated Price:&nbsp;</span>
-                <input name="est_price" className="form-control" type="text" />
-               </div>
-
-               {/* <div className="col">
+                <div className="col">
+                 <span>Product from OCCC?:</span>
                  <div className="row">
                   <div className="col">
-                   <span>Unit:&nbsp;</span>
-                   <input className="form-control" type="text" />
+                   <div className="form-check">
+                    <input
+                     name="returning1"
+                     className="form-check-input"
+                     type="radio"
+                     id="formCheck-1"
+                     value="yes"
+                     onInput={() => preview("returning1", true)}
+                    />
+                    <label className="form-check-label" htmlFor="formCheck-1">
+                     Yes
+                    </label>
+                   </div>
+                  </div>
+                  <div className="col">
+                   <div className="form-check">
+                    <input
+                     name="returning1"
+                     className="form-check-input"
+                     type="radio"
+                     id="formCheck-2"
+                     value="no"
+                     onInput={() => preview("returning1", true)}
+                    />
+                    <label className="form-check-label" htmlFor="formCheck-2">
+                     No
+                    </label>
+                   </div>
                   </div>
                  </div>
-                </div> */}
-               <div className="col col-auto">
-                <a
-                 className="btn btn-primary rounded-circle mt-4"
-                 href="#"
-                 role="button"
-                 onClick={AddInput}>
-                 <i className="fa fa-plus-circle" />
-                </a>
+                </div>
+                <div className="col">
+                 <span>With warranty?</span>
+                 <div className="row">
+                  <div className="col">
+                   <div className="form-check">
+                    <input
+                     name="warranty1"
+                     className="form-check-input"
+                     type="radio"
+                     id="warranty1"
+                     value="yes"
+                     onInput={() => preview("warranty1", true)}
+                    />
+                    <label className="form-check-label" htmlFor="wararnty1">
+                     Yes
+                    </label>
+                   </div>
+                  </div>
+                  <div className="col">
+                   <div className="form-check">
+                    <input
+                     name="warranty1"
+                     className="form-check-input"
+                     type="radio"
+                     id="warranty1"
+                     value="no"
+                     onInput={() => preview("warranty1", true)}
+                    />
+                    <label className="form-check-label" htmlFor="formCheck-4">
+                     No
+                    </label>
+                   </div>
+                  </div>
+                 </div>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>If not from OCCC, where?</span>
+                 <textarea
+                  className="form-control"
+                  style={{ height: "31px" }}
+                  defaultValue={""}
+                 />
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div className="row">
+             <div className="inp-group">{newUnits.map((unit) => unit)}</div>
+            </div>
+            <div className="col col-auto">
+             <a
+              className="btn btn-primary mt-2"
+              onClick={add_more}
+              role="button">
+              Add more
+             </a>
+            </div>
+           </div>
 
-                <span />
-               </div>
-              </div>
-              <div className="row">
-               <div className="inp-group">{parts.map((part) => part)}</div>
-              </div>
-             </div>
-             <div className="row mt-4">
-              <span>Estimated Time Completion:</span>
-              <input
-               name="est_completion"
-               className="form-control w-25"
-               type="date"
-              />
-             </div>
-             {/* Add your form fields here */}
-            </form>
-           </Tab>
-           <Tab eventKey={1} title="Assign Employee">
-            <form>
-             <div>
-              <h4 className="text-start">Assign Employee</h4>
-              <div className="selectgroup selectgroup-pills">
-               <div className="row">
-                <label className="selectgroup-item">
-                 <input
-                  type="checkbox"
-                  name="3"
-                  defaultValue="CSS"
-                  className="selectgroup-input"
-                 />
-                 <div className="row selectgroup-button">
-                  <div className="col">
-                   {/* Start: Gravatar Image */}
-                   <img
-                    alt=""
-                    className="rounded-circle"
-                    src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-                    width={70}
-                    height={68}
-                   />
-                   {/* End: Gravatar Image */}
-                  </div>
-                  <div className="col">
-                   <span>Mr. Technician K. One</span>
-                  </div>
-                  <div className="col">Available</div>
-                 </div>
-                </label>
-               </div>
-               <div className="row">
-                <label className="selectgroup-item">
-                 <input
-                  type="checkbox"
-                  name="value"
-                  defaultValue="CSS"
-                  className="selectgroup-input"
-                 />
-                 <div className="row selectgroup-button">
-                  <div className="col">
-                   {/* Start: Gravatar Image */}
-                   <img
-                    alt=""
-                    className="rounded-circle"
-                    src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-                    width={70}
-                    height={68}
-                   />
-                   {/* End: Gravatar Image */}
-                  </div>
-                  <div className="col">
-                   <span>Mr. Technician K. One</span>
-                  </div>
-                  <div className="col">Available</div>
-                 </div>
-                </label>
-               </div>
-               <div className="row">
-                <label className="selectgroup-item">
-                 <input
-                  type="checkbox"
-                  name="value"
-                  defaultValue="CSS"
-                  className="selectgroup-input"
-                 />
-                 <div className="row selectgroup-button">
-                  <div className="col">
-                   {/* Start: Gravatar Image */}
-                   <img
-                    alt=""
-                    className="rounded-circle"
-                    src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-                    width={70}
-                    height={68}
-                   />
-                   {/* End: Gravatar Image */}
-                  </div>
-                  <div className="col">
-                   <span>Mr. Technician K. One</span>
-                  </div>
-                  <div className="col">Available</div>
-                 </div>
-                </label>
-               </div>
-               <div className="row">
-                <label className="selectgroup-item">
-                 <input
-                  type="checkbox"
-                  name="value"
-                  defaultValue="CSS"
-                  className="selectgroup-input"
-                 />
-                 <div className="row selectgroup-button">
-                  <div className="col">
-                   {/* Start: Gravatar Image */}
-                   <img
-                    alt=""
-                    className="rounded-circle"
-                    src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-                    width={70}
-                    height={68}
-                   />
-                   {/* End: Gravatar Image */}
-                  </div>
-                  <div className="col">
-                   <span>Mr. Technician K. One</span>
-                  </div>
-                  <div className="col">Available</div>
-                 </div>
-                </label>
-               </div>
-               <div className="row">
-                <label className="selectgroup-item">
-                 <input
-                  type="checkbox"
-                  name="value"
-                  defaultValue="CSS"
-                  className="selectgroup-input"
-                 />
-                 <div className="row selectgroup-button">
-                  <div className="col">
-                   {/* Start: Gravatar Image */}
-                   <img
-                    alt="technician profile"
-                    className="rounded-circle"
-                    src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-                    width={70}
-                    height={68}
-                   />
-                   {/* End: Gravatar Image */}
-                  </div>
-                  <div className="col">
-                   <span>Mr. Technician K. One</span>
-                  </div>
-                  <div className="col">Available</div>
-                 </div>
-                </label>
-               </div>
-              </div>
-             </div>
-            </form>
-           </Tab>
-           <Tab eventKey={2} title="Breakdown of Fees">
-            <form>
-             <div className>
-              <h4 className="text-start">Breakdown of Fees</h4>
-              <div className="row">
-               <div className="col">
-                <span className="fw-bold">Parts Needed:</span>
-                <div className="row">
-                 <div className="col">
-                  <div className="row">
-                   <div className="col">
-                    <span>Part #1:&nbsp;</span>
-                    <span>Battery</span>
-                   </div>
-                   <div className="col text-center">
-                    <span>$50</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Details:</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Brand:&nbsp;</span>
-                    <span>Acer</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Unit:&nbsp;</span>
-                    <span>th-w1-34</span>
-                   </div>
-                  </div>
-                 </div>
-                </div>
-                <div className="row">
-                 <div className="col">
-                  <div className="row">
-                   <div className="col">
-                    <span>Part #2:&nbsp;</span>
-                    <span>Battery</span>
-                   </div>
-                   <div className="col text-center">
-                    <span>$50</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Details:</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Brand:&nbsp;</span>
-                    <span>Acer</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Unit:&nbsp;</span>
-                    <span>th-w1-34</span>
-                   </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-              <div className="row" style={{ borderBottomStyle: "solid" }}>
-               <div className="col">
-                <span className="fw-bold">Fees and Others:</span>
-                <div className="row">
-                 <div className="col">
-                  <div className="row">
-                   <div className="col">
-                    <span>Service Fee</span>
-                   </div>
-                   <div className="col text-center">
-                    <span>$50</span>
-                   </div>
-                  </div>
-                  <div className="row">
-                   <div className="col">
-                    <span>Delivery Fee</span>
-                   </div>
-                   <div className="col text-center">
-                    <span>$50</span>
-                   </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-              <div className="row mt-2">
-               {/* <div className="col">
-                 <div>
-                  <button
-                   className="btn btn-primary"
-                   type="button"
-                   style={{ background: "rgb(23,59,62)", marginLeft: "0px" }}
-                   data-bs-target="#modal-1"
-                   data-bs-toggle="modal">
-                   &nbsp;Add New Service
-                  </button>
-                 </div>
-                </div> */}
-               <div className="col text-end">
-                <span>Total Amount:</span>
-               </div>
-               <div className="col text-start">
-                <span> $30</span>
-               </div>
-              </div>
-              <div className="row">
-               <span>Notes: </span>
-              </div>
-              <div className="row">
-               <textarea name id cols={30} rows={3} defaultValue={""} />
-              </div>
-             </div>
-            </form>
-           </Tab>
-           <Tab eventKey={3} title="Preview & Save">
-            <form>
-             <h4 className="text-start">Preview &amp; Save</h4>
-             <div id="prev" className>
-              {displayData}
-             </div>
-            </form>
-           </Tab>
-          </Tabs>
+           <div className="row row-auto">
+            <div className="row mt-4">
+             <h5>Parts needed for the job:</h5>
+            </div>
+            <div className="col">
+             <span>Name of Part:&nbsp;</span>
+             <input name="item_name" className="form-control" type="text" />
+            </div>
+            <div className="col">
+             <span>Brand:&nbsp;</span>
+             <input name="item_brand" className="form-control" type="text" />
+            </div>
 
-          {/* Previous and Next Buttons */}
-          <div>
-           {activeStep > 0 && (
-            <button onClick={() => setActiveStep(activeStep - 1)}>
-             Previous
-            </button>
-           )}
-           {activeStep < 3 && (
-            <button onClick={() => setActiveStep(activeStep + 1)}>Next</button>
-           )}
-           {activeStep >= 3 && <button>Submit</button>}
+            <div className="col">
+             <span>Estimated Price:&nbsp;</span>
+             <input name="est_price" className="form-control" type="text" />
+            </div>
+
+            <div className="col col-auto">
+             <a
+              className="btn btn-primary rounded-circle mt-4"
+              href="#"
+              role="button"
+              onClick={AddInput}>
+              <i className="fa fa-plus-circle" />
+             </a>
+
+             <span />
+            </div>
+           </div>
+           <div className="row">
+            <div className="inp-group">{parts.map((part) => part)}</div>
+           </div>
           </div>
-         </div>
-        </div>
+          <div className="row mt-4">
+           <span>Estimated Time Completion:</span>
+           <input
+            name="est_completion"
+            className="form-control w-25"
+            type="date"
+           />
+          </div>
+          {/* Add your form fields here */}
+         </form>
+        </Tab>
+        <Tab
+         eventKey={1}
+         title="Assign Employee"
+         className="w-100 bg-body-secondary p-4">
+         <form>
+          <div>
+           <h4 className="text-start">Assign Employee</h4>
+           <div className="selectgroup selectgroup-pills">
+            <div className="row">
+             <label className="selectgroup-item">
+              <input
+               type="checkbox"
+               name="3"
+               defaultValue="CSS"
+               className="selectgroup-input"
+              />
+              <div className="row selectgroup-button">
+               <div className="col">
+                {/* Start: Gravatar Image */}
+                <img
+                 alt=""
+                 className="rounded-circle"
+                 src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+                 width={70}
+                 height={68}
+                />
+                {/* End: Gravatar Image */}
+               </div>
+               <div className="col">
+                <span>Mr. Technician K. One</span>
+               </div>
+               <div className="col">Available</div>
+              </div>
+             </label>
+            </div>
+            <div className="row">
+             <label className="selectgroup-item">
+              <input
+               type="checkbox"
+               name="value"
+               defaultValue="CSS"
+               className="selectgroup-input"
+              />
+              <div className="row selectgroup-button">
+               <div className="col">
+                {/* Start: Gravatar Image */}
+                <img
+                 alt=""
+                 className="rounded-circle"
+                 src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+                 width={70}
+                 height={68}
+                />
+                {/* End: Gravatar Image */}
+               </div>
+               <div className="col">
+                <span>Mr. Technician K. One</span>
+               </div>
+               <div className="col">Available</div>
+              </div>
+             </label>
+            </div>
+            <div className="row">
+             <label className="selectgroup-item">
+              <input
+               type="checkbox"
+               name="value"
+               defaultValue="CSS"
+               className="selectgroup-input"
+              />
+              <div className="row selectgroup-button">
+               <div className="col">
+                {/* Start: Gravatar Image */}
+                <img
+                 alt=""
+                 className="rounded-circle"
+                 src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+                 width={70}
+                 height={68}
+                />
+                {/* End: Gravatar Image */}
+               </div>
+               <div className="col">
+                <span>Mr. Technician K. One</span>
+               </div>
+               <div className="col">Available</div>
+              </div>
+             </label>
+            </div>
+            <div className="row">
+             <label className="selectgroup-item">
+              <input
+               type="checkbox"
+               name="value"
+               defaultValue="CSS"
+               className="selectgroup-input"
+              />
+              <div className="row selectgroup-button">
+               <div className="col">
+                {/* Start: Gravatar Image */}
+                <img
+                 alt=""
+                 className="rounded-circle"
+                 src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+                 width={70}
+                 height={68}
+                />
+                {/* End: Gravatar Image */}
+               </div>
+               <div className="col">
+                <span>Mr. Technician K. One</span>
+               </div>
+               <div className="col">Available</div>
+              </div>
+             </label>
+            </div>
+            <div className="row">
+             <label className="selectgroup-item">
+              <input
+               type="checkbox"
+               name="value"
+               defaultValue="CSS"
+               className="selectgroup-input"
+              />
+              <div className="row selectgroup-button">
+               <div className="col">
+                {/* Start: Gravatar Image */}
+                <img
+                 alt="technician profile"
+                 className="rounded-circle"
+                 src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+                 width={70}
+                 height={68}
+                />
+                {/* End: Gravatar Image */}
+               </div>
+               <div className="col">
+                <span>Mr. Technician K. One</span>
+               </div>
+               <div className="col">Available</div>
+              </div>
+             </label>
+            </div>
+           </div>
+          </div>
+         </form>
+        </Tab>
+        <Tab
+         eventKey={2}
+         title="Breakdown of Fees"
+         className="w-100 bg-body-secondary p-4">
+         <form>
+          <div className>
+           <h4 className="text-start">Breakdown of Fees</h4>
+           <div className="row">
+            <div className="col">
+             <span className="fw-bold">Parts Needed:</span>
+             <div className="row">
+              <div className="col">
+               <div className="row">
+                <div className="col">
+                 <span>Part #1:&nbsp;</span>
+                 <span>Battery</span>
+                </div>
+                <div className="col text-center">
+                 <span>$50</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>Details:</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>Brand:&nbsp;</span>
+                 <span>Acer</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>Unit:&nbsp;</span>
+                 <span>th-w1-34</span>
+                </div>
+               </div>
+              </div>
+             </div>
+             <div className="row">
+              <div className="col">
+               <div className="row">
+                <div className="col">
+                 <span>Part #2:&nbsp;</span>
+                 <span>Battery</span>
+                </div>
+                <div className="col text-center">
+                 <span>$50</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>Details:</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>Brand:&nbsp;</span>
+                 <span>Acer</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>Unit:&nbsp;</span>
+                 <span>th-w1-34</span>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div className="row" style={{ borderBottomStyle: "solid" }}>
+            <div className="col">
+             <span className="fw-bold">Fees and Others:</span>
+             <div className="row">
+              <div className="col">
+               <div className="row">
+                <div className="col">
+                 <span>Service Fee</span>
+                </div>
+                <div className="col text-center">
+                 <span>$50</span>
+                </div>
+               </div>
+               <div className="row">
+                <div className="col">
+                 <span>Delivery Fee</span>
+                </div>
+                <div className="col text-center">
+                 <span>$50</span>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <div className="row mt-2">
+            <div className="col text-end">
+             <span>Total Amount:</span>
+            </div>
+            <div className="col text-start">
+             <span> $30</span>
+            </div>
+           </div>
+           <div className="row">
+            <span>Notes: </span>
+           </div>
+           <div className="row">
+            <textarea name id cols={30} rows={3} defaultValue={""} />
+           </div>
+          </div>
+         </form>
+        </Tab>
+        <Tab
+         eventKey={3}
+         title="Preview & Save"
+         className="w-100 bg-body-secondary p-4">
+         <form>
+          <h4 className="text-start">Preview &amp; Save</h4>
+          <div id="prev" className>
+           {displayData}
+          </div>
+         </form>
+        </Tab>
+       </Tabs>
+
+       {/* Previous and Next Buttons */}
+       <div>
+        {activeStep > 0 && (
+         <button
+          className="btn btn-secondary mt-3 float-start"
+          onClick={() => setActiveStep(activeStep - 1)}>
+          Previous
+         </button>
+        )}
+        {activeStep < 3 && (
+         <button
+          className="btn btn-primary mt-3 float-end"
+          onClick={() => setActiveStep(activeStep + 1)}>
+          Next
+         </button>
+        )}
+        {activeStep >= 3 && (
+         <button className="btn btn-success mt-3 float-end">Submit</button>
+        )}
        </div>
       </div>
      </div>
