@@ -12,6 +12,8 @@ const Create_Job_order = () => {
  const handleTabClick = (step) => {
   setActiveStep(step);
  };
+
+
  var dat = {};
 
  // add values to preview
@@ -428,13 +430,12 @@ const Create_Job_order = () => {
  };
 
  return (
-  <div id="page-top" class="overflow-hidden">
+  <div id="page-top" class=" overflow-hidden">
    <div id="wrapper">
     <Navbar />
     <div
-     id="wrapper container-fluid border border-black"
-     style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
-     <Header />
+    className="h-100 bg-body-secondary w-100">
+    <Header />
      <div>
       <div>
        <div className="text-start">
@@ -448,14 +449,13 @@ const Create_Job_order = () => {
         activeKey={activeStep}
         onSelect={handleTabClick}
         id="step-tabs"
-        className="bg-dark"
-        style={{width:"75 rem"}}>
+        className="bg-dark nav nav-fill rounded-1 p-0">
         <Tab
-         eventKey={0}e
+         eventKey={0}
          title="Job Details"
-         className="align-items-center bg-body-secondary w-100 p-4">
+         className="tab-pane fade show align-items-center bg-white w-100 p-4">
          {/* Step 1 Form */}
-         <form>
+         <form className=" tab-content">
           <h3 className="multisteps-form__title text-start">Job Details</h3>
           <div id="input-grp-double" className="form-row mt-2">
            <div className="row">
@@ -958,7 +958,6 @@ const Create_Job_order = () => {
          </form>
         </Tab>
        </Tabs>
-
        {/* Previous and Next Buttons */}
        <div>
         {activeStep > 0 && (
