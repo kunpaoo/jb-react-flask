@@ -1,5 +1,6 @@
 from flask import Flask,render_template,jsonify,request
 from db import *
+from parts import *
 import numpy as np
 import json
 
@@ -23,11 +24,14 @@ def updatejob(id):
     if(request.method == "POST"):
         return update_list(data,id)
     
+@app.route('/delete/<id>', methods=["POST","GET"])
+def deletejob(id):
+    if(request.method == "POST"):
+        return delete(id)
 
 @app.route('/add', methods=["POST","GET"])
 def addjob():
     data = request.json
-    
     return add_list(data)
 
 
@@ -36,6 +40,34 @@ def setdeli():
     data = request.json
     return set_deli(data)
     
+
+
+@app.route('/api/po',methods=["GET","POST"])
+def getpos():
+    return loadPOs()
+
+
+@app.route('/api/po/<id>', methods = ["GET","POST"])
+def getpo(id):
+    return getPO(id)
+
+@app.route('/add/po', methods=["POST","GET"])
+def addpo():
+    data = request.json
+    return addPO(data)
+
+@app.route('/update/po/<id>', methods = ["POST","GET"])
+def editpo(id):
+    data = request.json
+    po = PurchaseOrder(data['item_name'], data['quantity'],id)
+    po.updatePO()
+    return "UPDATED PO"
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

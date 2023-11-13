@@ -13,78 +13,70 @@ import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
 import Create_customer from './Cust_pages/Create_Customer';
 import Edit_cust from './Cust_pages/Edit_Cust';
-import PartList from './Parts/Parts_list';
-import View_deliveries from './JobOrder_pages/View_deliveries';
-import View_Request from './Parts/View_request';
-import Bill_Payment from './Bills/Bills_Payments';
-import List_of_Pricings from './Bills/List_of_Pricings';
-import LogIn_Page from './LogIn_Page';
+import PartList from './Parts/PartList';
+import PurchaseOrders from './Parts/PurchaseOrders';
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
 const router = createBrowserRouter([
-  {
-   path: "/",
-   element: <App />,
-  },
-  {
-   path: "/Dashboard",
-   element: <Dashboard />,
-  },
-  {
-   path: "/technician",
-   element: <Technician />,
-  },
-  {
-   path: "/Create_technician",
-   element: <Create_tech />,
-  },
-  {
-   path: "/Edit_technician",
-   element: <Edit_tech />,
-  },
-  {
-   path: "/job_order",
-   element: <JobOrder />,
-  }, 
-  {
-   path: "/Create_Job_Order",
-   element: <Createjob />,
-  },
-  {
-   path: "/Edit_Job_Order/:id",
-   element: <EditJobOrder />,
-  },
-  {
-   path:"/deliveries",
-   element: <Deliveries/>
-  },
-  {
-   path:"/parts",
-   element: <PartList/>
-  },
-  // {
-  //  path:"/parts/purchaseorders",
-  //  element: <PurchaseOrders/>
-  // },
-  {
-   path: "/customer",
-   element: <Customer />,
-  },
-  {
-   path: "/create_customer",
-   element: <Create_customer />,
-  },
-  {
-   path: "/edit_customer",
-   element: <Edit_cust />,
-  },
- ]);
- 
+ {
+  path: "/",
+  element: <App />,
+ },
+ {
+  path: "/Dashboard",
+  element: <Dashboard />,
+ },
+ {
+  path: "/technician",
+  element: <Technician />,
+ },
+ {
+  path: "/Create_technician",
+  element: <Create_tech />,
+ },
+ {
+  path: "/Edit_technician",
+  element: <Edit_tech />,
+ },
+ {
+  path: "/job_order",
+  element: <JobOrder />,
+ }, 
+ {
+  path: "/Create_Job_Order",
+  element: <Createjob />,
+ },
+ {
+  path: "/Edit_Job_Order/:id",
+  element: <EditJobOrder />,
+ },
+ {
+  path:"/deliveries",
+  element: <Deliveries/>
+ },
+ {
+  path:"/parts",
+  element: <PartList/>
+ },
+ {
+  path:"/parts/purchaseorders",
+  element: <PurchaseOrders/>
+ },
+ {
+  path: "/customer",
+  element: <Customer />,
+ },
+ {
+  path: "/create_customer",
+  element: <Create_customer />,
+ },
+ {
+  path: "/edit_customer",
+  element: <Edit_cust />,
+ },
+]);
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

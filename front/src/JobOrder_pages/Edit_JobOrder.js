@@ -59,7 +59,6 @@ const [newUnits,setNewUnits] = useState([]);
 function removeInput(event,id) {
     var defectInput = document.getElementById("product_row"+id);
     defectInput.remove();
-
 }
 
 function add_more() {
@@ -190,7 +189,6 @@ const [numparts,setNumParts] = useState(0);
 function removePart(event,id) {
     var defectInput = document.getElementById("part"+id);
     defectInput.remove();
-
 }
 
 function AddInput() {

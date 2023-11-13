@@ -21,7 +21,9 @@ def load_list():
     
 def load_row(id):
     with engine.connect() as conn:
+        
         columns = "job_order.order_id, job_order.job_name, date_format(job_order.order_date,'%Y-%m-%d') as order_date, date_format(job_order.est_completion,'%Y-%m-%d') as est_completion, technician.tech_name, technician.tech_number, technician.tech_email, customer.cust_name, customer.cust_phone"
+
         q = f"select * from (select {columns} from job_order join technician on technician.tech_id = job_order.tech_id join customer on job_order.cust_id = customer.cust_id order by job_order.order_id desc) as all_list where order_id = {id};"
         result = conn.execute(text(q))
         # order_list = []
@@ -41,7 +43,8 @@ def load_row(id):
         unit_list = []
 
 
-        warr = False
+        warr = False # general warranty tag
+        
         for row in ures:
             x = row._asdict()
             if x['warranty'] is True: warr = True
@@ -57,8 +60,8 @@ def load_row(id):
             part_list.append(row._asdict())
 
 
-
-        q=f"select * from delivery where order_id = {id}"
+        d_columns = "order_id, date_format(deli_date,'%Y-%m-%d') as deli_date,origin,destination,notes,deli_status"
+        q=f"select {d_columns} from delivery where order_id = {id}"
         result = conn.execute(text(q))
         delivery =  result.all()
         deli_list = []
@@ -75,12 +78,6 @@ def load_row(id):
         }
 
         return out
-    
-# def load_units(id):
-#     with engine.connect() as conn:
-        
-#         return unit_list
-
 
 def add_list(data):
     with engine.connect() as conn:
@@ -319,9 +316,17 @@ def update_list(data,id):
         #     u = f"update order_part set item_name = '{data[f'item_name{part}']}', brand = '{data[f'item_brand{part}']}', est_price = '{data[f'est_price{part}']}' where op_id = {p_id};"
         #     unit_add = conn.execute(text(u))
         #     conn.commit()  
-
         
 
         return f"UNIT IDS = {u_id} LIST UPDATED {unit_adds} and {delted} {len(u_id)}"
+    
+
+def delete(id):
+    with engine.connect() as conn:
+        q = f'delete from job_order where order_id = {id}'
+        conn.execute(text(q))
+        conn.commit()
+
+    return f"DELETED {id}"
     
 
