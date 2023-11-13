@@ -13,10 +13,12 @@ import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
 import Create_customer from './Cust_pages/Create_Customer';
 import Edit_cust from './Cust_pages/Edit_Cust';
+
 import PartList from './Parts/PartList';
 import PurchaseOrders from './Parts/PurchaseOrders';
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
+
 
 const router = createBrowserRouter([
  {
@@ -74,6 +76,10 @@ const router = createBrowserRouter([
  {
   path: "/edit_customer",
   element: <Edit_cust />,
+ },
+ {
+  path: "/Profile_Page",
+  element: <Profile_Page />,
  },
 ]);
 
