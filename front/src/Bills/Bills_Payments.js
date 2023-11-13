@@ -87,7 +87,7 @@ var Bill_Payment = () => {
              marginRight: "-2px",
              marginLeft: "12px",
             }}
-            href="/Bills_ListofPricings.html">
+            href="/List_of_Pricings">
             List of Pricings
            </a>
           </div>
@@ -1060,7 +1060,7 @@ var Bill_Payment = () => {
       {/* ========== End Preview and print of G-cash ========== */}
       {/* ========== Start Preview and of Cash ========== */}
       {/* ========== End Preview and of Cash ========== */}
-      <Footer/>
+      <Footer />
      </div>
     </div>
    </div>

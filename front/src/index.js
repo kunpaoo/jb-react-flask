@@ -16,7 +16,8 @@ import Parts_list from './Parts/Parts_list';
 import View_deliveries from './JobOrder_pages/View_deliveries';
 import View_Request from './Parts/View_request';
 import Bill_Payment from './Bills/Bills_Payments';
-
+import List_of_Pricings from './Bills/List_of_Pricings';
+import LogIn_Page from './LogIn_Page';
 
 import {
   createBrowserRouter,
@@ -82,6 +83,15 @@ const router = createBrowserRouter([
  {
   path: "/Bill_Payment",
   element: <Bill_Payment />,
+ },
+ {
+  path: "/List_of_Pricings",
+  element: <List_of_Pricings />,
+ },
+ ,
+ {
+  path: "/LogIn_Page",
+  element: <LogIn_Page />,
  },
 ]);
 

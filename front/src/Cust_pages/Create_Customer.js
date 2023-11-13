@@ -1,7 +1,6 @@
 import Navbar from "../Navbar";
 import Header from "../Header";
 import React, { useState } from "react";
-import { Button, Form, FormControl } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { v4 as uuid } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
@@ -50,10 +49,6 @@ var Create_customer = () => {
     <div id="wrapper">
      <Navbar />
      <div className="h-100 w-100">
-      <div
-       className="d-flex flex-column container-fluid"
-       id="content-wrapper"
-       style={{ padding: "0px" }}></div>
       <Header />
       <div>
        <div>
@@ -69,7 +64,7 @@ var Create_customer = () => {
         <div className="row py-4 ">
          <div className="w-100 row ms-1 justify-content-center">
           <Tabs
-           className="nav nav-pills nav-fill navbar-dark bg-dark text-white p-0"
+           className="nav nav-pills nav-fill bg-dark text-white p-0"
            activeKey={activeStep}
            onSelect={handleTabClick}
            id="step-tabs"
@@ -125,148 +120,6 @@ var Create_customer = () => {
             eventKey={1}
             title="Preview & Save">
             <h4 className="text-start">Preview &amp; Save</h4>
-            <div className>
-             <div className="row">
-              <div className="col">
-               <span>Job Title:&nbsp;</span>
-               <span>Acer Laptop: Broken Battery</span>
-              </div>
-              <div className="col">
-               <span>Customer:&nbsp;</span>
-               <span>Ninya Anne Paraiso</span>
-              </div>
-              <div className="col">
-               <span>Created:&nbsp;</span>
-               <span>09/14/22/2023</span>
-              </div>
-             </div>
-             <div className="row">
-              <div className="col">
-               <span>Job Id:&nbsp;</span>
-               <span>32819-232</span>
-              </div>
-              <div className="col">
-               <span>WITH WARRANTY</span>
-              </div>
-              <div className="col">
-               <span>Bought in:&nbsp;</span>
-               <span>OCCC</span>
-              </div>
-             </div>
-             <div className="row">
-              <div className="col">
-               <span className="text-uppercase fw-bold">
-                Defect Description:
-               </span>
-              </div>
-             </div>
-             <div className="row">
-              <div className="col">
-               <span>
-                Peter Piper Pick a peck from pickled pepper a peck of peter
-                piper pick if peter piper pick a peck of pickeled pepper where
-                is the peck of pickled piper peter piper pick.
-               </span>
-              </div>
-             </div>
-             <div className="row">
-              <div className="col">
-               <span className="fw-bold">Parts Needed:</span>
-               <div className="row">
-                <div className="col">
-                 <div className="row">
-                  <div className="col">
-                   <span>Item #1:&nbsp;</span>
-                   <span>Battery</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Details:</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Brand:&nbsp;</span>
-                   <span>Acer</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Unit:&nbsp;</span>
-                   <span>th-w1-34</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Price:&nbsp;</span>
-                   <span>$12</span>
-                  </div>
-                 </div>
-                </div>
-               </div>
-               <div className="row">
-                <div className="col">
-                 <div className="row">
-                  <div className="col">
-                   <span>Item #1:&nbsp;</span>
-                   <span>Battery</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Details:</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Brand:&nbsp;</span>
-                   <span>Acer</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Unit:&nbsp;</span>
-                   <span>th-w1-34</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Price:&nbsp;</span>
-                   <span>$12</span>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-              <div className="col">
-               <span />
-               <span />
-               <div className="row">
-                <div className="col">
-                 <div className="row">
-                  <div className="col">
-                   <span>Assigned Technician:&nbsp;</span>
-                   <span>Mr. Tech K. One</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Total Amount to be Paid:&nbsp;</span>
-                   <span>$34</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Estimated Completion:&nbsp;</span>
-                   <span>09/14/2023</span>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-             </div>
-            </div>
            </Tab>
           </Tabs>
           <div>

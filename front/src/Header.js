@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -10,7 +9,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useState } from "react";
 import Notifications from "react-notifications-menu";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import React from 'react';
 const DEFAULT_NOTIFICATION = {
  image:
   "https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png",
@@ -87,18 +86,18 @@ const Header = () => {
      {/* End: Search form block */}
     </div>
     <div className="mt-4 col-auto">
-      <Notifications
-       data={data}
-       height="500px"
-       width="300px"
-       header={{
-        title: "Notifications",
-        option: { text: "View All", onClick: () => console.log("Clicked") },
-       }}
-       markAsRead={(data) => {
-        console.log(data);
-       }}
-      />
+     <Notifications
+      data={data}
+      height="500px"
+      width="300px"
+      header={{
+       title: "Notifications",
+       option: { text: "View All", onClick: () => console.log("Clicked") },
+      }}
+      markAsRead={(data) => {
+       console.log(data);
+      }}
+     />
     </div>
     <div className="col-auto">
      <div id="position" className="d-flex">
@@ -148,12 +147,14 @@ const Header = () => {
         </ListItemIcon>
         My profile
        </MenuItem>
-       <MenuItem onClick={handleClose}>
-        <ListItemIcon>
-         <Logout fontSize="small" />
-        </ListItemIcon>
-        Logout
-       </MenuItem>
+       <a href="/LogIn_Page">
+        <MenuItem href="/LogIn">
+         <ListItemIcon href="/LogIn">
+          <Logout fontSize="small" />
+         </ListItemIcon>
+         Logout
+        </MenuItem>
+       </a>
       </Menu>
       <div className="">
        {/* Start: Gravatar Image */}

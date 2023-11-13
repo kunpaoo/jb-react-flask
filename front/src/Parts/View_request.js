@@ -6,36 +6,14 @@ var View_Request = () => {
      <div id="page-top" class="overflow-hidden">
       <div id="wrapper">
        <Navbar />
-       <div
-        id="wrapper container-fluid border border-black"
-        style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
-        <div
-         className="d-flex flex-column container-fluid"
-         id="content-wrapper"
-         style={{ padding: "0px" }}></div>
+       <div className="h-100 w-100">
         <Header />
         <div>
-         <div
-          style={{
-           paddingTop: "0px",
-           background: "#ffffff",
-           paddingLeft: "0px",
-           paddingRight: "0px",
-           marginRight: "2px",
-           marginTop: "-1px",
-          }}>
-          <div
-           className="d-sm-flex justify-content-between align-items-center"
-           id="head2"
-           style={{
-            paddingRight: "0px",
-            marginRight: "0px",
-            background: "#ffffff",
-            boxShadow: "0px 0px 20px 1px",
-           }}>
-           <h3 className="text-dark mb-0" style={{ marginLeft: "24px" }}>
+         <div>
+          <div>
+           <h3 className="text-dark mb-0 ms-3">
             Items/ Parts &gt;
-            <span style={{ marginLeft: "10px", fontSize: "21px" }}>
+            <span className="ms-1">
              View purchases
             </span>
            </h3>
@@ -645,16 +623,7 @@ var View_Request = () => {
            </div>
           </div>
          </div>
-         
          </div>
-         {/* ========== End Add Purchase ========== */}
-         <footer className="bg-white sticky-footer">
-          <div className="container my-auto">
-           <div className="text-center my-auto copyright">
-            <span>Copyright © OCCC 2023</span>
-           </div>
-          </div>
-         </footer>
         </div>
        </div>
       </div>
