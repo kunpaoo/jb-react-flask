@@ -141,11 +141,16 @@ var PurchaseOrders = () => {
       </tr>
     )});
  
+    const [isNewData, setIsNewData] = useState(false);
 
-    const getData = (edit) => {
+    const getData = () => {
 
-      var n = edit? "n" : "";
-      var formm = new FormData(document.querySelector('form'));
+      var n = isNewData? "n" : "";
+      let f = isNewData? "#editForm" : "#addForm";
+      
+      var formm = new FormData(document.querySelector(f));
+
+      console.log(...formm)
       var dat = {
           vendor:{
             name:formm.get(n+'vendor_name'),
@@ -176,10 +181,10 @@ var PurchaseOrders = () => {
 
     }
 
-    const handleSubmit = (event,edit) => {
-      let dat = getData(edit?true:false);
-      
-    console.log(dat)
+    const handleSubmit = (event, edit) => {
+      let dat = getData();
+      edit? setIsNewData(true):setIsNewData(false);
+      console.log(dat)
       fetch('/add/po',{
         method:"POST",
         headers: {
@@ -208,8 +213,8 @@ var PurchaseOrders = () => {
     }
 
     var addItem = (event,edit) => {
-
-      let n = edit?"n":"";
+      
+      let n = edit? setIsNewData(true):setIsNewData(false);
       setNumItems(numitem+1);
       let num = numitem+1;
       let newItem = (
@@ -579,7 +584,7 @@ var PurchaseOrders = () => {
          <div className="modal fade" role="dialog" tabIndex={-1} id="modal-2">
           <div className="modal-dialog modal-lg" role="document">
            <div className="modal-content">
-           <form method="POST">
+           <form method="POST" id="editForm">
             <div className="modal-body mx-2 p-3">
             <div className="p-3" >
               
@@ -611,6 +616,7 @@ var PurchaseOrders = () => {
             <div className="p-3" >
             <strong className="fs-5">Items</strong>
               {items.map((item)=>item)}
+              
               <button type="button" onClick={(event) => addItem(event,true)} className="btn btn-sm btn-secondary mt-3" >Add Item</button>
               </div>
 
@@ -645,7 +651,7 @@ var PurchaseOrders = () => {
          <div className="modal fade" role="dialog" tabIndex={-1} id="modal-3">
           <div className="modal-dialog modal-lg" role="document">
            <div className="modal-content">
-           <form method="POST">
+           <form method="POST" id="addForm">
             <div className="modal-body mx-2 p-3">
             
 
@@ -667,7 +673,7 @@ var PurchaseOrders = () => {
               </div>
               <div className="row mt-1">
               <div className="col">
-                Number&nbsp;
+                Phone&nbsp;
                 <input name="vendor_phone" type="text" className="form-control" />
               </div>
               <div className="col">
