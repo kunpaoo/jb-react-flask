@@ -478,11 +478,14 @@ const displayData = (e) => {
                 onInput={() => preview("desc1", false)}
                />
               </div>
+
+
               <div className="col">
                <div className="row">
                 <div className="col">
                  <span>Product from OCCC?:</span>
                  <div className="row">
+                    <input
                      name="returning1"
                      className="form-check-input"
                      type="radio"
@@ -565,8 +568,8 @@ const displayData = (e) => {
              </div>
             </div>
             <div className="row">
-                <div className="inp-group">{newUnits.map((unit) => unit)}</div>
-               </div>
+                <div className="inp-group">{newUnits.map((unit) => unit)}
+                </div>
                 <div className="col col-auto">
                  <button className="add" onClick={add_more}>
                   Add More
@@ -600,14 +603,13 @@ const displayData = (e) => {
               onClick={AddInput}>
               <i className="fa fa-plus-circle" />
              </a>
-
-             <span />
             </div>
            </div>
+
            <div className="row">
             <div className="inp-group">{parts.map((part) => part)}</div>
            </div>
-          </div>
+          
           <div className="row mt-4">
            <span>Estimated Time Completion:</span>
            <input
