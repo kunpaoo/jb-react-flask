@@ -46,16 +46,15 @@ def setdeli():
 def getpos():
     return loadPOs()
 
-@app.route('/api/po/<id>)', methods=["GET","POST"])
+
+@app.route('/api/po/<id>', methods = ["GET","POST"])
 def getpo(id):
     return getPO(id)
 
 @app.route('/add/po', methods=["POST","GET"])
 def addpo():
     data = request.json
-    po = PurchaseOrder(data['item_name'], data['quantity'])
-    po.addPO()
-    return "ADDED PO"
+    return addPO(data)
 
 @app.route('/update/po/<id>', methods = ["POST","GET"])
 def editpo(id):

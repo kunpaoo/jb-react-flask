@@ -26,17 +26,80 @@ var PurchaseOrders = () => {
         "phone":"",
         "email":"",
       },
-      "parts":[]
+      "items":[]
     }
   );
+
   const modalData = (id) => {
     fetch("/api/po/"+id)
     .then((res)=>res.json())
     .then((d)=>{
       console.log(d)
-      setModData(d)
+      setModData(d);
     })
   }
+
+
+  const [items, setItems] = useState([]);
+  const [numitem,setNumItems] = useState(1);
+  const[editMod, setEditMod] = useState(
+    {
+      "vendor":{
+        "name":"",
+        "address":"",
+        "phone":"",
+        "email":"",
+      },
+      "items":[]
+    }
+  );
+
+
+  const editModalData = (id) => {
+
+    fetch("/api/po/"+id)
+    .then((res)=>res.json())
+    .then((d)=>{
+      console.log(d)
+      setEditMod(d);
+    })
+
+    setNumItems(editMod.items.length);
+    setItems(editMod.items.map((item,index) => (
+      <>
+      <div id={index+1}>
+      <div className="row mt-1">
+      <div className="col">
+        <span>Name&nbsp;</span>
+        <input defaultValue={item.item_name} name={"nitem_name"+(index+1)} type="text" className="form-control" />
+      </div>
+      <div className="col">
+        <span>Brand&nbsp;</span>
+        <input defaultValue={item.brand} name={"nbrand"+(index+1)} type="text" className="form-control" />
+      </div>
+      </div>
+      <div className="row mt-1">
+      <div className="col">
+        <span>Price&nbsp;</span>
+        <input defaultValue={item.price} name={"nprice"+(index+1)} type="number" className="form-control" />
+      </div>
+      <div className="col">
+        <span>Quantity&nbsp;</span>
+        <input defaultValue={item.quantity} name={"nquantity"+(index+1)} type="number" className="form-control" />
+        <div className="d-flex justify-content-end">
+        <button onClick={event => removeItem(event,index+1)} className="btn btn-danger btn-sm mt-2">Delete Item</button>
+        </div>
+      </div>
+      </div>
+      </div>
+      </>
+
+  )));
+
+  console.log("EDIT RESET "+items)
+    
+  }
+
 
   var po_list;
   data === (null || undefined)? po_list = "loading":
@@ -44,14 +107,17 @@ var PurchaseOrders = () => {
     return(
     <tr>
       <td>{row.po_id}</td>
-      <td className="lh-sm text-start" style={{ fontSize: "9px" }}>
+      <td className="lh-sm text-start">
         <a href="/" onClick={() => modalData(row.po_id)} className="text-decoration-none text-reset" data-bs-target="#modal-1" data-bs-toggle="modal">
-          <strong style={{fontSize: "12px"}}>{row.item_name}</strong> <br/>
-            ID: {row.item_id}
+          {row.vendor}<br/>
+           
         </a>
       </td>
-      <td>{row.quantity}</td>
-      <td>2023-04-03</td>
+      <td>{row.date_ordered}</td>
+      <td>{row.completed? 
+      <span className="badge bg-success">Completed</span>:
+      <span className="badge bg-secondary">Not Completed</span>
+      }</td>
       <td>
         <button
         className="btn text-white me-1"
@@ -59,6 +125,7 @@ var PurchaseOrders = () => {
         style={{ background: "rgb(23,59,62)" }}
         data-bs-target="#modal-2"
         data-bs-toggle="modal"
+        onClick={() => editModalData(row.po_id)}
         >
         Edit
         </button>
@@ -75,18 +142,44 @@ var PurchaseOrders = () => {
     )});
  
 
-    const getData = () => {
+    const getData = (edit) => {
+
+      var n = edit? "n" : "";
       var formm = new FormData(document.querySelector('form'));
       var dat = {
-          item_name:formm.get("item_name"),
-          quantity:formm.get("quantity")
+          vendor:{
+            name:formm.get(n+'vendor_name'),
+            phone:formm.get(n+'vendor_phone'),
+            address:formm.get(n+'vendor_add'),
+            email:formm.get(n+'vendor_email')
+          },
+          parts:[]
       }
+
+
+      for(let x = 1;x<=items.length+1;x++){
+        console.log("READING ITEM " + formm.get('item_name'+x))
+        if (formm.get(n+'item_name'+x) == null){
+          continue;
+        }
+        dat.parts.push({
+          item_name:formm.get(n+'item_name'+x),
+          brand:formm.get(n+'brand'+x),
+          price:formm.get(n+'price'+x),
+          quantity:formm.get(n+'quantity'+x),
+        })
+      } 
+
+      JSON.stringify(dat.vendor)
+      JSON.stringify(dat.parts)
       return JSON.stringify(dat);
+
     }
 
-    const handleSubmit = (event) => {
-      let dat = getData();
-
+    const handleSubmit = (event,edit) => {
+      let dat = getData(edit?true:false);
+      
+    console.log(dat)
       fetch('/add/po',{
         method:"POST",
         headers: {
@@ -102,38 +195,66 @@ var PurchaseOrders = () => {
     }
 
     const handleUpdate = (event)  => {
-
+      let dat = getData()
+      fetch('/update/po/<id>',{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:dat
+    })
+    .then((res)=>(res.text()))
+    .then((a)=>console.log("NEXT: ",a));
     }
 
-    const [items, setItems] = useState([])
-    var addItem = () => {
+    var addItem = (event,edit) => {
+
+      let n = edit?"n":"";
+      setNumItems(numitem+1);
+      let num = numitem+1;
       let newItem = (
         <>
+        <div id={num}>
         <div className="row mt-3">
         <div className="col">
           <span>Name&nbsp;</span>
-          <input name="item_name" type="text" className="form-control" />
+          <input name={n+"item_name"+num} type="text" className="form-control" />
         </div>
         <div className="col">
           <span>Brand&nbsp;</span>
-          <input name="brand" type="text" className="form-control" />
+          <input name={n+"brand"+num} type="text" className="form-control" />
         </div>
         </div>
         <div className="row mt-1">
         <div className="col">
           <span>Price&nbsp;</span>
-          <input name="price" type="number" className="form-control" />
+          <input name={n+"price"+num} type="number" className="form-control" />
         </div>
         <div className="col">
           <span>Quantity&nbsp;</span>
-          <input name="quantity" type="number" className="form-control" />
+          <input name={n+"quantity"+num} type="number" className="form-control" />
+          <div className="d-flex justify-content-end">
+          <button onClick={event => removeItem(event,num)} className="btn btn-danger btn-sm mt-2">Delete Item</button>
+          </div>
+        </div>
         </div>
         </div>
         </>
-      )
+      );
       setItems([...items,newItem])
     }
     
+    var removeItem = (event,id) => {
+      event.preventDefault();
+      var inp = document.getElementById(id);
+      inp.remove();
+    }
+
+
+
+
+
+    //render
     return (
      <div id="page-top" class="overflow-hidden">
       <div id="wrapper">
@@ -143,8 +264,7 @@ var PurchaseOrders = () => {
         style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
         <div
          className="d-flex flex-column container-fluid"
-         id="content-wrapper"
-         style={{ padding: "0px" }}></div>
+         id="content-wrapper"></div>
         <Header />
         <div>
          <div
@@ -192,7 +312,7 @@ var PurchaseOrders = () => {
                 width: "11em",
                 fontSize:"12px"
                }}
-               href="/Bills_ListofPricings.html"
+               href="/"
                data-bs-target="#modal-3"
                data-bs-toggle="modal">
                Add Purchase Order
@@ -265,43 +385,15 @@ var PurchaseOrders = () => {
               <thead>
                <tr>
                 <th>ID</th>
-                <th className="text-start">Part</th>
-                <th>Quantity</th>
+                <th className="text-start">Vendor</th>
                 <th>Date Created</th>
+                <th>Status</th>
                </tr>
               </thead>
               <tbody>
 
                 {po_list}
-               <tr>
-                <td>12123</td>
-                <td className="lh-sm text-start" style={{ fontSize: "9px" }}>
-                  <a href="/" className="text-decoration-none text-reset" data-bs-target="#modal-1" data-bs-toggle="modal">
-                    <strong style={{fontSize: "12px"}}>Acer Battery</strong> <br/>
-                     ID: 1231112-122
-                  </a>
-                </td>
-                <td>1</td>
-                <td>2023-04-03</td>
-                <td>
-                 <button
-                  className="btn text-white me-1"
-                  type="button"
-                  style={{ background: "rgb(23,59,62)" }}
-                  data-bs-target="#modal-2"
-                  data-bs-toggle="modal">
-                  Edit
-                 </button>
-                 <button
-                  className="btn text-white"
-                  type="button"
-                  style={{ background: "rgb(23,59,62)" }}
-                  onclick="confirm_cancel"
-                  data-bs-toggle="modal">
-                  Cancel
-                 </button>
-                </td>
-               </tr>
+               
               </tbody>
               <tfoot>
                <tr />
@@ -374,19 +466,14 @@ var PurchaseOrders = () => {
                  }}>
               
                  <span style={{ fontSize: "20px" }}>
-                  <strong>Vendor: {modData.vendor.name}</strong>
+                  <strong>Vendor: {modData.vendor.vendor}</strong>
                  </span>
                  <div className="row">
                   <div
                    className="col"
                    style={{ marginBottom: "3px" }}>
                    <span>Address:&nbsp;</span>
-                   <span>{modData.vendor.address}</span>
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col" style={{ marginBottom: "3px" }}>
-                   <span>Contact Details:&nbsp;</span>
+                   <span>{modData.vendor.vendor_add}</span>
                   </div>
                  </div>
 
@@ -394,10 +481,10 @@ var PurchaseOrders = () => {
                   className="row"
                   style={{ marginLeft: "19px", marginRight: "7px" }}>
                   <div className="col">
-                   <span>Number:&nbsp; {modData.vendor.phone}</span>
+                   <span>Phone:&nbsp; {modData.vendor.vendor_phone}</span>
                   </div>
                   <div className="col">
-                   <span>Email:&nbsp; {modData.vendor.email}</span>
+                   <span>Email:&nbsp; {modData.vendor.vendor_email}</span>
                   </div>
                  </div>
 
@@ -419,12 +506,18 @@ var PurchaseOrders = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                {modData.items.map(part => {
+                  return(
+                    <tr>
+                    <td>{part.item_name}</td>
+                    <td>{part.brand}</td>
+                    <td>{part.price}</td>
+                    <td>{part.quantity}</td>
+                    </tr>
+                  )
+                }
+                )}
+                
               </tbody>
               </table>
               </div>
@@ -482,115 +575,45 @@ var PurchaseOrders = () => {
 
 
 
-         {/* ========== Start Edit Purchased Item ========== */}
+         {/* ========== Start Edit Purchase Order ========== */}
          <div className="modal fade" role="dialog" tabIndex={-1} id="modal-2">
           <div className="modal-dialog modal-lg" role="document">
            <div className="modal-content">
-            <div className="modal-body">
-             <h4 className="modal-title text-center">Acer Battery</h4>
-             <div className="row text-center">
+           <form method="POST">
+            <div className="modal-body mx-2 p-3">
+            <div className="p-3" >
+              
+              <strong className="fs-5">Vendor</strong>
+              <div className="row mt-1">
               <div className="col">
-               <span>Current Stocks:&nbsp;</span>
-               <span>7</span>
+                Name 
+                <input name="nvendor_name" type="text" className="form-control" defaultValue={modData.vendor.vendor} />
               </div>
-             </div>
-             <div className="row text-center">
+              </div>
+              <div className="row mt-1">
               <div className="col">
-               <span />
+                Address&nbsp;
+                <input name="nvendor_add" type="text" className="form-control" defaultValue={modData.vendor.vendor_add}/>
               </div>
-             </div>
-             <div
-              className="row"
-              style={{
-               paddingTop: "20px",
-               marginLeft: "10px",
-               marginRight: "6px",
-              }}>
-              <div className="col" style={{ paddingRight: "23px" }}>
-               <div className="row" style={{ borderRadius: "6px" }}>
-                <div
-                 className="col"
-                 style={{
-                  paddingBottom: "15px",
-                  borderRadius: "34px",
-                  borderColor: "rgba(133,135,150,0)",
-                  color: "rgb(0, 0, 0)",
-                  paddingRight: "22px",
-                 }}>
-                 <div className="row" style={{ paddingTop: "7px" }}>
-                  <div className="col">
-                   <span style={{ paddingTop: "0px" }}>
-                    <strong style={{ fontSize: "20px" }}>Item Details</strong>
-                   </span>
-                  </div>
-                 </div>
-                 <div className="row" style={{ paddingTop: "6px" }}>
-                  <div className="col">
-                   <span>Unit:&nbsp;</span>
-                   <input type="text" className="form-control" />
-                  </div>
-                  <div className="col">
-                   <span>Price:&nbsp;</span>
-                   <input type="text" className="form-control" />
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col">
-                   <span>Brand:&nbsp;</span>
-                   <input type="text" className="form-control" />
-                  </div>
-                  <div className="col">
-                   <span>Quantity:&nbsp;</span>
-                   <input type="text" className="form-control" />
-                  </div>
-                 </div>
-                </div>
-               </div>
-               <div className="row">
-                <div
-                 className="col"
-                 style={{
-                  marginTop: "14px",
-                  borderRadius: "7px",
-                  color: "rgb(0, 0, 0)",
-                  paddingTop: "12px",
-                  paddingLeft: "18px",
-                  paddingBottom: "12px",
-                 }}>
-                 <span style={{ fontSize: "20px" }}>
-                  <strong>Vendor</strong>:&nbsp;
-                 </span>
-                 <span style={{ fontSize: "20px" }}>
-                  <input type="text" className="form-control" />
-                 </span>
-                 <div className="row">
-                  <div
-                   className="col"
-                   style={{ paddingBottom: "0px", marginBottom: "3px" }}>
-                   <span>Address:&nbsp;</span>
-                   <input type="text" className="form-control" />
-                  </div>
-                 </div>
-                 <div className="row">
-                  <div className="col" style={{ marginBottom: "3px" }}>
-                   <span>Contact Details:&nbsp;</span>
-                  </div>
-                 </div>
-                 <div className="row" style={{ marginRight: "7px" }}>
-                  <div className="col">
-                   <span>Number:&nbsp;</span>
-                   <input type="text" className="form-control" />
-                  </div>
-                  <div className="col">
-                   <span>Email:&nbsp;</span>
-                   <input type="text" className="form-control" />
-                  </div>
-                 </div>
-                </div>
-               </div>
               </div>
-             </div>
+              <div className="row mt-1">
+              <div className="col">
+                Phone&nbsp;
+                <input name="nvendor_phone" type="text" className="form-control" defaultValue={modData.vendor.vendor_phone}/>
+              </div>
+              <div className="col">
+                Email&nbsp;
+                <input name="nvendor_email" type="text" className="form-control" defaultValue={modData.vendor.vendor_email}/>
+              </div>
+              </div>
             </div>
+                 
+            <div className="p-3" >
+            <strong className="fs-5">Items</strong>
+              {items.map((item)=>item)}
+              <button type="button" onClick={(event) => addItem(event,true)} className="btn btn-sm btn-secondary mt-3" >Add Item</button>
+              </div>
+
             <div className="modal-footer">
              <button
               className="btn btn-light"
@@ -600,14 +623,19 @@ var PurchaseOrders = () => {
               Close
              </button>
              <button
-              className="btn btn-light"
+              className="btn btn-light text-white"
               type="button"
               data-bs-dismiss="modal"
-              style={{ background: "rgb(0, 48, 46)", color: "#ffffff" }}>
-              Save
+              onClick={(event) => handleSubmit(event,true)}
+              style={{ background: "rgb(0, 48, 46)"}}>
+              Submit
              </button>
+             
             </div>
-           </div>
+            </div>
+            </form>
+
+            </div>
           </div>
          </div>
          
@@ -617,11 +645,13 @@ var PurchaseOrders = () => {
          <div className="modal fade" role="dialog" tabIndex={-1} id="modal-3">
           <div className="modal-dialog modal-lg" role="document">
            <div className="modal-content">
+           <form method="POST">
             <div className="modal-body mx-2 p-3">
-            <form method="POST">
+            
 
 
-            <div className="border border-black p-3" >
+            <div className="p-3" >
+              
               <strong className="fs-5">Vendor</strong>
               <div className="row mt-1">
               <div className="col">
@@ -647,41 +677,34 @@ var PurchaseOrders = () => {
               </div>
             </div>
                  
-            <div className="border border-black p-3" >
+            <div className="p-3" >
             <strong className="fs-5">Items</strong>
               <div className="row mt-1">
               <div className="col">
                 <span>Name&nbsp;</span>
-                <input name="item_name" type="text" className="form-control" />
+                <input name="item_name1" type="text" className="form-control" />
               </div>
               <div className="col">
                 <span>Brand&nbsp;</span>
-                <input name="brand" type="text" className="form-control" />
+                <input name="brand1" type="text" className="form-control" />
               </div>
               </div>
               <div className="row mt-1">
               <div className="col">
                 <span>Price&nbsp;</span>
-                <input name="price" type="number" className="form-control" />
+                <input name="price1" type="number" className="form-control" />
               </div>
               <div className="col">
                 <span>Quantity&nbsp;</span>
-                <input name="quantity" type="number" className="form-control" />
+                <input name="quantity1" type="number" className="form-control" />
               </div>
               </div>
 
               {items.map((item)=>item)}
-              <button type="button" onClick={addItem} className="btn btn-sm btn-secondary mt-3" >Add Item</button>
+              <button type="button" onClick={event=>addItem(event,false)} className="btn btn-sm btn-secondary mt-3" >Add Item</button>
 
             </div>
-
-
-               
-              
-             </form>
             </div>
-
-           
 
             <div className="modal-footer">
              <button
@@ -695,15 +718,18 @@ var PurchaseOrders = () => {
               className="btn btn-light text-white"
               type="button"
               data-bs-dismiss="modal"
-              onClick={handleSubmit}
+              onClick={(event)=>handleSubmit(event,false)}
               style={{ background: "rgb(0, 48, 46)"}}>
               Submit
              </button>
              
             </div>
             
+            </form>
            </div>
            
+
+
           </div>
          </div>
          
