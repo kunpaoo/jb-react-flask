@@ -1,13 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
-import Header from "./Header";
 
 const LogIn_Page = () => {
 
  return (
   <>
    <div className="container mw-100 align-self-center align-self-center">
-    <Header/>
     <div
      className="row justify-content-center mt-4"
      style={{ paddingTop: "136px" }}>

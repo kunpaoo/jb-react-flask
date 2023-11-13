@@ -1,8 +1,6 @@
 import LogIn_Page from './LogIn_Page';
-function App() {
 
-  
-  
+function App() {
 
 
   return (
@@ -18,13 +16,16 @@ function App() {
 
     <LogIn_Page/>
 
+  
+    </div>
+    </div>
 
     
-    {/* END MAIN CONTENT */}
-    </div>
-    </div>
+    /* END MAIN CONTENT */
+  
     /* END BODY CONTAINER */
   );
 }
+
 
 export default App;

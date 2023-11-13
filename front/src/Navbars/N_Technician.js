@@ -4,11 +4,9 @@ import PortraitIcon from "@mui/icons-material/Portrait";
 import WorkIcon from "@mui/icons-material/Work";
 import MemoryIcon from "@mui/icons-material/Memory";
 import CreditCard from "@mui/icons-material/CreditCard";
-const Navbar = () => {
-
-return (
-
- <nav
+const N_Technician = () => {
+ return (
+  <nav
    className="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary navbar-dark"
    style={{ background: "rgb(56,57,58)" }}>
    <div className="container-fluid w-auto">
@@ -24,7 +22,7 @@ return (
         height={120}
        />
       </div>
-    </div>
+     </div>
     </div>
 
     <ul className="navbar-nav d-inline-flex text-light ms-3 mt-4">
@@ -32,12 +30,6 @@ return (
       <a className="nav-link p-2 " href="/Dashboard">
        <DashboardIcon fontSize="large" />
        <span className="fs-5 ps-1">Dashboard</span>
-      </a>
-     </li>
-     <li className="nav-item">
-      <a className="nav-link p-2" href="/technician">
-       <Groups2Icon fontSize="large" />
-       <span className="fs-5 ps-1">Technicians</span>
       </a>
      </li>
      <li className="nav-item">
@@ -58,16 +50,10 @@ return (
        <span className="fs-5 ps-1">Items/Parts</span>
       </a>
      </li>
-     <li className="nav-item">
-      <a className="nav-link p-2" href="/Bill_Payment">
-       <CreditCard fontSize="large" />
-       <span className="fs-5 ps-1">Bills/Payments</span>
-      </a>
-     </li>
     </ul>
    </div>
   </nav>
  );
 };
 
-export default Navbar;
+export default N_Technician;

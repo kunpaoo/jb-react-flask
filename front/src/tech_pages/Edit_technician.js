@@ -1,5 +1,5 @@
-import Navbar from "../Navbar";
 import Header from "../Header";
+import Navbar from "../Navbar";
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tab, Tabs } from "react-bootstrap";
@@ -21,7 +21,7 @@ var Edit_technician = () => {
       <div>
        <div>
         <div className="d-sm-flex justify-content-between align-items-center">
-         <h3 className="text-dark mb-0 ms-3">Technician</h3>
+         <h3 className="text-dark mb-0 ms-3">Edit Techician</h3>
         </div>
        </div>
        <div className="container-fluid">
@@ -29,7 +29,7 @@ var Edit_technician = () => {
         <div className="row py-4 ">
          <div className="w-100 row ms-1 justify-content-center">
           <Tabs
-           className="nav nav-pills nav-fill navbar-dark bg-dark text-white p-0"
+           className="nav nav-pills nav-fill bg-dark text-white p-0"
            activeKey={activeStep}
            onSelect={handleTabClick}
            id="step-tabs"
@@ -51,7 +51,7 @@ var Edit_technician = () => {
              <div className="row">
               <div className="row">
                <div className="col">
-                <span>Defect Description:&nbsp;</span>
+                <span>Address:&nbsp;</span>
                 <textarea
                  id="defect_descrip"
                  className="form-control"
@@ -119,7 +119,7 @@ var Edit_technician = () => {
             </button>
            )}
            {activeStep >= 1 && (
-            <button className="btn btn-success mt-3 float-end">Update</button>
+            <button className="btn btn-success mt-3 float-end">Submit</button>
            )}
           </div>
          </div>
@@ -128,7 +128,16 @@ var Edit_technician = () => {
       </div>
      </div>
     </div>
+
+    {/* End: Multi step form */}
    </div>
+   <footer className="bg-white sticky-footer">
+    <div className="container my-auto">
+     <div className="text-center my-auto copyright">
+      <span>Copyright © OCCC 2023</span>
+     </div>
+    </div>
+   </footer>
   </>
  );
 };
