@@ -6,9 +6,10 @@ import Dashboard from './Dashboard/Dashboard';
 import Technician from './tech_pages/Technician';
 import Edit_tech from './tech_pages/Edit_technician';
 import Create_tech from './tech_pages/Create_tech';
-import Job_order from './JobOrder_pages/Job_order';
-import Create_job from './JobOrder_pages/Create_Job_order';
-import Edit_Job_Order from './JobOrder_pages/Edit_JobOrder';
+import JobOrder from './JobOrder_pages/Job_order';
+import Createjob from './JobOrder_pages/Create_Job_order';
+import Deliveries from './JobOrder_pages/Deliveries';
+import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
 import Create_customer from './Cust_pages/Create_Customer';
 import Edit_cust from './Cust_pages/Edit_Cust';
@@ -46,15 +47,19 @@ const router = createBrowserRouter([
  },
  {
   path: "/job_order",
-  element: <Job_order />,
- },
+  element: <JobOrder />,
+ }, 
  {
   path: "/Create_Job_Order",
-  element: <Create_job />,
+  element: <Createjob />,
  },
  {
-  path: "/Edit_Job_Order",
-  element: <Edit_Job_Order />,
+  path: "/Edit_Job_Order/:id",
+  element: <EditJobOrder />,
+ },
+ {
+  path:"/deliveries",
+  element: <Deliveries/>
  },
  {
   path: "/customer",
