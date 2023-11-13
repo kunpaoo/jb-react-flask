@@ -4,6 +4,17 @@ function App() {
   
   
 
+<<<<<<< HEAD
+  useEffect(() => {
+    fetch("/api")
+    .then((res) => res.json())
+    .then((data) => {
+      setData(data);
+    })
+  },[])
+
+=======
+>>>>>>> main
 
   return (
     /* BODY CONTAINER */
@@ -18,7 +29,13 @@ function App() {
 
     <LogIn_Page/>
 
+<<<<<<< HEAD
+  
+    </div>
+    </div>
+=======
     
+>>>>>>> main
     
     {/* END MAIN CONTENT */}
     </div>

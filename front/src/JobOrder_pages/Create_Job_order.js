@@ -1,3 +1,4 @@
+
 // src/MultiStepForm.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,187 +7,91 @@ import Header from "../Header";
 import { Tab, Tabs } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Create_Job_order = () => {
+const Createjob = () => {
  const [activeStep, setActiveStep] = useState(0);
 
  const handleTabClick = (step) => {
   setActiveStep(step);
  };
-
-
- var dat = {};
-
- // add values to preview
-
- const preview = (key, radio) => {
-  console.log(document.getElementsByName(key)[0].checked);
-  let value = radio
-   ? document.getElementsByName(key)[0].checked
-     ? "yes"
-     : "no"
-   : document.getElementById(key).value;
-  value != null ? (dat[key] = value) : (dat[key] = "loading");
-
-  console.log(dat);
- };
-
- //   itemize units
-
- const [numunits, setUnits] = useState(1);
- const [newUnits, setNewUnits] = useState([]);
-
- // Remove defected Inputs
- function RemoveInputs() {
-  var DefectInputs = document.getElementById("defectsinfo");
-  DefectInputs.remove();
- }
-
- function add_more() {
-  setUnits(numunits + 1);
-  console.log(numunits);
-  var units = numunits + 1;
-  const newDiv = (
-   <>
-    <div className="row row-auto" id="defectsinfo" style={{ margin: "6pt" }}>
-     <div
-      id={"product_row" + { units }}
-      className="row row-auto mt-2 p-4 "
-      style={{ background: "#ebf0ec" }}>
-      <div class="col">
-       <span>
-        Unit name:{" "}
-        <input
-         id="unit_name"
-         name={"unit_name" + { units }}
-         class="form-control"
-         type="text"
-        />
-       </span>
-      </div>
-      <div class="col">
-       <span>Brand:&nbsp;</span>
-       <input
-        id="brand_name"
-        name={"brand" + { units }}
-        class="form-control"
-        type="text"
-       />
-      </div>
-     </div>
-     <div class="row p-4" style={{ background: "#ebf0ec" }}>
-      <div class="col-xl-5 col-xxl-7">
-       <span>Defect Description:&nbsp;</span>
-       <textarea
-        name={"desc" + { units }}
-        id="defect_descrip"
-        class="form-control"
-        style={{ height: "111px;" }}
-        required></textarea>
-      </div>
-      <div class="col">
-       <div class="row">
-        <div class="col">
-         <span>Product from OCCC?:</span>
-         <div class="row">
-          <div class="col">
-           <div class="form-check">
-            <input
-             value="yes"
-             name={"returning" + { units }}
-             class="form-check-input"
-             type="radio"
-             id="formCheck-1"
-            />
-            <label class="form-check-label" for="formCheck-1">
-             Yes
-            </label>
-           </div>
-          </div>
-          <div class="col">
-           <div class="form-check">
-            <input
-             value="no"
-             name={"returning" + { units }}
-             class="form-check-input"
-             type="radio"
-             id="formCheck-2"
-            />
-            <label class="form-check-label" for="formCheck-2">
-             No
-            </label>
-           </div>
-          </div>
-         </div>
-        </div>
-        <div class="col">
-         <span>With warranty?</span>
-         <div class="row">
-          <div class="col">
-           <div class="form-check">
-            <input
-             value="yes"
-             name={"warranty" + { units }}
-             class="form-check-input"
-             type="radio"
-             id="formCheck-3"
-            />
-            <label class="form-check-label" for="formCheck-3">
-             Yes
-            </label>
-           </div>
-          </div>
-          <div class="col">
-           <div class="form-check">
-            <input
-             value="no"
-             name={"warranty" + { units }}
-             class="form-check-input"
-             type="radio"
-             id="formCheck-4"
-            />
-            <label class="form-check-label" for="formCheck-4">
-             No
-            </label>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="row">
-        <div class="col">
-         <span>If not from OCCC, where?</span>
-         <textarea class="form-control" style={{ height: "31px" }}></textarea>
-        </div>
-       </div>
-      </div>
-     </div>
-     <a
-      name=""
-      id=""
-      onClick={RemoveInputs}
-      className="btn btn-danger"
-      href="#"
-      role="button">
-      Remove
-     </a>
-    </div>
-   </>
-  );
-
-  // <a
-  //  name=""
-  //  className="btn btn-danger"
-  //  id=""
-  //  href="#"
-  //  role="button"
-  //  onClick={RemoveInputs}>
-  //  <i class="fa fa-trash-o" aria-hidden="true"></i>
-  // </a>;
-  setNewUnits([...newUnits, newDiv]);
- }
-
  // remove parts
 
+  var dat = {};
+
+// add values to preview
+
+const preview = (key,radio) => {
+    console.log(document.getElementsByName(key)[0].checked)
+    let value = radio ? 
+    document.getElementsByName(key)[0].checked ? "yes" : "no" : document.getElementById(key).value;
+    value!=null ? dat[key] = value : dat[key] = "loading" ;
+
+    console.log(dat);
+}
+
+
+
+
+//   itemize units
+
+  const [numunits,setUnits] = useState(1);
+  const [newUnits,setNewUnits] = useState([]);
+
+  function add_more() {
+   setUnits(numunits+1);
+   console.log(numunits)
+   var units = numunits+1;
+   const newDiv = (
+   <>
+    <div id={"product_row"+{units}} class="row row-auto">
+        <div class="col"><span>Unit name: <input id="unit_name" name={"unit_name"+{units}} class="form-control" type="text"/></span></div>
+        <div class="col"><span>Brand:&nbsp;</span><input id="brand_name" name={"brand"+{units}} class="form-control" type="text"/></div>
+    </div>
+    <div class="row">
+        
+        <div class="col-xl-5 col-xxl-7"><span>Defect
+                Description:&nbsp;</span><textarea name={"desc"+{units}} id="defect_descrip" class="form-control" style={{height:"111px;"}} 
+                required></textarea></div>
+        <div class="col">
+            <div class="row">
+                <div class="col"><span>Product from OCCC?:</span>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check"><input value="yes" name={"returning"+{units}} class="form-check-input" type="radio" id="formCheck-1"/><label
+                                    class="form-check-label" for="formCheck-1">Yes</label></div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check"><input value="no" name={"returning" +{units}} class="form-check-input" type="radio" id="formCheck-2"/><label
+                                    class="form-check-label" for="formCheck-2">No</label></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"><span>With warranty?</span>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check"><input value="yes" name={"warranty"+{units}} class="form-check-input" type="radio" id="formCheck-3"/><label
+                                    class="form-check-label" for="formCheck-3">Yes</label></div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check"><input value="no" name={"warranty"+{units}} class="form-check-input" type="radio" id="formCheck-4"/><label
+                                    class="form-check-label" for="formCheck-4">No</label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"><span>If not from OCCC,
+                        where?</span><textarea class="form-control" style={{height:"31px"}}></textarea></div>
+            </div>
+        </div>
+        </div>
+    </>);
+
+    setNewUnits([...newUnits,newDiv])
+   
+  }
+
+  
+  
  // adding parts needed
  const [parts, setParts] = useState([]);
  const [numparts, setNumParts] = useState(1);
@@ -247,128 +152,155 @@ const Create_Job_order = () => {
   );
 
   setParts([...parts, newPart]);
- }
+ }  
 
+
+ 
  const navigate = useNavigate();
  const [formData, setFormData] = useState();
 
- //function for trashcan
 
- // get data from forms
+  // get data from forms
 
- const getData = () => {
-  var formm = new FormData(document.querySelector("form"));
-  var dat = {
-   order_date: formm.get("order_date"),
-   cust_name: formm.get("cust_name"),
-   job_name: formm.get("job_name"),
-   est_completion: formm.get("est_completion"),
-   numunits: numunits,
-   num_of_parts: numparts,
-  };
+  const getData = () => {
+    var formm = new FormData(document.querySelector('form'));
+    var dat = {
+        order_date:formm.get("order_date"),
+        cust_name:formm.get("cust_name"),
+        job_name:formm.get("job_name"),
+        est_completion:formm.get("est_completion"),
+        numunits:numunits,
+        num_of_parts:numparts
+    }
+    
+    console.log(typeof(dat.order_date))
 
-  console.log(typeof dat.order_date);
+    var u = [dat];
 
-  var u = [dat];
+    for(var x = 1; x<=numunits; x++){
+        u.push({
+            "unit_name":dat["unit_name"+x],
+            "brand":dat["brand"+x],
+            "desc":dat["desc"+x],
+            "returning":dat["returning"+x],
+            "warranty":dat["warranty"+x]
+        })
+        // console.log(numunits);
+        // dat["unit_name"+x] = formm.get("unit_name"+x);
+        // dat["brand"+x] = formm.get("brand"+x);
+        // dat["desc"+x] = formm.get("desc"+x);
+        // dat["returning"+x] = formm.get("returning"+x);
+        // dat["warranty"+x] = formm.get("warranty"+x);
+    }
 
-  for (var x = 1; x <= numunits; x++) {
-   u.push({
-    unit_name: dat["unit_name" + x],
-    brand: dat["brand" + x],
-    desc: dat["desc" + x],
-    returning: dat["returning" + x],
-    warranty: dat["warranty" + x],
-   });
-   // console.log(numunits);
-   // dat["unit_name"+x] = formm.get("unit_name"+x);
-   // dat["brand"+x] = formm.get("brand"+x);
-   // dat["desc"+x] = formm.get("desc"+x);
-   // dat["returning"+x] = formm.get("returning"+x);
-   // dat["warranty"+x] = formm.get("warranty"+x);
+    for(x = 1; x<=numparts; x++){
+        // console.log(numparts);
+        // dat["item_name"+x] = formm.get("item_name"+x);
+        // dat["item_brand"+x] = formm.get("item_brand"+x);
+        // dat["est_price"+x] = formm.get("est_price"+x);
+        u.push({
+            "item_name":dat["item_name"+x],
+            "item_brand":dat["item_brand"+x],
+            "est_price":dat["est_price"+x]
+        })
+    }
+
+
+    
+    console.log(u)
+
+    return JSON.stringify(dat);
   }
 
-  for (x = 1; x <= numparts; x++) {
-   // console.log(numparts);
-   // dat["item_name"+x] = formm.get("item_name"+x);
-   // dat["item_brand"+x] = formm.get("item_brand"+x);
-   // dat["est_price"+x] = formm.get("est_price"+x);
-   u.push({
-    item_name: dat["item_name" + x],
-    item_brand: dat["item_brand" + x],
-    est_price: dat["est_price" + x],
-   });
+
+  //submit to api
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormData(e.currentTarget);
+    var dat = getData()
+
+    fetch('/add',{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:dat
+    })
+    .then((res)=>(res.text()))
+    .then((a)=>console.log("NEXT: ",a));
+    // console.log(formData);
+    // console.log(JSON.stringify(dat));
+     navigate('/job_order');
+
+
   }
+  
 
-  console.log(u);
+//   function getFormData(){
+//     var data = $('form').serializeArray().reduce(function(obj, item) {
+//         obj[item.name] = item.value;
+//         return obj;
+//     }, {});
+//     setFormData(data);
+//     fetch('/add',{
+//         method:"POST",
+//         form: 'cors',
+//         body: formData
+//       })
+//     // eslint-disable-next-line no-restricted-globals
+//     location.replace("/job_order");
+//   }
 
-  return JSON.stringify(dat);
- };
+ 
+  
 
- //submit to api
-
- const handleSubmit = (e) => {
-  e.preventDefault();
-  setFormData(e.currentTarget);
-  var dat = getData();
-
-  fetch("/add", {
-   method: "POST",
-   headers: {
-    "Content-Type": "application/json",
-   },
-   body: dat,
-  })
-   .then((res) => res.text())
-   .then((a) => console.log("NEXT: ", a));
-  // console.log(formData);
-  // console.log(JSON.stringify(dat));
-  navigate("/job_order");
- };
-
- const displayData = (e) => {
-  var dat = getData();
-
-  var unitsprev = [];
-  for (var x = 1; x <= dat["units"]; x++) {
-   var warranty =
-    dat["warranty"] === "yes" ? "WITH WARRANTY" : "WITHOUT WARRANTY";
-   var returning =
-    dat["returning"] === "yes" ? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
-   unitsprev += (
-    <>
-     <div className="row">
-      <div className="col">
-       <span>Unit {x}:</span>
-       <br />
-       <span>{dat["unit_name" + x]}</span>
-      </div>
-      <div className="col">
-       <span>Brand: &nbsp;</span>
-       <span>{dat["unit_brand" + x]}</span>
-      </div>
-     </div>
-     <div className="row">
-      <div className="col">
-       <span>{warranty}</span>
-      </div>
-      <div className="col">
-       <span>Bought in OCCC?&nbsp;</span>
-       <span>{returning}</span>
-      </div>
-     </div>
-     <div className="row">
-      <div className="col">
-       <span className="text-uppercase fw-bold">Defect Description:</span>
-      </div>
-     </div>
-     <div className="row">
-      <div className="col">
-       <span>{dat["desc" + x]}</span>
-      </div>
-     </div>
-    </>
-   );
-  }
+const displayData = (e) => {
+    var dat = getData();
+    //  var warranty = dat["warranty"] === "yes"?  "WITH WARRANTY" : "WITHOUT WARRANTY";
+    //  var returning = dat["returning"] === "yes"? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
+    
+    // multiple units
+    
+    var unitsprev = [];
+    for(var x=1; x<=dat["units"]; x++){
+        var warranty = dat["warranty"] === "yes"?  "WITH WARRANTY" : "WITHOUT WARRANTY";
+        var returning = dat["returning"] === "yes"? "BOUGHT FROM OCCC" : "BOUGHT OUTSIDE OCCC";
+        unitsprev += (
+            <>
+            <div className="row">
+                <div className="col">
+                 <span>Unit {x}:</span><br/>
+                 <span>{dat["unit_name"+x]}</span>
+                </div>
+                <div className="col">
+                 <span>Brand: &nbsp;</span>
+                 <span>{dat["unit_brand"+x]}</span>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <span>{warranty}</span>
+                </div>
+                <div className="col">
+                    <span>Bought in OCCC?&nbsp;</span>
+                    <span>{returning}</span>
+                </div>
+            </div><div className="row">
+                <div className="col">
+                    <span className="text-uppercase fw-bold">
+                        Defect Description:
+                    </span>
+                </div>
+            </div><div className="row">
+                <div className="col">
+                    <span>
+                        {dat["desc"+x]}
+                    </span>
+                </div>
+            </div></>
+        );
+    }
 
   // multiple items
 
@@ -455,7 +387,11 @@ const Create_Job_order = () => {
          title="Job Details"
          className="tab-pane fade show align-items-center bg-white w-100 p-4">
          {/* Step 1 Form */}
-         <form className=" tab-content">
+
+        
+
+
+         <form method="POST" onSubmit={handleSubmit} id="addOrder">
           <h3 className="multisteps-form__title text-start">Job Details</h3>
           <div id="input-grp-double" className="form-row mt-2">
            <div className="row">
@@ -502,6 +438,7 @@ const Create_Job_order = () => {
              />
             </div>
            </div>
+
            <div className="row">
             <div id="input-form">
              <div id="product_row" className="row row-auto">
@@ -541,13 +478,13 @@ const Create_Job_order = () => {
                 onInput={() => preview("desc1", false)}
                />
               </div>
+
+
               <div className="col">
                <div className="row">
                 <div className="col">
                  <span>Product from OCCC?:</span>
                  <div className="row">
-                  <div className="col">
-                   <div className="form-check">
                     <input
                      name="returning1"
                      className="form-check-input"
@@ -573,11 +510,13 @@ const Create_Job_order = () => {
                     />
                     <label className="form-check-label" htmlFor="formCheck-2">
                      No
-                    </label>
-                   </div>
+                    </label>          
+                    </div>
                   </div>
                  </div>
                 </div>
+
+
                 <div className="col">
                  <span>With warranty?</span>
                  <div className="row">
@@ -590,12 +529,14 @@ const Create_Job_order = () => {
                      id="warranty1"
                      value="yes"
                      onInput={() => preview("warranty1", true)}
+
                     />
                     <label className="form-check-label" htmlFor="wararnty1">
                      Yes
                     </label>
                    </div>
                   </div>
+
                   <div className="col">
                    <div className="form-check">
                     <input
@@ -604,8 +545,7 @@ const Create_Job_order = () => {
                      type="radio"
                      id="warranty1"
                      value="no"
-                     onInput={() => preview("warranty1", true)}
-                    />
+                     onInput={() => preview("warranty1", true)} />
                     <label className="form-check-label" htmlFor="formCheck-4">
                      No
                     </label>
@@ -628,36 +568,33 @@ const Create_Job_order = () => {
              </div>
             </div>
             <div className="row">
-             <div className="inp-group">{newUnits.map((unit) => unit)}</div>
-            </div>
-            <div className="col col-auto">
-             <a
-              className="btn btn-primary mt-2"
-              onClick={add_more}
-              role="button">
-              Add more
-             </a>
-            </div>
-           </div>
+                <div className="inp-group">{newUnits.map((unit) => unit)}
+                </div>
+                <div className="col col-auto">
+                 <button className="add" onClick={add_more}>
+                  Add More
+                 </button>
+                </div>
+               </div>
+               
+               <div className="row row-auto">
+                <div className="row mt-4">
+                 <h5>Parts needed for the job:</h5>
+                </div>
+                <div className="col">
+                 <span>Name of Part:&nbsp;</span>
+                 <input name="item_name" className="form-control" type="text" />
+                </div>
+                <div className="col">
+                 <span>Brand:&nbsp;</span>
+                 <input name="item_brand" className="form-control" type="text" />
+                </div>
 
-           <div className="row row-auto">
-            <div className="row mt-4">
-             <h5>Parts needed for the job:</h5>
-            </div>
-            <div className="col">
-             <span>Name of Part:&nbsp;</span>
-             <input name="item_name" className="form-control" type="text" />
-            </div>
-            <div className="col">
-             <span>Brand:&nbsp;</span>
-             <input name="item_brand" className="form-control" type="text" />
-            </div>
-
-            <div className="col">
-             <span>Estimated Price:&nbsp;</span>
-             <input name="est_price" className="form-control" type="text" />
-            </div>
-
+                <div className="col">
+                 <span>Estimated Price:&nbsp;</span>
+                 <input name="est_price" className="form-control" type="text" />
+                </div>
+                
             <div className="col col-auto">
              <a
               className="btn btn-primary rounded-circle mt-4"
@@ -666,14 +603,13 @@ const Create_Job_order = () => {
               onClick={AddInput}>
               <i className="fa fa-plus-circle" />
              </a>
-
-             <span />
             </div>
            </div>
+
            <div className="row">
             <div className="inp-group">{parts.map((part) => part)}</div>
            </div>
-          </div>
+          
           <div className="row mt-4">
            <span>Estimated Time Completion:</span>
            <input
@@ -853,6 +789,7 @@ const Create_Job_order = () => {
                  <span>$50</span>
                 </div>
                </div>
+
                <div className="row">
                 <div className="col">
                  <span>Details:</span>
@@ -872,6 +809,7 @@ const Create_Job_order = () => {
                </div>
               </div>
              </div>
+
              <div className="row">
               <div className="col">
                <div className="row">
@@ -886,12 +824,15 @@ const Create_Job_order = () => {
                <div className="row">
                 <div className="col">
                  <span>Details:</span>
+
                 </div>
                </div>
                <div className="row">
                 <div className="col">
+
                  <span>Brand:&nbsp;</span>
                  <span>Acer</span>
+
                 </div>
                </div>
                <div className="row">
@@ -911,10 +852,12 @@ const Create_Job_order = () => {
               <div className="col">
                <div className="row">
                 <div className="col">
+
                  <span>Service Fee</span>
                 </div>
                 <div className="col text-center">
                  <span>$50</span>
+
                 </div>
                </div>
                <div className="row">
@@ -982,8 +925,9 @@ const Create_Job_order = () => {
      </div>
     </div>
    </div>
+
   </div>
  );
 };
 
-export default Create_Job_order;
+export default Createjob;
