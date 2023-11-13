@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from 'react'
-import Navbar from './Navbar';
-import Header from './Header';
-import Dashboard from './Dashboard/Dashboard';
-
+import LogIn_Page from './LogIn_Page';
 function App() {
 
-  const [data, setData] = useState();
+  
+  
 
+<<<<<<< HEAD
   useEffect(() => {
     fetch("/api")
     .then((res) => res.json())
@@ -15,28 +13,33 @@ function App() {
     })
   },[])
 
+=======
+>>>>>>> main
 
   return (
     /* BODY CONTAINER */
     <div id="page-top" class="overflow-hidden">
     <div id="wrapper">
 
-    <Navbar/>
+    
 
   {/* MAIN CONTENT */}
-    <div id="wrapper container-fluid border border-black" style={{height: '100vh', overflowY: 'auto', width: '100%'}}>
-    <div className="d-flex flex-column container-fluid" id="content-wrapper" style={{padding: '0px'}}>
           
-     <Header/>
+     
 
-    <Dashboard/>
+    <LogIn_Page/>
 
+<<<<<<< HEAD
   
     </div>
     </div>
+=======
+    
+>>>>>>> main
     
     {/* END MAIN CONTENT */}
-    </div></div>
+    </div>
+    </div>
     /* END BODY CONTAINER */
   );
 }

@@ -1,19 +1,15 @@
-import Navbar from "../Navbar";
+import React from "react";
 import Header from "../Header";
+import Navbar from "../Navbar";
 
 const Dashboard = () => {
  return (
   <div id="page-top" class="overflow-hidden">
    <div id="wrapper">
-    {/* <Navbar />
-    <div
-        id="wrapper container-fluid border border-black"
-        style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
-        <div
-         className="d-flex flex-column container-fluid"
-         id="content-wrapper"
-         style={{ padding: "0px" }}></div>
-        <Header /> */}
+
+    <Navbar/>
+    <Header /> 
+
     <div className="container-fluid">
      <div className="d-sm-flex justify-content-between align-items-center mb-4">
       <h3 className="text-dark mb-0">Dashboard</h3>
