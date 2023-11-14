@@ -141,12 +141,14 @@ const Header = () => {
         </ListItemIcon>
         Log in to another account
        </MenuItem>
-       <MenuItem onClick={handleClose}>
-        <ListItemIcon>
-         <Settings fontSize="small" />
-        </ListItemIcon>
-        My profile
-       </MenuItem>
+       <a href="/Profile_Page">
+        <MenuItem onClick={handleClose}>
+         <ListItemIcon>
+          <Settings fontSize="small" />
+         </ListItemIcon>
+         My profile
+        </MenuItem>
+       </a>
        <a href="/LogIn_Page">
         <MenuItem href="/LogIn">
          <ListItemIcon href="/LogIn">
