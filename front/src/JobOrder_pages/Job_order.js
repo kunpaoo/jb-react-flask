@@ -339,31 +339,17 @@ var JobOrder = () => {
           marginRight: "14px",
          }}
          href="/Create_Job_Order">
-         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1em"
-          viewBox="0 0 24 24"
-          fill="none"
-          className="fa-sm text-white-50"
-          style={{
-           background: "rgb(2,60,63)",
-           paddingRight: "12px",
-           borderRadius: "16px",
-           fontSize: "16px",
-           paddingTop: "6px",
-           marginRight: "14px",
-          }}
-          href="/Create_Job_Order">                       {/*create job order url*/}
+                               {/*create job order url*/}
           <svg
            xmlns="http://www.w3.org/2000/svg"
            width="1em"
            height="1em"
            viewBox="0 0 24 24"
-           fill="none"
+           fill=""
            className="fa-sm text-black"
            style={{
             fontSize: "30px",
+            color:"white"
            }}>
            <path
             fillRule="evenodd"
@@ -379,7 +365,7 @@ var JobOrder = () => {
            />
           </svg>
           &nbsp;Create New Job
-          </svg>
+          
          </a>
         </div>
        
