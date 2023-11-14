@@ -6,10 +6,9 @@ import MemoryIcon from "@mui/icons-material/Memory";
 import CreditCard from "@mui/icons-material/CreditCard";
 const Navbar = () => {
 
+return (
 
-
- return (
-  <nav
+ <nav
    className="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary navbar-dark"
    style={{ background: "rgb(56,57,58)" }}>
    <div className="container-fluid w-auto">
