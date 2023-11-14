@@ -141,7 +141,7 @@ const Header = () => {
         </ListItemIcon>
         Log in to another account
        </MenuItem>
-       <a href="/Profile_Page">
+       <a href="/profile">
         <MenuItem onClick={handleClose}>
          <ListItemIcon>
           <Settings fontSize="small" />
@@ -149,7 +149,7 @@ const Header = () => {
          My profile
         </MenuItem>
        </a>
-       <a href="/LogIn_Page">
+       <a href="/LogIn">
         <MenuItem href="/LogIn">
          <ListItemIcon href="/LogIn">
           <Logout fontSize="small" />
