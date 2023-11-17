@@ -15,7 +15,6 @@ def home():
 
 @app.route('/api/job/<id>', methods = ["GET","POST"])
 def viewrow(id):
-
     return load_row(id)
     
 
@@ -36,12 +35,15 @@ def addjob():
     return add_list(data)
 
 
-@app.route('/deli', methods=["POST","GET"])
-def setdeli():
+@app.route('/deli/<order>', methods=["POST","GET"])
+def setdeli(order):
     data = request.json
-    return set_deli(data)
+    return set_deli(data,order)
     
-
+@app.route('/api/deli', methods=["GET","POST"])
+def getdelis():
+    
+    return load_delis()
 
 @app.route('/api/po',methods=["GET","POST"])
 def getpos():
