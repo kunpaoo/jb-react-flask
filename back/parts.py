@@ -172,16 +172,24 @@ def getPO(id):
         
         purch_part = "purchase_part.item_name, purchase_part.brand, purchase_part.price, purchase_part.quantity"
         q=f"select * from purchase_part where po_id = {id}"
-        items_res = conn.execute(text(q)).all()
+        items_res = conn.execute(text(q)).all()       
         
-        
+        d_columns = "po_id, date_format(deli_date,'%Y-%m-%d') as deli_date,origin,destination,notes,deli_status"
+        q=f"select {d_columns} from delivery where po_id = {id}"
+        result = conn.execute(text(q))
+        delivery =  result.all()
+        deli_list = []
+        for row in delivery:
+            deli_list.append(row._asdict())
+
+
         out = {
             'vendor':vendor,
-            'items':[]
+            'items':[],
+            'delivery':deli_list
         }
+
         for item in items_res:
             out['items'].append(item._asdict())
 
-
-        
         return out

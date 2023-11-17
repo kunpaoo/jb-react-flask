@@ -16,6 +16,7 @@ var JobOrder = () => {
     fetch("/api")
     .then((res)=>res.json())
     .then((data)=>{
+      console.log(data)
       setData(data);
     })
   })
@@ -123,13 +124,13 @@ var JobOrder = () => {
       <td>
         <span
         className="badge bg-primary"
-        style={{ background: "rgb(1,139,32)" }}>
-        With warranty
+        style={{ background: "rgb(1,139,32)", fontSize: "11px" }}>
+        {row.warranty?"WITH WARRANTY":"WITHOUT WARRANTY"}
         </span>
       </td>
       <td className="text-center">
         <span className="badge bg-primary" style={{ fontSize: "11px" }}>
-        Scheduling Delivery
+        {row.status_name} 
         </span>
       </td>
       </tr>
@@ -149,14 +150,16 @@ var JobOrder = () => {
     },
     "units" : [],
     "parts" : [],
-    "delivery" : []
+    "delivery" : [],
+    "history" : []
   });
 
   
   const [modDeli,setModDeli] = useState([]);
-
+  const [modHist, setModHist] = useState([]);
+  const [part_sum,setPartSum] = useState(0);
   const modalData = (id) => {
-    fetch("/api/"+id)
+    fetch("/api/job/"+id)
       .then((res)=>res.json())
       .then((d)=>{
         console.log(d);
@@ -177,8 +180,27 @@ var JobOrder = () => {
             </>
           )
         });
-        setModDeli([list])
-      });
+        let histlist = (
+        d.history.map((hist)=>{
+          return(
+            <>
+            <tr>
+            <td>{hist.status_date}</td>
+            <td>{hist.status_name}</td>
+            <td>{hist.ref}</td>            
+            </tr>
+            </>
+          )
+        }
+        ));
+
+        let sum = 0;
+        d.parts.map((part) => {return sum = sum + part.est_price;});
+        setPartSum(sum);
+        setModDeli([list]);
+        setModHist([histlist]);
+        
+    })
   }
 
   const modDataDeli = () => {
@@ -228,7 +250,9 @@ var JobOrder = () => {
     )
   });
 
+  
   var part_list = modData.parts.map((part)=>{
+    
     return(
       <>
         <tr>
@@ -268,7 +292,7 @@ var JobOrder = () => {
     }
     let deli_dat = JSON.stringify(dat);
 
-    fetch('/deli',{
+    fetch('/deli/job',{
       method:"POST",
       headers: {
         "Content-Type": "application/json",
@@ -589,7 +613,7 @@ var JobOrder = () => {
                 <tbody>
                 <tr>
                   <td className="bg-gray-100" width={'50%'}>Parts</td>
-                  <td>Php 300</td>
+                  <td>{part_sum}</td>
                 </tr>
                 <tr>
                   <td className="bg-gray-100">Warranty Service</td>
@@ -620,16 +644,31 @@ var JobOrder = () => {
                 <div className="col">
                   <div className="card bg-outline-info text-black w-100 h-auto">
                     <div className="card-header">
-                      <b>Delivery</b>
+                      <b>Order History</b>
                     </div>
                     <div className="card-body">
                       <div className="card-text text-center">
 
                         {/* table */}
 
-                        <table className="text-start table table-striped table-bordered">
-                          <thead className="thead-light">
+                        <table className="text-start table caption-top table-striped table-bordered table-hover">
+                          <thead>
                             <tr>
+                              <th width={"15%"}>Date</th>
+                              <th>Status</th>
+                              <th>Reference</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {modHist.map((his) => his)}
+                          </tbody>
+                        </table>
+
+
+                        <table className="text-start caption-top table table-striped table-bordered">
+                          <caption>Upcoming deliveries</caption>
+                          <thead className="thead-light">
+                          <tr>
                             <th>Delivery Date</th>
                             <th>Destination</th>
                             <th>Origin</th>
@@ -637,17 +676,13 @@ var JobOrder = () => {
                           </tr>
                           </thead>
                           <tbody>
-                          {
-                          modDeli.map((deli) => deli)
-
-                
-                        }
+                          {modDeli.map((deli) => deli)}
                           </tbody>
                         </table>
 
 
 
-                        <form action="POST" className="w-75 m-auto text-start">
+                        <form method="POST" className="w-75 m-auto text-start">
                           <div className="row">
                             <div className="col">
                               Delivery Date

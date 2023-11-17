@@ -17,7 +17,7 @@ var PurchaseOrders = () => {
     })
   })
 
-  
+  const [modDeli,setModDeli] = useState([]);
   const [modData, setModData] = useState(
     {
       "vendor":{
@@ -36,6 +36,23 @@ var PurchaseOrders = () => {
     .then((d)=>{
       console.log(d)
       setModData(d);
+      let list = d.delivery.length === 0?
+        <tr>
+        <td class="text-center" colSpan={4}> No Deliveries </td>
+        </tr>:
+        d.delivery.map((deli)=>{
+          return(
+            <>
+            <tr>
+            <td>{deli.deli_date}</td>
+            <td>{deli.destination}</td>
+            <td>{deli.origin}</td>
+            <td>{deli.deli_status}</td>
+            </tr>
+            </>
+          )
+        });
+        setModDeli([list])
     })
   }
 
@@ -55,50 +72,20 @@ var PurchaseOrders = () => {
   );
 
 
-  const editModalData = (id) => {
+  const oldModalData = (id) => {
 
     fetch("/api/po/"+id)
     .then((res)=>res.json())
     .then((d)=>{
       console.log(d)
       setEditMod(d);
+      setNumItems(d.items.length);
+      setItems(d.items);
     })
 
-    setNumItems(editMod.items.length);
-    setItems(editMod.items.map((item,index) => (
-      <>
-      <div id={index+1}>
-      <div className="row mt-1">
-      <div className="col">
-        <span>Name&nbsp;</span>
-        <input defaultValue={item.item_name} name={"nitem_name"+(index+1)} type="text" className="form-control" />
-      </div>
-      <div className="col">
-        <span>Brand&nbsp;</span>
-        <input defaultValue={item.brand} name={"nbrand"+(index+1)} type="text" className="form-control" />
-      </div>
-      </div>
-      <div className="row mt-1">
-      <div className="col">
-        <span>Price&nbsp;</span>
-        <input defaultValue={item.price} name={"nprice"+(index+1)} type="number" className="form-control" />
-      </div>
-      <div className="col">
-        <span>Quantity&nbsp;</span>
-        <input defaultValue={item.quantity} name={"nquantity"+(index+1)} type="number" className="form-control" />
-        <div className="d-flex justify-content-end">
-        <button onClick={event => removeItem(event,index+1)} className="btn btn-danger btn-sm mt-2">Delete Item</button>
-        </div>
-      </div>
-      </div>
-      </div>
-      </>
 
-  )));
-
-  console.log("EDIT RESET "+items)
-    
   }
+
 
 
   var po_list;
@@ -125,7 +112,7 @@ var PurchaseOrders = () => {
         style={{ background: "rgb(23,59,62)" }}
         data-bs-target="#modal-2"
         data-bs-toggle="modal"
-        onClick={() => editModalData(row.po_id)}
+        onClick={() => oldModalData(row.po_id)}
         >
         Edit
         </button>
@@ -256,7 +243,52 @@ var PurchaseOrders = () => {
     }
 
 
+  const [deliAdded, setAdded] = useState(0);
 
+  const setDelivery = (event,id) => {
+    event.preventDefault();
+    //get data
+    var formm = new FormData(document.querySelector('#deliForm'));
+    var dat = {
+        deli_date:formm.get("deli_date"),
+        destination:formm.get("destination"),
+        origin:formm.get("origin"),
+        notes:formm.get("notes"),
+        id:id
+    }
+    let deli_dat = JSON.stringify(dat);
+
+    fetch('/deli/po',{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:deli_dat
+    })
+    .then((res)=>(res.text()))
+    .then((a)=>console.log("NEXT: ",a))
+
+    let newDeli = (<>
+    <tr>
+      <td>{dat.deli_date}</td>
+      <td>{dat.destination}</td>
+      <td>{dat.origin}</td>
+      <td>{dat.deli_status}</td>
+    </tr>
+    </>);
+    
+    deliAdded === 0 && modDeli.length === 1 ?   // if has no deliveries, replace 
+    setModDeli([newDeli])
+    :
+    setModDeli([...modDeli, newDeli]);
+    setAdded((prev) => prev+1);
+    console.log("SET : "+modDeli)
+    // navigate
+
+
+    
+
+  }
 
 
     //render
@@ -546,14 +578,52 @@ var PurchaseOrders = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                {modDeli.map((deli)=>deli)}
                 </tbody>
               </table>
+
+              <form id="deliForm" className="w-75 m-auto text-start">
+                <div className="row">
+                  <div className="col">
+                    Delivery Date
+                  </div>
+                  <div className="col">
+                    Destination
+                  </div>
+                  <div className="col">
+                    Origin
+                  </div>
+                </div>
+                <div className="row mb-3 mt-1">
+                  <div className="col">
+                
+                  <input className="p-1 w-100" type="date" name="deli_date" id="deli_date"/>
+                  </div>
+                  <div className="col">
+                
+                  <input className="p-1 w-100" type="text" name="destination" id="destination" />
+                  </div>
+                  <div className="col">
+                  <input className="p-1 w-100" type="text" name="origin" id="origin" />
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col">
+                    Notes <br/>
+                  <textarea name="notes" id="notes" rows="5" className="w-100 mt-1 p-2"></textarea>
+                  </div>
+                </div>
+                <div className="row mt-2">
+                  <div className="col text-center">
+                  <button className="btn btn-secondary btn-md" onClick={(event) => setDelivery(event,modData.vendor.po_id)}>Set Delivery</button>
+          
+                  </div>
+                </div>
+                
+                
+              </form>
+
               </div>
               </div>
               </div>
@@ -592,30 +662,61 @@ var PurchaseOrders = () => {
               <div className="row mt-1">
               <div className="col">
                 Name 
-                <input name="nvendor_name" type="text" className="form-control" defaultValue={modData.vendor.vendor} />
+                <input name="nvendor_name" type="text" className="form-control" defaultValue={editMod.vendor.vendor} />
               </div>
               </div>
               <div className="row mt-1">
               <div className="col">
                 Address&nbsp;
-                <input name="nvendor_add" type="text" className="form-control" defaultValue={modData.vendor.vendor_add}/>
+                <input name="nvendor_add" type="text" className="form-control" defaultValue={editMod.vendor.vendor_add}/>
               </div>
               </div>
               <div className="row mt-1">
               <div className="col">
                 Phone&nbsp;
-                <input name="nvendor_phone" type="text" className="form-control" defaultValue={modData.vendor.vendor_phone}/>
+                <input name="nvendor_phone" type="text" className="form-control" defaultValue={editMod.vendor.vendor_phone}/>
               </div>
               <div className="col">
                 Email&nbsp;
-                <input name="nvendor_email" type="text" className="form-control" defaultValue={modData.vendor.vendor_email}/>
+                <input name="nvendor_email" type="text" className="form-control" defaultValue={editMod.vendor.vendor_email}/>
               </div>
               </div>
             </div>
                  
             <div className="p-3" >
             <strong className="fs-5">Items</strong>
-              {items.map((item)=>item)}
+              {
+                editMod.items.map((i,index) => (
+                  <>
+                  <div id={index+1}>
+                  <div className="row mt-1">
+                  <div className="col">
+                    <span>Name&nbsp;</span>
+                    <input value={i.item_name} name={"nitem_name"+(index+1)} type="text" className="form-control" />
+                  </div>
+                  <div className="col">
+                    <span>Brand&nbsp;</span>
+                    <input value={i.brand} name={"nbrand"+(index+1)} type="text" className="form-control" />
+                  </div>
+                  </div>
+                  <div className="row mt-1">
+                  <div className="col">
+                    <span>Price&nbsp;</span>
+                    <input value={i.price} name={"nprice"+(index+1)} type="number" className="form-control" />
+                  </div>
+                  <div className="col">
+                    <span>Quantity&nbsp;</span>
+                    <input value={i.quantity} name={"nquantity"+(index+1)} type="number" className="form-control" />
+                    <div className="d-flex justify-content-end">
+                    <button onClick={event => removeItem(event,index+1)} className="btn btn-danger btn-sm mt-2">Delete Item</button>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                  </>
+      
+              )) 
+              }
               
               <button type="button" onClick={(event) => addItem(event,true)} className="btn btn-sm btn-secondary mt-3" >Add Item</button>
               </div>
@@ -706,7 +807,7 @@ var PurchaseOrders = () => {
               </div>
               </div>
 
-              {items.map((item)=>item)}
+              {/* {items.map((item)=>item)} */}
               <button type="button" onClick={event=>addItem(event,false)} className="btn btn-sm btn-secondary mt-3" >Add Item</button>
 
             </div>

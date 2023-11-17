@@ -19,7 +19,7 @@ var [rowData,setRowData] = useState({
     "parts" : []
   });
 useEffect(()=>{
-    fetch("/api/"+id)
+    fetch("/api/job/"+id)
     .then((res)=>res.json())
     .then((d)=>{
       console.log("FROM API: ",d)
@@ -28,7 +28,7 @@ useEffect(()=>{
       setNumParts(d.parts.length)
       
     })
-}, []);
+},[]);
     
 
     
@@ -599,7 +599,7 @@ const displayData = (e) => {
                   name="cust_name"
                   placeholder="Search..."
                   id="cust_name" onInput={() => preview("cust_name")}
-                  defaultValue={rowData.order.cust_name}
+                  value={rowData.order.cust_name}
                  />
                  <button className="btn btn-light search-btn" type="button">
                   {" "}
