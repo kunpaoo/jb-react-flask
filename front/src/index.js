@@ -13,9 +13,10 @@ import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
 import Create_customer from './Cust_pages/Create_Customer';
 import Edit_cust from './Cust_pages/Edit_Cust';
-
+import Profile_Page from './Profile_Page';
 import PartList from './Parts/PartList';
 import PurchaseOrders from './Parts/PurchaseOrders';
+import LogIn_Page from './LogIn_Page';
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
  {
   path: "/job_order",
   element: <JobOrder />,
- }, 
+ },
  {
   path: "/Create_Job_Order",
   element: <Createjob />,
@@ -54,16 +55,16 @@ const router = createBrowserRouter([
   element: <EditJobOrder />,
  },
  {
-  path:"/deliveries",
-  element: <Deliveries/>
+  path: "/deliveries",
+  element: <Deliveries />,
  },
  {
-  path:"/parts",
-  element: <PartList/>
+  path: "/parts",
+  element: <PartList />,
  },
  {
-  path:"/parts/purchaseorders",
-  element: <PurchaseOrders/>
+  path: "/parts/purchaseorders",
+  element: <PurchaseOrders />,
  },
  {
   path: "/customer",
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
  {
   path: "/Profile_Page",
   element: <Profile_Page />,
+ },
+ {
+  path: "/Log_In",
+  element: <LogIn_Page />,
  },
 ]);
 

@@ -4,18 +4,6 @@ function App() {
   
   
 
-<<<<<<< HEAD
-  useEffect(() => {
-    fetch("/api")
-    .then((res) => res.json())
-    .then((data) => {
-      setData(data);
-    })
-  },[])
-
-=======
->>>>>>> main
-
   return (
     /* BODY CONTAINER */
     <div id="page-top" class="overflow-hidden">
@@ -29,13 +17,6 @@ function App() {
 
     <LogIn_Page/>
 
-<<<<<<< HEAD
-  
-    </div>
-    </div>
-=======
-    
->>>>>>> main
     
     {/* END MAIN CONTENT */}
     </div>
