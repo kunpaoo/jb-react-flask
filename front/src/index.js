@@ -11,12 +11,13 @@ import Createjob from './JobOrder_pages/Create_Job_order';
 import Deliveries from './JobOrder_pages/Deliveries';
 import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
-import Create_customer from './Cust_pages/Create_Customer';
-import Edit_cust from './Cust_pages/Edit_Cust';
-import Profile_Page from './Profile_Page';
+import CreateCustomer from './Cust_pages/CreateCustomer';
+import EditCustomer from './Cust_pages/EditCust';
+import ProfilePage from './ProfilePage';
 import PartList from './Parts/PartList';
 import PurchaseOrders from './Parts/PurchaseOrders';
 import LogIn_Page from './LogIn_Page';
+import DTechnician from './Dashboard/DTechnician';
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
  },
  {
   path: "/Dashboard",
-  element: <Dashboard />,
+  element: <DTechnician />,
  },
  {
   path: "/technician",
@@ -72,15 +73,15 @@ const router = createBrowserRouter([
  },
  {
   path: "/create_customer",
-  element: <Create_customer />,
+  element: <CreateCustomer />,
  },
  {
   path: "/edit_customer",
-  element: <Edit_cust />,
+  element: <EditCustomer />,
  },
  {
   path: "/Profile_Page",
-  element: <Profile_Page />,
+  element: <ProfilePage />,
  },
  {
   path: "/Log_In",

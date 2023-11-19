@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import sample_cust from "./Cust_list";
 import { Tab, Tabs } from "react-bootstrap";
 
-var Create_customer = () => {
+var CreateCustomer = () => {
     const [activeStep, setActiveStep] = useState(0);
 
     const handleTabClick = (step) => {
@@ -161,4 +161,4 @@ var Create_customer = () => {
  );
 };
 
-export default Create_customer;
+export default CreateCustomer;

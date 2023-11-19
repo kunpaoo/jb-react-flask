@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import Header from "./Header";
 import { Badge } from "react-bootstrap";
-var Profile_Page = () => {
+var ProfilePage = () => {
        function click() {
         // toggle the type attribute
         const togglePassword = document.querySelector("#togglePassword");
@@ -227,4 +227,4 @@ var Profile_Page = () => {
  );
 };
 
-export default Profile_Page;
+export default ProfilePage;

@@ -4,7 +4,7 @@ import PortraitIcon from "@mui/icons-material/Portrait";
 import WorkIcon from "@mui/icons-material/Work";
 import MemoryIcon from "@mui/icons-material/Memory";
 import CreditCard from "@mui/icons-material/CreditCard";
-const N_Technician = () => {
+const NCashier = () => {
  return (
   <nav
    className="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary navbar-dark"
@@ -31,23 +31,11 @@ const N_Technician = () => {
        <DashboardIcon fontSize="large" />
        <span className="fs-5 ps-1">Dashboard</span>
       </a>
-     </li>
+      </li>
      <li className="nav-item">
-      <a className="nav-link p-2" href="/customer">
-       <PortraitIcon fontSize="large" />
-       <span className="fs-5 ps-1">Customers</span>
-      </a>
-     </li>
-     <li className="nav-item">
-      <a className="nav-link p-2" href="/job_order">
-       <WorkIcon fontSize="large" />
-       <span className="fs-5 ps-1">Job Order</span>
-      </a>
-     </li>
-     <li className="nav-item">
-      <a className="nav-link p-2" href="/parts_list">
-       <MemoryIcon fontSize="large" />
-       <span className="fs-5 ps-1">Items/Parts</span>
+      <a className="nav-link p-2" href="/Bill_Payment">
+       <CreditCard fontSize="large" />
+       <span className="fs-5 ps-1">Bills/Payments</span>
       </a>
      </li>
     </ul>
@@ -56,4 +44,4 @@ const N_Technician = () => {
  );
 };
 
-export default N_Technician;
+export default NCashier;

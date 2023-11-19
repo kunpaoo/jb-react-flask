@@ -4,7 +4,7 @@ import PortraitIcon from "@mui/icons-material/Portrait";
 import WorkIcon from "@mui/icons-material/Work";
 import MemoryIcon from "@mui/icons-material/Memory";
 import CreditCard from "@mui/icons-material/CreditCard";
-const N_PurchasingOfficer = () => {
+const NTechnician = () => {
  return (
   <nav
    className="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary navbar-dark"
@@ -33,6 +33,18 @@ const N_PurchasingOfficer = () => {
       </a>
      </li>
      <li className="nav-item">
+      <a className="nav-link p-2" href="/customer">
+       <PortraitIcon fontSize="large" />
+       <span className="fs-5 ps-1">Customers</span>
+      </a>
+     </li>
+     <li className="nav-item">
+      <a className="nav-link p-2" href="/job_order">
+       <WorkIcon fontSize="large" />
+       <span className="fs-5 ps-1">Job Order</span>
+      </a>
+     </li>
+     <li className="nav-item">
       <a className="nav-link p-2" href="/parts_list">
        <MemoryIcon fontSize="large" />
        <span className="fs-5 ps-1">Items/Parts</span>
@@ -44,4 +56,4 @@ const N_PurchasingOfficer = () => {
  );
 };
 
-export default N_PurchasingOfficer;
+export default NTechnician;
