@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tab, Tabs } from "react-bootstrap";
 
-var Create_tech = () => {
+var CreateTech = () => {
  const [activeStep, setActiveStep] = useState(0);
 
  const handleTabClick = (step) => {
@@ -142,4 +142,4 @@ var Create_tech = () => {
  );
 };
 
-export default Create_tech;
+export default CreateTech;

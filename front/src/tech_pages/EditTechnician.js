@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tab, Tabs } from "react-bootstrap";
 
-var Edit_technician = () => {
+var EditTechnician = () => {
  const [activeStep, setActiveStep] = useState(0);
 
  const handleTabClick = (step) => {
@@ -142,4 +142,4 @@ var Edit_technician = () => {
  );
 };
 
-export default Edit_technician;
+export default EditTechnician;

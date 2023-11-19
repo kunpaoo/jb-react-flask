@@ -1,8 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 
-const LogIn_Page = () => {
-
+const LoginPage = () => {
  return (
   <>
    <div className="container mw-100 align-self-center align-self-center">
@@ -148,4 +147,4 @@ const LogIn_Page = () => {
  );
 };
 
-export default LogIn_Page;
+export default LoginPage;

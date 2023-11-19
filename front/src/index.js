@@ -4,8 +4,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Dashboard from './Dashboard/Dashboard';
 import Technician from './tech_pages/Technician';
-import Edit_tech from './tech_pages/Edit_technician';
-import Create_tech from './tech_pages/Create_tech';
+import CreateTech from './tech_pages/CreateTech';
+import EditTechnician from './tech_pages/EditTechnician';
 import JobOrder from './JobOrder_pages/Job_order';
 import Createjob from './JobOrder_pages/Create_Job_order';
 import Deliveries from './JobOrder_pages/Deliveries';
@@ -16,9 +16,8 @@ import EditCustomer from './Cust_pages/EditCust';
 import ProfilePage from './ProfilePage';
 import PartList from './Parts/PartList';
 import PurchaseOrders from './Parts/PurchaseOrders';
-import LogIn_Page from './LogIn_Page';
 import DTechnician from './Dashboard/DTechnician';
-
+import LoginPage from './LoginPage';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
 
@@ -37,11 +36,11 @@ const router = createBrowserRouter([
  },
  {
   path: "/Create_technician",
-  element: <Create_tech />,
+  element: <CreateTech />,
  },
  {
   path: "/Edit_technician",
-  element: <Edit_tech />,
+  element: <EditTechnician />,
  },
  {
   path: "/job_order",
@@ -85,7 +84,7 @@ const router = createBrowserRouter([
  },
  {
   path: "/Log_In",
-  element: <LogIn_Page />,
+  element: <LoginPage />,
  },
 ]);
 
