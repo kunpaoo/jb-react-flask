@@ -24,7 +24,6 @@ const Navbar = () => {
         height={120}
        />
       </div>
-
      </div>
     </div>
 
@@ -54,13 +53,13 @@ const Navbar = () => {
       </a>
      </li>
      <li className="nav-item">
-      <a className="nav-link p-2" href="/parts_list">
+      <a className="nav-link p-2" href="/parts">
        <MemoryIcon fontSize="large" />
        <span className="fs-5 ps-1">Items/Parts</span>
       </a>
      </li>
      <li className="nav-item">
-      <a className="nav-link p-2" href="/Bill_Payment">
+      <a className="nav-link p-2" href="/BillPayment">
        <CreditCard fontSize="large" />
        <span className="fs-5 ps-1">Bills/Payments</span>
       </a>

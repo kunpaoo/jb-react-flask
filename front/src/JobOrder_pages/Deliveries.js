@@ -7,7 +7,7 @@ import Header from "../Header";
 import Navbar from "../Navbar";
 
 Modal.setAppElement("#root"); 
-
+////Simple Modal
 class Deliveries extends React.Component {
  constructor(props) {
   super(props);
@@ -56,8 +56,7 @@ class Deliveries extends React.Component {
           <Modal
            isOpen={this.state.modalIsOpen}
            onRequestClose={this.closeModal}
-           contentLabel="Event Information"
-           className="modal-lg m-2 modal-dialog-centered">
+           contentLabel="Event Information">
            <div className="modal-content">
             <div className="modal-header">
              <h5 className="modal-title">{this.state.eventInfo.title}</h5>

@@ -2,7 +2,7 @@ import Footer from "../Footer";
 import Header from "../Header";
 import Navbar from "../Navbar";
 
-var Bill_Payment = () => {
+var BillPayment = () => {
  function print_body() {
   document.getElementById("btnPrint").onclick = function () {
    printElement(document.getElementById("print_body"));
@@ -87,7 +87,7 @@ var Bill_Payment = () => {
              marginRight: "-2px",
              marginLeft: "12px",
             }}
-            href="/List_of_Pricings">
+            href="/ListofPricings">
             List of Pricings
            </a>
           </div>
@@ -1068,4 +1068,4 @@ var Bill_Payment = () => {
  );
 };
 
-export default Bill_Payment;
+export default BillPayment;
