@@ -65,6 +65,14 @@ def editpo(id):
     updatePO()
     return "UPDATED PO"
 
+@app.route('/api/parts', methods=["GET","POST"])
+def getparts():
+    return loadParts()
+
+@app.route('/update/parts', methods=["GET","POST"])
+def stockOut():
+    data = request.json
+    return updateQuantity(data)
 
 
 

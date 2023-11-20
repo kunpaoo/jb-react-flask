@@ -151,7 +151,8 @@ var JobOrder = () => {
     "units" : [],
     "parts" : [],
     "delivery" : [],
-    "history" : []
+    "history" : [],
+    "charges" :[]
   });
 
   
@@ -225,7 +226,16 @@ var JobOrder = () => {
   }
 
   
-
+  var charge_list = modData.charges.map((charge)=>{
+     return isNaN(charge.fee_name)?
+      <>
+      <tr>
+        <td className="bg-gray-100 text-capitalize">{charge.fee_name}</td>
+        <td className="text-end">Php {charge.amount}</td>
+      </tr>
+      </>
+    :""
+  });
 
   var unit_list;
   unit_list = modData.units.map((unit)=>{
@@ -250,19 +260,43 @@ var JobOrder = () => {
     )
   });
 
-  
-  var part_list = modData.parts.map((part)=>{
-    
+  var part_list = modData.parts.map((part,i)=>{
+
     return(
       <>
         <tr>
         <td>{part.item_name}</td>
         <td>{part.brand}</td>
-        <td>{part.est_price}</td>
+        <td>{part.availability !== false? part.est_price:<><i>{part.est_price}</i></>}</td>
+      <td style={{fontSize:"0.7em"}}>
+        <select disabled={part.availability === false} defaultValue={part.withdrawn?true:false} onChange={(event)=>updateQuantity(part.op_id,part.item_id,i)} style={{fontSize:"1.2em"}} name="withdrawn" id={"withdrawn"+(i+1)}>
+          <option value="true">Part Withdrawn</option>
+          <option value="false">Part not received</option>
+        </select><br/>
+        {part.withdrawn? "" : (part.availability !== false? part.availability.quantity +" pieces available " : "Out of stock")}
+        </td>
         </tr>
       </>
     )
   })
+
+  var updateQuantity = (op_id,item_id,i) => {
+    let withdraw = document.getElementById("withdrawn"+(i+1)).value;
+    var dat = {
+      op_id:op_id,
+      item_id:item_id,
+      wdraw: withdraw
+    }
+    fetch('/update/parts',{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    body:JSON.stringify(dat)
+    })
+    .then((res)=>res.text())
+    .then((a)=>console.log(a))
+  }
 
 
   const deleteOrder = (event,id) => {
@@ -607,9 +641,10 @@ var JobOrder = () => {
               <table className="table text-start table-bordered w-100">
               <thead className="table-gray-100">
                 <tr>
-                  <th width={'33%'}>Item</th>
+                  <th width={'25%'}>Item</th>
                   <th>Brand</th>
-                  <th width={'33%'}>Estimated Price</th>
+                  <th width={'20%'}>Price</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -627,27 +662,21 @@ var JobOrder = () => {
                 <tbody>
                 <tr>
                   <td className="bg-gray-100" width={'50%'}>Parts</td>
-                  <td>{part_sum}</td>
+                  <td className="text-end">Php {part_sum}</td>
                 </tr>
-                <tr>
-                  <td className="bg-gray-100">Warranty Service</td>
-                  <td>Php 200</td>
-                </tr>
-                <tr>
-                  <td className="bg-gray-100">Labor</td>
-                  <td>Php 200</td>
-                </tr>
+                {charge_list}
               </tbody>
               </table>
+
               <table className="table table-bordered mt-2">
                 <tbody>
                 <tr>
                   <td width={'50%'} className="fw-bold bg-gray-100">Total</td>
-                  <td>Php 700</td>
+                  <td className="text-end">Php 700</td>
                 </tr>
                 <tr>
                   <td className="bg-gray-100">Downpayment</td>
-                  <td>Php 200</td>
+                  <td className="text-end">Php 200</td>
                 </tr>
                 </tbody>
               </table>              

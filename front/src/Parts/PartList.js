@@ -1,10 +1,51 @@
 import Navbar from "../Navbar";
 import Header from "../Header";
+import React, {useEffect, useState} from 'react';
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 
 var PartList = () => {
+
+  const navigate = useNavigate();
+
+  const [data,setData] = useState();
+
+  useEffect(()=>{
+    fetch("/api/parts")
+    .then((res)=>res.json())
+    .then((data)=>{
+      console.log(data)
+      setData(data);
+    })
+  })
+  
+  var parts_list;
+  data === (null || undefined)? parts_list = "loading":
+  parts_list = data.map((part)=>{
+    return(
+        <>
+        <tr>
+            <td className="text-center">{part.item_id}</td>
+            <td>
+            <a
+            className="text-decoration-none text-reset"
+            href="/"
+            data-bs-target="#modal-2"
+            data-bs-toggle="modal">
+            {part.item_name}
+            </a>
+            </td>
+            <td>{part.brand}</td>
+            <td>{part.quantity}</td>
+            <td>{part.price}</td>
+        </tr>
+        </>
+    )
+})
+
+
  return (
   <div id="page-top" class="overflow-hidden">
    <div id="wrapper">
@@ -132,34 +173,18 @@ var PartList = () => {
           id="dataTable-2"
           role="grid"
           aria-describedby="dataTable_info">
-          <table className="table my-0" id="dataTable">
+          <table className="table table-bordered table-hover" id="dataTable">
            <thead>
             <tr>
-             <th>Date Requested</th>
-             <th>Name of Product</th>
-             <th className="text-center">Brand</th>
-             <th className="text-center">Unit</th>
-             <th className="text-center">Price</th>
-             <th className="text-center">Quantity</th>
+             <th  className="text-center">ID</th>
+             <th>Name</th>
+             <th>Brand</th>
+             <th>Price</th>
+             <th>Quantity</th>
             </tr>
            </thead>
            <tbody>
-            <tr>
-             <td>09/12/2003</td>
-             <td>
-              <a
-               className="w-auto"
-               href="/"
-               data-bs-target="#modal-2"
-               data-bs-toggle="modal">
-               Acer Battery
-              </a>
-             </td>
-             <td className="text-center">Acer</td>
-             <td className="text-center">uv-uehhd-dja</td>
-             <td className="text-center">$1,293</td>
-             <td className="text-center">2/20</td>
-            </tr>
+            {parts_list}
            </tbody>
            <tfoot>
             <tr />

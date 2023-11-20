@@ -144,6 +144,7 @@ const preview = (key,radio) => {
       id=""
       class="btn btn-primary btn-danger"
       role="button"
+      href="/"
       onClick={RemovePartsInput}>
       <i class="fa fa-trash" aria-hidden="true"></i>
      </a>
@@ -178,31 +179,31 @@ const preview = (key,radio) => {
     var u = [dat];
 
     for(var x = 1; x<=numunits; x++){
-        u.push({
-            "unit_name":dat["unit_name"+x],
-            "brand":dat["brand"+x],
-            "desc":dat["desc"+x],
-            "returning":dat["returning"+x],
-            "warranty":dat["warranty"+x]
-        })
+        // u.push({
+        //     "unit_name":dat["unit_name"+x],
+        //     "brand":dat["brand"+x],
+        //     "desc":dat["desc"+x],
+        //     "returning":dat["returning"+x],
+        //     "warranty":dat["warranty"+x]
+        // })
         // console.log(numunits);
-        // dat["unit_name"+x] = formm.get("unit_name"+x);
-        // dat["brand"+x] = formm.get("brand"+x);
-        // dat["desc"+x] = formm.get("desc"+x);
-        // dat["returning"+x] = formm.get("returning"+x);
-        // dat["warranty"+x] = formm.get("warranty"+x);
+        dat["unit_name"+x] = formm.get("unit_name"+x);
+        dat["brand"+x] = formm.get("brand"+x);
+        dat["desc"+x] = formm.get("desc"+x);
+        dat["returning"+x] = formm.get("returning"+x);
+        dat["warranty"+x] = formm.get("warranty"+x);
     }
 
     for(x = 1; x<=numparts; x++){
         // console.log(numparts);
-        // dat["item_name"+x] = formm.get("item_name"+x);
-        // dat["item_brand"+x] = formm.get("item_brand"+x);
-        // dat["est_price"+x] = formm.get("est_price"+x);
-        u.push({
-            "item_name":dat["item_name"+x],
-            "item_brand":dat["item_brand"+x],
-            "est_price":dat["est_price"+x]
-        })
+        dat["item_name"+x] = formm.get("item_name"+x);
+        dat["item_brand"+x] = formm.get("item_brand"+x);
+        dat["est_price"+x] = formm.get("est_price"+x);
+        // u.push({
+        //     "item_name":dat["item_name"+x],
+        //     "item_brand":dat["item_brand"+x],
+        //     "est_price":dat["est_price"+x]
+        // })
     }
 
 
@@ -231,7 +232,7 @@ const preview = (key,radio) => {
     .then((a)=>console.log("NEXT: ",a));
     // console.log(formData);
     // console.log(JSON.stringify(dat));
-     navigate('/job_order');
+    //  navigate('/job_order');
 
 
   }
@@ -340,6 +341,8 @@ const displayData = (e) => {
   }
   console.log(dat["item_name"]);
 
+
+
   document.getElementById("prev").innerHTML = `
         <div className="row">
             <div className="col">
@@ -377,11 +380,13 @@ const displayData = (e) => {
        </div>
       </div>
       <div className="row py-4 p-3">
+      <form method="POST" id="addOrder">
        <Tabs
         activeKey={activeStep}
         onSelect={handleTabClick}
         id="step-tabs"
         className="bg-dark nav nav-fill rounded-1 p-0">
+        
         <Tab
          eventKey={0}
          title="Job Details"
@@ -389,9 +394,6 @@ const displayData = (e) => {
          {/* Step 1 Form */}
 
         
-
-
-         <form method="POST" onSubmit={handleSubmit} id="addOrder">
           <h3 className="multisteps-form__title text-start">Job Details</h3>
           <div id="input-grp-double" className="form-row mt-2">
            <div className="row">
@@ -579,26 +581,26 @@ const displayData = (e) => {
                
                <div className="row row-auto">
                 <div className="row mt-4">
-                 <h5>Parts needed for the job:</h5>
+                 <h5>Required parts:</h5>
                 </div>
                 <div className="col">
                  <span>Name of Part:&nbsp;</span>
-                 <input name="item_name" className="form-control" type="text" />
+                 <input name="item_name1" className="form-control" type="text" />
                 </div>
                 <div className="col">
                  <span>Brand:&nbsp;</span>
-                 <input name="item_brand" className="form-control" type="text" />
+                 <input name="item_brand1" className="form-control" type="text" />
                 </div>
 
                 <div className="col">
                  <span>Estimated Price:&nbsp;</span>
-                 <input name="est_price" className="form-control" type="text" />
+                 <input name="est_price1" className="form-control" type="text" />
                 </div>
                 
             <div className="col col-auto">
              <a
               className="btn btn-primary rounded-circle mt-4"
-              href="#"
+              href="/"
               role="button"
               onClick={AddInput}>
               <i className="fa fa-plus-circle" />
@@ -618,14 +620,12 @@ const displayData = (e) => {
             type="date"
            />
           </div>
-          {/* Add your form fields here */}
-         </form>
+         
         </Tab>
         <Tab
          eventKey={1}
          title="Assign Employee"
          className="w-100 bg-body-secondary p-4">
-         <form>
           <div>
            <h4 className="text-start">Assign Employee</h4>
            <div className="selectgroup selectgroup-pills">
@@ -766,13 +766,11 @@ const displayData = (e) => {
             </div>
            </div>
           </div>
-         </form>
         </Tab>
         <Tab
          eventKey={2}
          title="Breakdown of Fees"
          className="w-100 bg-body-secondary p-4">
-         <form>
           <div className>
            <h4 className="text-start">Breakdown of Fees</h4>
            <div className="row">
@@ -887,20 +885,19 @@ const displayData = (e) => {
             <textarea name id cols={30} rows={3} defaultValue={""} />
            </div>
           </div>
-         </form>
         </Tab>
         <Tab
          eventKey={3}
          title="Preview & Save"
          className="w-100 bg-body-secondary p-4">
-         <form>
           <h4 className="text-start">Preview &amp; Save</h4>
           <div id="prev" className>
            {displayData}
           </div>
-         </form>
         </Tab>
+        
        </Tabs>
+       </form>
        {/* Previous and Next Buttons */}
        <div>
         {activeStep > 0 && (
@@ -918,9 +915,10 @@ const displayData = (e) => {
          </button>
         )}
         {activeStep >= 3 && (
-         <button className="btn btn-success mt-3 float-end">Submit</button>
+         <button onClick={handleSubmit} className="btn btn-success mt-3 float-end">Submit</button>
         )}
        </div>
+
       </div>
      </div>
     </div>
