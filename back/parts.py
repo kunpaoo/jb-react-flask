@@ -4,84 +4,152 @@ from datetime import date
 engine = create_engine("mysql+pymysql://online:Incorrect0-@localhost/jbm")
 
 
-class Part:
-    def __init__(self,name,quantity=0,receipt=None):
-        self.name = name
-        self.quantity = quantity
-        self.receipt = receipt
 
-    def getID(self):
-        with engine.connect() as conn:
-            q = f"select item_id from part where item_name = '{self.name}'"
-            res = conn.execute(text(q)).all()
-            if len(res) != 0:
-                return res[0]
-            return res
 
-    def addPart(self):
-        with engine.connect() as conn:
-            if self.receipt is None:      # adding a part to be purchased that has no past data in inventory
-                q = f"insert into part(item_name,quantity) values ('{self.name}',{self.quantity});"
-                conn.execute(text(q))
-                conn.commit()             
 
-            else:                         # adding a part after receiving from delivery
-                q = f"insert into part(quantity,vendor,vendor_phone,)"
+
+    # class Part:
+    #     def __init__(self,name,quantity=0,receipt=None):
+    #         self.name = name
+    #         self.quantity = quantity
+    #         self.receipt = receipt
+
+    #     def getID(self):
+            
+    #             q = f"select item_id from part where item_name = '{self.name}'"
+    #             res = conn.execute(text(q)).all()
+    #             if len(res) != 0:
+    #                 return res[0]
+    #             return res
+
+    #     def addPart(self):
+    #         with engine.connect() as conn:
+    #             if self.receipt is None:      # adding a part to be purchased that has no past data in inventory
+    #                 q = f"insert into part(item_name,quantity) values ('{self.name}',{self.quantity});"
+    #                 conn.execute(text(q))
+    #                 conn.commit()             
+
+    #             else:                         # adding a part after receiving from delivery
+    #                 q = f"insert into part(quantity,vendor,vendor_phone,)"
+                    
                 
+
+def loadParts():
+    with engine.connect() as conn:
+        q = "select * from part;"
+        res = conn.execute(text(q)).all()
+        parts_list = []
+        for row in res:
+            parts_list.append(row._asdict())
+        return parts_list
+        
+
+def isPartAvailable(name,brand):
+    with engine.connect() as conn:
+        q=f"select item_id, po_id, quantity,price from part where item_name='{name}' and brand = '{brand}'"
+        res = conn.execute(text(q)).all()
+
+        q=f"select item_id,est_price,op_id from order_part where item_name = '{name}' and brand = '{brand}'"
+        i = conn.execute(text(q)).all()
+        if len(i) == 0:
+            item_id = res[0]._asdict()['item_id']
+            q=f"insert into order_part(item_id) values {item_id}"
+            conn.execute(text(q))
+            conn.commit()
+
+        
+
+        
+        if len(res) != 0 and res[0]._asdict()['quantity']!=0:
+            fin_price = res[0]._asdict()['price']
+            est_price = i[0]._asdict()['est_price']
+            resdict = res[0]._asdict()
+            resdict['updated_price'] = "NOT UPDATED"
+            # update pricings to final price
+            if fin_price != est_price:
+                q=f"update order_part set est_price = {fin_price} where op_id = {i[0]._asdict()['op_id']}"
+                conn.execute(text(q))
+                conn.commit()
+                resdict['updated_price'] = "PRICE UPDATED"
+
+            return resdict
+        else:
+            return False
+
+def updateQuantity(data):
+    with engine.connect() as conn:
+        q=f"select quantity from part where item_id = {data['item_id']}"
+        initial_q = conn.execute(text(q)).all()[0][0]
+        q=f"select withdrawn from order_part where op_id = {data['op_id']}"
+        initial_w = conn.execute(text(q)).all()[0][0]
+
+
+        if (data['wdraw'] and not initial_w):
+            new_q = -1
+        elif(data['wdraw'] and initial_w):
+            new_q = 1
             
+
+        q=f"update part set quantity = {initial_q+new_q} where item_id = {data['item_id']}"
+        conn.execute(text(q))
+        conn.commit()
+        q=f"update order_part set withdrawn = {data['wdraw']} where op_id = {data['op_id']}"
+        conn.execute(text(q))
+        conn.commit()
+        return f"UPDATE QUANTITY: INITIAL WITHDRAW ({initial_w}) NEW WITHDRAW ({data['wdraw']}) QUANTITY ({initial_q+new_q} ADDED ({new_q}))"
+
+
+
+# # if item to be purchased has history in inventory, use same id
+# # otherwise, id = none ?
+
+
+# # def searchPart(name):   # search part to reuse id, if part has no history in inventory -> new id
+#     #     with engine.connect() as conn:
+#     #         q=f"select item_name from part where item_name like '%{name}%'"
+#     #         res = conn.execute(text(q)).all()
+#     #         out = []
+
+#     #         for row in res:
+#     #             out.append(row._asdict())
+        
+#     #     return out
+            
+
+            
+# class Vendor:
+#     def __init__(self,name,phone,email,address):
+#         self.name = name
+#         self.email = email
+#         self.phone = phone
+#         self.address = address
+
+# # class PurchaseOrder:
+# #     def __init__(self,vendor,items,id=None):
+# #         self.vendor = Vendor(vendor['name'],vendor['phone'],vendor['email'],vendor['address'])
+        
+# #         self.parts = []
+# #         for item in items:
+# #             part = Part(item["item_name"],item["brand"],item["price"],item["quantity"])
+# #             part_id = part.getID()
+# #             if len(part_id) == 0:  # if no history, add
+# #                 part.addPart()
+# #             part_id = part.getID()[0]
+# #             self.parts.append({
+# #                 'part':part,
+# #                 'id':part_id
+# #             })
+
+# #         self.completed = False
+# #         self.id = id
+
     
 
-
-# if item to be purchased has history in inventory, use same id
-# otherwise, id = none ?
-
-
- # def searchPart(name):   # search part to reuse id, if part has no history in inventory -> new id
-    #     with engine.connect() as conn:
-    #         q=f"select item_name from part where item_name like '%{name}%'"
-    #         res = conn.execute(text(q)).all()
-    #         out = []
-
-    #         for row in res:
-    #             out.append(row._asdict())
-        
-    #     return out
-            
-
-            
-class Vendor:
-    def __init__(self,name,phone,email,address):
-        self.name = name
-        self.email = email
-        self.phone = phone
-        self.address = address
-
-# class PurchaseOrder:
-#     def __init__(self,vendor,items,id=None):
-#         self.vendor = Vendor(vendor['name'],vendor['phone'],vendor['email'],vendor['address'])
-        
-#         self.parts = []
-#         for item in items:
-#             part = Part(item["item_name"],item["brand"],item["price"],item["quantity"])
-#             part_id = part.getID()
-#             if len(part_id) == 0:  # if no history, add
-#                 part.addPart()
-#             part_id = part.getID()[0]
-#             self.parts.append({
-#                 'part':part,
-#                 'id':part_id
-#             })
-
-#         self.completed = False
-#         self.id = id
-
-    
-
-#     def updatePO(self):
-#         with engine.connect() as conn:
-#             q = f"update purchase_ord set item_id = {self.part_id}, quantity = {self.quantity} where po_id = {self.id}"
-#             conn.execute(text(q))
-#             conn.commit()
+# #     def updatePO(self):
+# #         with engine.connect() as conn:
+# #             q = f"update purchase_ord set item_id = {self.part_id}, quantity = {self.quantity} where po_id = {self.id}"
+# #             conn.execute(text(q))
+# #             conn.commit()
 
     
 

@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine,text
 from datetime import date
+from parts import *
 
 today = date.today()
 
@@ -55,14 +56,16 @@ def load_row(id):
             if x['warranty'] is True: warr = True
             unit_list.append(row._asdict())
 
-        part_columns = "order_id, item_name, brand, est_price"
+        part_columns = "op_id,order_id, item_id,item_name, brand, est_price, withdrawn"
         q = f"select {part_columns} from order_part where order_id = {id}"
         result = conn.execute(text(q))
         pres = result.all()
         part_list = []
 
         for row in pres:
-            part_list.append(row._asdict())
+            rowdict = row._asdict()
+            rowdict['availability'] = isPartAvailable(rowdict['item_name'],rowdict['brand'])  # returns quantity if available
+            part_list.append(rowdict)
 
 
         d_columns = "order_id, date_format(deli_date,'%Y-%m-%d') as deli_date,origin,destination,notes,deli_status"
@@ -82,13 +85,21 @@ def load_row(id):
         for row in result:
             history.append(row._asdict())
 
+        q=f"select * from charges where order_id ={id}"
+        res_c = conn.execute(text(q)).all()
+        charges = []
+        
+        for row in res_c:
+            charges.append(row._asdict())
+
         out = {
             "order": order,
             "warranty":warr,
             "units": unit_list,
             "parts": part_list,
             "delivery": deli_list,
-            "history":history
+            "history":history,
+            "charges":charges
         }
 
         return out
@@ -110,12 +121,21 @@ def add_list(data):
         
 
 
+
         
         order_id = conn.execute(text("select max(order_id) from job_order;")).all()[0][0]
         
 
+        # charges
+        charges = {
+            'labor':200,
+            'diagnostic':300
+        }
+        q1=f"insert into charges(fee_name,amount,order_id) values ('diagnostic',200,{order_id});"
+        q2=f"insert into charges(fee_name,amount,order_id) "
+
         # unit itemize
-        for unit in range(1,data['units']+1):
+        for unit in range(1,data['numunits']+1):
             if data[f"warranty{unit}"] == "yes" : warranty = True
             else : warranty = False
 
@@ -130,14 +150,27 @@ def add_list(data):
         # part itemize
         if data["item_name1"] is not None:
             for part in range(1,data['num_of_parts']+1):
-                unit_columns = "order_id, item_name, brand, est_price"
-                u = f"insert into order_part({unit_columns}) values('{order_id}','{data[f'item_name{part}']}','{data[f'item_brand{part}']}','{data[f'est_price{part}']}')"
-                unit_add = conn.execute(text(u))
+                part_columns = "order_id, item_name, brand, est_price"
+                u = f"insert into order_part({part_columns}) values('{order_id}','{data[f'item_name{part}']}','{data[f'item_brand{part}']}','{data[f'est_price{part}']}')"
+                part_add = conn.execute(text(u))
                 conn.commit()  
-        
-                  
 
-        return "DATA INSERTED WITH UNIT AND PARTS" 
+                op_id = conn.execute(text(f'select max(op_id) from order_part')).all()[0][0]
+                charges[op_id] = data[f'est_price{part}']
+        
+        
+        # insert charges
+
+        inserted_charge =[]
+        for c in charges:
+
+            q = f"insert into charges(fee_name,amount,order_id) values ('{c}',{charges[c]},{order_id})"
+            conn.execute(text(q))
+            conn.commit()
+            inserted_charge.append(c)
+
+
+        return f"DATA INSERTED WITH UNIT AND PARTS AND INSERTED CHARGES ({inserted_charge})" 
 
 
 
@@ -277,7 +310,7 @@ def update_list(data,id):
             parts_adds="PART ADDED"
             for part in range(num_parts+1,data["num_of_parts"]+1):
                 unit_columns = "order_id,item_name,brand,est_price"
-                u = f"insert into order_part({unit_columns}) values({id},'{data[f'item_name{part}']}','{data[f'brand{part}']}','{data[f'est_price{part}']}');"
+                u = f"insert into order_part({unit_columns}) values({id},'{data[f'item_name{part}']}','{data[f'item_brand{part}']}','{data[f'est_price{part}']}');"
                 unit_add = conn.execute(text(u))
                 conn.commit()
 
