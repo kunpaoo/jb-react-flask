@@ -1,13 +1,15 @@
-from sqlalchemy import create_engine,text
-from datetime import date
+from sqlalchemy import text
+from datetime import datetime
 from parts import *
+from engine import engine
+# from manage import statcheckAll
 
-today = date.today()
+date_today = datetime.today().strftime('%Y-%m-%d')
 
-engine = create_engine("mysql+pymysql://online:Incorrect0-@localhost/jbm")
 
 def load_list():
     with engine.connect() as conn:
+
         stat = "(select max(status_id) from order_status where order_status.order_id = job_order.order_id)"
         warranty = "unit_item on unit_item.unit_id = (IF((select unit_id from unit_item where unit_item.order_id = job_order.order_id and warranty = 1 limit 1) is null,(select unit_id from unit_item where unit_item.order_id = job_order.order_id and warranty = 0 limit 1),(select unit_id from unit_item where unit_item.order_id = job_order.order_id and warranty = 1 limit 1)))"
         columns = "job_order.order_id, job_order.job_name, date_format(job_order.order_date,'%Y-%m-%d') as order_date, date_format(job_order.est_completion,'%Y-%m-%d') as est_completion, technician.tech_name, technician.tech_number, technician.tech_email, customer.cust_name, customer.cust_phone, unit_item.warranty, order_status.status_id,order_status.status_name"
@@ -28,7 +30,7 @@ def load_list():
 def load_row(id):
     with engine.connect() as conn:
         
-        columns = "job_order.order_id, job_order.job_name, date_format(job_order.order_date,'%Y-%m-%d') as order_date, date_format(job_order.est_completion,'%Y-%m-%d') as est_completion, technician.tech_name, technician.tech_number, technician.tech_email, customer.cust_name, customer.cust_phone"
+        columns = "job_order.order_id, job_order.job_name, date_format(job_order.order_date,'%Y-%m-%d') as order_date, date_format(job_order.est_completion,'%Y-%m-%d') as est_completion, job_order.completed, job_order.released, job_order.balance, job_order.cost, technician.tech_name, technician.tech_number, technician.tech_email, customer.cust_name, customer.cust_phone"
 
         q = f"select * from (select {columns} from job_order join technician on technician.tech_id = job_order.tech_id join customer on job_order.cust_id = customer.cust_id order by job_order.order_id desc) as all_list where order_id = {id};"
         result = conn.execute(text(q))
@@ -131,9 +133,7 @@ def add_list(data):
             'labor':200,
             'diagnostic':300
         }
-        q1=f"insert into charges(fee_name,amount,order_id) values ('diagnostic',200,{order_id});"
-        q2=f"insert into charges(fee_name,amount,order_id) "
-
+        
         # unit itemize
         for unit in range(1,data['numunits']+1):
             if data[f"warranty{unit}"] == "yes" : warranty = True
@@ -162,13 +162,24 @@ def add_list(data):
         # insert charges
 
         inserted_charge =[]
+        sum_charge = 0
         for c in charges:
-
+            sum_charge+=int(charges[c])
             q = f"insert into charges(fee_name,amount,order_id) values ('{c}',{charges[c]},{order_id})"
             conn.execute(text(q))
             conn.commit()
             inserted_charge.append(c)
 
+        q=f"update job_order set balance = {sum_charge}, cost = {sum_charge} where order_id = {order_id}"
+        conn.execute(text(q))
+        conn.commit()
+
+
+        # set status
+
+        q=f"insert into order_status(order_id, status_name,status_date,ref) values ({order_id}, 'Awaiting Downpayment','{date_today}','ORDER ID: {order_id}')"
+        conn.execute(text(q))
+        conn.commit()
 
         return f"DATA INSERTED WITH UNIT AND PARTS AND INSERTED CHARGES ({inserted_charge})" 
 
@@ -370,13 +381,15 @@ def delete(id):
     return f"DELETED {id}"
     
 
-def set_deli(data,order):
+def set_deli(data,order,unit_id=0):
     with engine.connect() as conn:
         if order == "po":
             col_id = "po_id"
+            value= data['id']
         else:
-            col_id = "order_id"
-        q = f"insert into delivery({col_id},deli_date,destination,origin,notes) values ({data['id']},'{data['deli_date']}','{data['destination']}','{data['origin']}','{data['notes']}');"
+            col_id = "order_id, unit_id"
+            value = f"{data['id']}, {data['unit_id']}"
+        q = f"insert into delivery({col_id},deli_date,destination,origin,notes) values ({value},'{data['deli_date']}','{data['destination']}','{data['origin']}','{data['notes']}');"
         conn.execute(text(q))
         conn.commit()
 
@@ -389,6 +402,20 @@ def load_delis():
         res_list = []
 
         for row in res:
-            res_list.append(row._asdict)
+            res_list.append(row._asdict())
 
         return res_list
+
+def get_deli(id):
+    with engine.connect() as conn:
+        q=f"select * from delivery where order_id = {id}"
+        res = conn.execute(text(q)).all()
+        res_list = []
+
+        for row in res:
+            res_list.append(row._asdict())
+
+        return res_list
+    
+
+

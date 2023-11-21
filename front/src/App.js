@@ -1,4 +1,4 @@
-import LogIn_Page from './LogIn_Page';
+import LoginPage from './LogIn_Page';
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
           
      
 
-    <LogIn_Page/>
+    <LoginPage/>
 
   
     </div>

@@ -18,8 +18,12 @@ var JobOrder = () => {
     .then((data)=>{
       console.log(data)
       setData(data);
-    })
-  })
+    });
+
+    fetch("/status")
+    .then((res)=>res.text())
+    .then((data) => console.log(data));
+  },[])
 
   var job_list;
   data === (null || undefined)? job_list = "loading":
@@ -269,7 +273,7 @@ var JobOrder = () => {
         <td>{part.brand}</td>
         <td>{part.availability !== false? part.est_price:<><i>{part.est_price}</i></>}</td>
       <td style={{fontSize:"0.7em"}}>
-        <select disabled={part.availability === false} defaultValue={part.withdrawn?true:false} onChange={(event)=>updateQuantity(part.op_id,part.item_id,i)} style={{fontSize:"1.2em"}} name="withdrawn" id={"withdrawn"+(i+1)}>
+        <select disabled={part.availability === false} defaultValue={part.withdrawn?true:false} onChange={(event)=>updateQuantity(part.op_id,i)} style={{fontSize:"1.2em"}} name="withdrawn" id={"withdrawn"+(i+1)}>
           <option value="true">Part Withdrawn</option>
           <option value="false">Part not received</option>
         </select><br/>
@@ -280,11 +284,10 @@ var JobOrder = () => {
     )
   })
 
-  var updateQuantity = (op_id,item_id,i) => {
+  var updateQuantity = (op_id,i) => {
     let withdraw = document.getElementById("withdrawn"+(i+1)).value;
     var dat = {
       op_id:op_id,
-      item_id:item_id,
       wdraw: withdraw
     }
     fetch('/update/parts',{
@@ -658,11 +661,20 @@ var JobOrder = () => {
                 <tbody>
                 <tr>
                   <td width={'50%'} className="fw-bold bg-gray-100">Total</td>
-                  <td className="text-end">Php 700</td>
+                  <td className="text-end">Php {modData.order.cost}</td>
                 </tr>
                 <tr>
                   <td className="bg-gray-100">Downpayment</td>
                   <td className="text-end">Php 200</td>
+                </tr>
+                </tbody>
+              </table>  
+
+               <table className="table table-bordered mt-2">
+                <tbody>
+                <tr>
+                  <td width={'50%'} className="fw-bold bg-gray-100">Balance</td>
+                  <td className="text-end">Php {modData.order.balance}</td>
                 </tr>
                 </tbody>
               </table>              
