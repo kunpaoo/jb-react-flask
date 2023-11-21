@@ -21,6 +21,7 @@ import LoginPage from './LoginPage';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import BillPayment from './Bills/BillsPayments';
 import ListofPricings from './Bills/ListofPricings';
+import DPurchasingOfficer from './Dashboard/DPurchasingOfficer';
 
 const router = createBrowserRouter([
  {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
  },
  {
   path: "/Dashboard",
-  element: <DTechnician />,
+  element: <Dashboard />,
  },
  {
   path: "/technician",

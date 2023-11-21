@@ -65,7 +65,7 @@ var DTechnician = () => {
              </div>
              <div className="text-dark fw-bold h5 mb-0">
               <span>2</span>
-              <i className="fas fa-address-book ms-2 text-gray-300" />
+              <i className="fas fa-wrench ms-2 text-primary text-300" />
              </div>
             </div>
            </div>
@@ -82,7 +82,7 @@ var DTechnician = () => {
              </div>
              <div className="text-dark fw-bold h5 mb-0">
               <span>3</span>
-              <i className="fas fa-check-circle ms-2 text-gray-300" />
+              <i className="fas fa-check-circle ms-2 text-success text-300" />
              </div>
             </div>
            </div>
@@ -94,14 +94,14 @@ var DTechnician = () => {
           <div className="card-body">
            <div className="row align-items-center no-gutters">
             <div className="col me-2">
-             <div className="text-uppercase text-info fw-bold text-xs mb-1">
+             <div className="text-uppercase text-warning fw-bold text-xs mb-1">
               <span>Un-repairable</span>
              </div>
              <div className="row g-0 align-items-center">
               <div className="col-auto">
                <div className="text-dark fw-bold h5 mb-0 me-3">
                 <span>0</span>
-                <i className="fas fa-chain-broken ms-2 text-gray-300" />
+                <i className="fas fa-chain-broken ms-2 text-warning text-300" />
                </div>
               </div>
              </div>
@@ -115,12 +115,12 @@ var DTechnician = () => {
           <div className="card-body">
            <div className="row align-items-center no-gutters">
             <div className="col me-2">
-             <div className="text-uppercase text-warning fw-bold text-xs mb-1">
+             <div className="text-uppercase text-danger fw-bold text-xs mb-1">
               <span>Cancelled</span>
              </div>
              <div className="text-dark fw-bold h5 mb-0">
               <span>0</span>
-              <i className="fas fa-chain-broken ms-2 text-gray-300" />
+              <i className="fas fa-chain-broken ms-2 text-danger text-300" />
              </div>
             </div>
            </div>
