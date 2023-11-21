@@ -47,7 +47,7 @@ const N_Technician = () => {
      <li className="nav-item">
       <a className="nav-link p-2" href="/parts_list">
        <MemoryIcon fontSize="large" />
-       <span className="fs-5 ps-1">Items/Parts</span>
+       <span className="fs-5 ps-1">Parts</span>
       </a>
      </li>
     </ul>

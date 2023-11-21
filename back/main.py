@@ -1,12 +1,18 @@
 from flask import Flask,render_template,jsonify,request
 from db import *
 from parts import *
+from bills import *
+from manage import *
 import numpy as np
 import json
 
 app = Flask(__name__)
 
 app.debug = True
+
+@app.route('/status', methods=["GET"])
+def check():
+    return statcheckAll(3)
 
 @app.route('/api', methods = ["GET"])
 def home():
@@ -73,6 +79,10 @@ def getparts():
 def stockOut():
     data = request.json
     return updateQuantity(data)
+
+@app.route('/api/statement', methods=["GET","POST"])
+def getBalances():
+    return loadBalances()
 
 
 

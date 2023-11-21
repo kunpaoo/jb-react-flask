@@ -1,11 +1,6 @@
-from sqlalchemy import create_engine,text
+from sqlalchemy import text
 from datetime import date
-
-engine = create_engine("mysql+pymysql://online:Incorrect0-@localhost/jbm")
-
-
-
-
+from engine import engine
 
 
     # class Part:
@@ -51,9 +46,9 @@ def isPartAvailable(name,brand):
 
         q=f"select item_id,est_price,op_id from order_part where item_name = '{name}' and brand = '{brand}'"
         i = conn.execute(text(q)).all()
-        if len(i) == 0:
+        if i[0]._asdict()['item_id'] == None and len(res) != 0:
             item_id = res[0]._asdict()['item_id']
-            q=f"insert into order_part(item_id) values {item_id}"
+            q=f"update order_part set item_id = {item_id} where op_id = {i[0]._asdict()['op_id']}"
             conn.execute(text(q))
             conn.commit()
 
@@ -78,10 +73,12 @@ def isPartAvailable(name,brand):
 
 def updateQuantity(data):
     with engine.connect() as conn:
-        q=f"select quantity from part where item_id = {data['item_id']}"
+        q=f"select item_id, withdrawn from order_part where op_id = {data['op_id']}"
+        item_id = conn.execute(text(q)).all()[0][0]
+        initial_w = conn.execute(text(q)).all()[0][1]
+        q=f"select quantity from part where item_id = {item_id}"
         initial_q = conn.execute(text(q)).all()[0][0]
-        q=f"select withdrawn from order_part where op_id = {data['op_id']}"
-        initial_w = conn.execute(text(q)).all()[0][0]
+        
 
 
         if (data['wdraw'] and not initial_w):
@@ -90,7 +87,7 @@ def updateQuantity(data):
             new_q = 1
             
 
-        q=f"update part set quantity = {initial_q+new_q} where item_id = {data['item_id']}"
+        q=f"update part set quantity = {initial_q+new_q} where item_id = {item_id}"
         conn.execute(text(q))
         conn.commit()
         q=f"update order_part set withdrawn = {data['wdraw']} where op_id = {data['op_id']}"
