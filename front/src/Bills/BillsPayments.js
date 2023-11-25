@@ -3,26 +3,29 @@ import Header from "../Header";
 import Navbar from "../Navbar";
 
 var BillPayment = () => {
-function setupPrintButton() { 
-  printElement = document.getElementById("printThis");
- 
-}
+  // document.getElementById("btnPrint").onclick = function () {
+  //  printElement(document.getElementById("print_body"));
+  // };
 
-function printElement(elem) {
- var domClone = elem.cloneNode(true);
+  function btnPrint() {
+    printElement(document.getElementById("printBody"))
+    
+  }
 
- var printSection = document.getElementById("printSection");
+  function printElement(elem) {
+   var domClone = elem.cloneNode(true);
+   var $printSection = document.getElementById("printSection");
 
- if (!printSection) {
-  printSection = document.createElement("div");
-  printSection.id = "printSection";
-  document.body.appendChild(printSection);
- }
+   if (!$printSection) {
+    var $printSection = document.createElement("div");
+    $printSection.id = "printSection";
+    document.body.appendChild($printSection);
+   }
 
- printSection.innerHTML = "";
- printSection.appendChild(domClone);
- window.print();
-}
+   $printSection.innerHTML = "";
+   $printSection.appendChild(domClone);
+   window.print();
+  }
 
  return (
   <div id="page-top" class="overflow-hidden">
@@ -246,7 +249,7 @@ function printElement(elem) {
        id="modal-1"
        style={{ borderStyle: "solid" }}>
        <div className="modal-dialog modal-lg" role="document">
-        <div className="modal-content" id="printThis">
+        <div className="modal-content">
          <div
           className="modal-header"
           style={{ marginBottom: "-1px", paddingBottom: "2px" }}>
@@ -260,7 +263,7 @@ function printElement(elem) {
          </div>
          <div
           className="modal-body"
-          id="printThis"
+          id="printBody"
           style={{ paddingLeft: "26px", paddingRight: "36px" }}>
           <div className="row">
            <div className="col-lg-7">
@@ -482,7 +485,7 @@ function printElement(elem) {
           id="btnPrint"
           type="button"
           className="btn btn-outline-secondary m-4"
-          onclick={setupPrintButton}>
+          onClick={btnPrint}>
           Print Receipt
          </button>
          <div className="modal-footer">

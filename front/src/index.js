@@ -22,6 +22,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import BillPayment from './Bills/BillsPayments';
 import ListofPricings from './Bills/ListofPricings';
 import DPurchasingOfficer from './Dashboard/DPurchasingOfficer';
+import DCashier from './Dashboard/DCashier';
 
 const router = createBrowserRouter([
  {
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
  },
  {
   path: "/Dashboard",
-  element: <Dashboard />,
+  element: <DCashier />,
  },
  {
   path: "/technician",
