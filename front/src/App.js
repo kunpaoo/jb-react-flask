@@ -1,6 +1,11 @@
 import LoginPage from './LogIn_Page';
-
 function App() {
+
+  
+  
+
+  
+  
 
 
   return (
@@ -16,13 +21,11 @@ function App() {
 
     <LoginPage/>
 
-  
-    </div>
-    </div>
-
     
-    /* END MAIN CONTENT */
-  
+    
+    {/* END MAIN CONTENT */}
+    </div>
+    </div>
     /* END BODY CONTAINER */
   );
 }
