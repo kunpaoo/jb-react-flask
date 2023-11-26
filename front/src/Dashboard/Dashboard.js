@@ -8,6 +8,7 @@ const Dashboard = () => {
    <div id="wrapper">
 
     <Navbar/>
+    <div className="h-100 w-100">
     <Header /> 
 
     <div className="container-fluid">
@@ -397,6 +398,7 @@ const Dashboard = () => {
       </div>
      </div>
     </div>
+   </div>
    </div>
    </div>
   

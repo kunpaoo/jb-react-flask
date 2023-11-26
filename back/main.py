@@ -12,7 +12,8 @@ app.debug = True
 def home():
     return load_list()
 
-@app.route('/api/<id>', methods = ["GET","POST"])
+
+@app.route('/api/job/<id>', methods = ["GET","POST"])
 def viewrow(id):
 
     return load_row(id)
@@ -59,8 +60,7 @@ def addpo():
 @app.route('/update/po/<id>', methods = ["POST","GET"])
 def editpo(id):
     data = request.json
-    po = PurchaseOrder(data['item_name'], data['quantity'],id)
-    po.updatePO()
+    updatePO()
     return "UPDATED PO"
 
 

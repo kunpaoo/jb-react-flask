@@ -5,7 +5,7 @@ import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import sample_cust from "../Cust_pages/Cust_list";
-var List_of_Pricings = () => {
+var ListOfPricings = () => {
  const history = useNavigate(); //
 
  const handleEdit = (id, Name, Address, Email, Contact) => {
@@ -199,9 +199,7 @@ var List_of_Pricings = () => {
                     <Button onClick={() => handleData(item.id)}>Delete</Button>
                     &nbsp;
                     <Link data-bs-target="#modal-2" data-bs-toggle="modal">
-                     <Button>
-                      edit
-                     </Button>
+                     <Button>edit</Button>
                     </Link>
                    </td>
                   </tr>
@@ -337,7 +335,6 @@ var List_of_Pricings = () => {
      </div>
     </div>
    </div>
-
    //Modal for Editing Pricings
    <div className="modal fade" role="dialog" tabIndex={-1} id="modal-2">
     <div className="modal-dialog modal-lg" role="document">
@@ -406,4 +403,4 @@ var List_of_Pricings = () => {
  );
 };
 
-export default List_of_Pricings;
+export default ListOfPricings;

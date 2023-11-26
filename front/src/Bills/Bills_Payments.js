@@ -87,7 +87,7 @@ var Bill_Payment = () => {
              marginRight: "-2px",
              marginLeft: "12px",
             }}
-            href="/List_of_Pricings">
+            href="/ListOfPricings">
             List of Pricings
            </a>
           </div>

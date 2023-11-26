@@ -16,9 +16,11 @@ import EditCust from './Cust_pages/Edit_Cust';
 
 import PartList from './Parts/PartList';
 import PurchaseOrders from './Parts/PurchaseOrders';
-
+import BillsPayment from './Bills/Bills_Payments';
+import ProfilePage from './Profile_Page';
+import LoginPage from './LogIn_Page';
+import ListOfPricings from './Bills/ListOfPricings';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-
 
 const router = createBrowserRouter([
  {
@@ -44,7 +46,7 @@ const router = createBrowserRouter([
  {
   path: "/job_order",
   element: <JobOrder />,
- }, 
+ },
  {
   path: "/Create_Job_Order",
   element: <Createjob />,
@@ -54,16 +56,16 @@ const router = createBrowserRouter([
   element: <EditJobOrder />,
  },
  {
-  path:"/deliveries",
-  element: <Deliveries/>
+  path: "/deliveries",
+  element: <Deliveries />,
  },
  {
-  path:"/parts",
-  element: <PartList/>
+  path: "/parts",
+  element: <PartList />,
  },
  {
-  path:"/parts/purchaseorders",
-  element: <PurchaseOrders/>
+  path: "/parts/purchaseorders",
+  element: <PurchaseOrders />,
  },
  {
   path: "/customer",
@@ -76,6 +78,24 @@ const router = createBrowserRouter([
  {
   path: "/edit_customer",
   element: <EditCust />,
+ },
+
+ {
+  path: "/profile",
+  element: <ProfilePage />,
+ },
+
+ {
+  path: "/BillsPayments",
+  element: <BillsPayment />,
+ },
+ {
+  path: "/LogIn",
+  element: <LoginPage />,
+ },
+ {
+  path: "/ListOfPricings",
+  element: <ListOfPricings/>,
  }
 ]);
 
