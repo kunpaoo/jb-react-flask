@@ -4,20 +4,21 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Dashboard from './Dashboard/Dashboard';
 import Technician from './tech_pages/Technician';
-import Edit_tech from './tech_pages/Edit_technician';
-import Create_tech from './tech_pages/Create_tech';
+import EditTech from './tech_pages/Edit_technician';
+import CreateTech from './tech_pages/Create_tech';
 import JobOrder from './JobOrder_pages/Job_order';
 import Createjob from './JobOrder_pages/Create_Job_order';
 import Deliveries from './JobOrder_pages/Deliveries';
 import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
-import Create_customer from './Cust_pages/Create_Customer';
-import Edit_cust from './Cust_pages/Edit_Cust';
+import CreateCustomer from './Cust_pages/Create_Customer';
+import EditCust from './Cust_pages/Edit_Cust';
+
 import PartList from './Parts/PartList';
 import PurchaseOrders from './Parts/PurchaseOrders';
-import Bill_Payment from './Bills/Bills_Payments';
-import Profile_Page from './Profile_Page';
-import LogIn_Page from './LogIn_Page';
+import BillsPayment from './Bills/Bills_Payments';
+import ProfilePage from './Profile_Page';
+import LoginPage from './LogIn_Page';
 import ListOfPricings from './Bills/ListOfPricings';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
@@ -36,11 +37,11 @@ const router = createBrowserRouter(
  },
  {
   path: "/Create_technician",
-  element: <Create_tech />,
+  element: <CreateTech />,
  },
  {
   path: "/Edit_technician",
-  element: <Edit_tech />,
+  element: <EditTech />,
  },
  {
   path: "/job_order",
@@ -72,24 +73,25 @@ const router = createBrowserRouter(
  },
  {
   path: "/create_customer",
-  element: <Create_customer />,
+  element: <CreateCustomer />,
  },
  {
   path: "/edit_customer",
-  element: <Edit_cust />,
+  element: <EditCust />,
  },
+
  {
   path: "/profile",
-  element: <Profile_Page />,
+  element: <ProfilePage />,
  },
 
  {
   path: "/BillsPayments",
-  element: <Bill_Payment />,
+  element: <BillsPayment />,
  },
  {
   path: "/LogIn",
-  element: <LogIn_Page />,
+  element: <LoginPage />,
  },
  {
   path: "/ListOfPricings",
