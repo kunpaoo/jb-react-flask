@@ -163,6 +163,8 @@ var JobOrder = () => {
   const [modDeli,setModDeli] = useState([]);
   const [modHist, setModHist] = useState([]);
   const [part_sum,setPartSum] = useState(0);
+  const [disableRepair,setDisableRepair] = useState(true);
+  const [releaseOrder,setReleaseOrder] = useState(false);
   const modalData = (id) => {
     fetch("/api/job/"+id)
       .then((res)=>res.json())
@@ -204,8 +206,12 @@ var JobOrder = () => {
         setPartSum(sum);
         setModDeli([list]);
         setModHist([histlist]);
-        
+        handleDisableRepair(d);
+        handleReleaseOrder(d);
+        handlePartList(d.parts);
     })
+    
+
   }
 
   const modDataDeli = () => {
@@ -264,25 +270,57 @@ var JobOrder = () => {
     )
   });
 
-  var part_list = modData.parts.map((part,i)=>{
+  
+ 
 
-    return(
-      <>
-        <tr>
-        <td>{part.item_name}</td>
-        <td>{part.brand}</td>
-        <td>{part.availability !== false? part.est_price:<><i>{part.est_price}</i></>}</td>
-      <td style={{fontSize:"0.7em"}}>
-        <select disabled={part.availability === false} defaultValue={part.withdrawn?true:false} onChange={(event)=>updateQuantity(part.op_id,i)} style={{fontSize:"1.2em"}} name="withdrawn" id={"withdrawn"+(i+1)}>
-          <option value="true">Part Withdrawn</option>
-          <option value="false">Part not received</option>
-        </select><br/>
-        {part.withdrawn? "" : (part.availability !== false? part.availability.quantity +" pieces available " : "Out of stock")}
-        </td>
-        </tr>
-      </>
-    )
-  })
+  var handleDisableRepair = (d) => {
+    if(d.order.completed){
+      setDisableRepair(true)
+      return
+    }
+    for(let x =0; x<d.parts.length;x++){
+      if(d.parts[x]['availability'] === false || (d.parts[x]['availability'] !== false && !d.parts[x]['availability']['withdrawn'])){
+        setDisableRepair(true)
+        return
+    }
+    setDisableRepair(false)
+    }
+  }
+
+  var handleReleaseOrder = (d) => {
+    if(d.order.released){
+      setReleaseOrder(false)
+      return
+    }
+    d.order.completed && d.order.balance === 0?
+    setReleaseOrder(true):setReleaseOrder(false)
+  }
+
+  const [partQuantity,setPartQuantity] = useState([]);
+  
+  const [partlist,setPartList] = useState([]);
+  var handlePartList = (parts) => {
+    setPartList(parts.map((part,i)=>{
+      return(
+        <>
+          <tr>
+          <td>{part.item_name}</td>
+          <td>{part.brand}</td>
+          <td>{part.availability !== false? part.est_price:<><i>{part.est_price}</i></>}</td>
+        <td style={{fontSize:"0.7em"}}>
+          <select disabled={part.availability === false} value={part.withdrawn?true:false} onChange={(event)=>updateQuantity(part.op_id,i)} style={{fontSize:"1.2em"}} name="withdrawn" id={"withdrawn"+(i+1)}>
+            <option value="true">Part Withdrawn</option>
+            <option value="false">Part not received</option>
+          </select><br/>
+          {part.withdrawn? "" : (part.availability !== false? part.availability.quantity +" pieces available " : "Out of stock")}
+          </td>
+          </tr>
+        </>
+      )
+  }) )
+  };
+
+  
 
   var updateQuantity = (op_id,i) => {
     let withdraw = document.getElementById("withdrawn"+(i+1)).value;
@@ -344,7 +382,8 @@ var JobOrder = () => {
       <td>{dat.deli_date}</td>
       <td>{dat.destination}</td>
       <td>{dat.origin}</td>
-      <td>{dat.deli_status}</td>
+      <td>{dat.delivered?"Delivered":"Not Delivered"}</td>
+      <td>{dat.received?<>Received<br/><span style={{fontSize:"0.7em"}}>ID </span></>:"Not Received"}</td>
     </tr>
     </>);
     
@@ -637,7 +676,7 @@ var JobOrder = () => {
                 </tr>
               </thead>
               <tbody>
-              {part_list}
+              {partlist}
               </tbody>
               </table>
 
@@ -707,13 +746,14 @@ var JobOrder = () => {
 
 
                         <table className="text-start caption-top table table-striped table-bordered">
-                          <caption>Upcoming deliveries</caption>
+                          <caption>Deliveries</caption>
                           <thead className="thead-light">
                           <tr>
                             <th>Delivery Date</th>
                             <th>Destination</th>
                             <th>Origin</th>
-                            <th>Status</th>
+                            <th>Delivered</th>
+                            <th>Received</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -778,11 +818,14 @@ var JobOrder = () => {
               </div>
             <div className="row">
              <div className="col text-end">
+              <Button disabled={disableRepair} className="btn-success me-1">Complete Repair</Button>
+              <Button disabled={!releaseOrder} className="btn-dark me-1">Release Order</Button>
               <Button onClick={(event)=> navigate("/Edit_Job_Order/"+modData.order.order_id) } className="btn-secondary" data-bs-dismiss="modal">
                 Edit
               </Button>
               &nbsp;
               <Button className="mr-4" onClick={(event)=>{if(window.confirm('Delete order?')){deleteOrder(event,modData.order.order_id)}}}>Delete</Button>
+              
               
              </div>
             </div>

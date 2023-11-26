@@ -277,9 +277,7 @@ var BillPayment = () => {
                 style={{ paddingLeft: "26px", paddingRight: "36px" }}>
                 <div className="row">
                 <div className="col-lg-7">
-                <span style={{ color: "rgb(0,0,0)" }}>
-                    <strong>Marjhealou Nina Anne M. Paraiso</strong>
-                </span>
+                <strong>Marjhealou Nina Anne M. Paraiso</strong>
                 </div>
                 <div className="col">
                 <span>Statement Date:</span>
@@ -311,143 +309,111 @@ var BillPayment = () => {
                 </div>
                 <div className="row" style={{ paddingTop: "23px" }}>
                 <div className="col-lg-6" style={{ paddingLeft: "2px" }}>
-                <span>
-                    <strong>
-                    <span style={{ color: "rgb(0, 0, 0)" }}>Details</span>
-                    </strong>
-                </span>
+                <strong>Details</strong>
                 </div>
-                <div className="col" style={{ paddingLeft: "0px" }}>
-                <span
-                    style={{ color: "rgb(200,44,35)", borderColor: "rgb(0,0,0)" }}>
-                    <strong>
-                    <span style={{ color: "rgb(0, 0, 0)" }}>Payments</span>
-                    </strong>
-                </span>
+                <div className="col">
+                <strong>Payments</strong>
                 </div>
                 </div>
                 <div className="row">
-                <div className="col" style={{ borderStyle: "solid" }}>
-                <div className="row" style={{ borderStyle: "none" }}>
-                    <div
-                    className="col"
-                    style={{
-                    borderWidth: "0.5px",
-                    borderColor: "var(--bs-emphasis-color)",
-                    }}>
-                    <div className="row">
-                    <div className="col">
-                    <span>
-                        <strong>
-                        Job Order:
-                        <span>1213</span>
-                        </strong>
-                    </span>
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div
-                    className="table-responsive"
-                    style={{
-                        marginLeft: "-12px",
-                        marginRight: "-10px",
-                        paddingBottom: "0px",
-                        marginBottom: "3px",
-                    }}>
-                    <table className="table">
-                        <thead>
-                        <tr>
-                        <th>Parts needed:</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                        <td>
-                        Item #: <span />
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>Acer Battery</td>
-                        <td>$500</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div
-                    className="table-responsive"
-                    style={{
-                        marginLeft: "-12px",
-                        marginRight: "-10px",
-                        paddingBottom: "0px",
-                        marginBottom: "3px",
-                    }}>
-                    <table className="table">
-                        <thead>
-                        <tr>
-                        <th>Others:</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                        <td>Service Fee: </td>
-                        <td>$500</td>
-                        </tr>
-                        <tr>
-                        <td>Total Amount:</td>
-                        <td>$49</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div className="col" style={{ paddingLeft: "32px" }}>
-                    <span>Less</span>
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div className="col" style={{ paddingLeft: "44px" }}>
-                    <span>Payments:&nbsp;</span>
-                    </div>
-                    <div
-                    className="col text-center"
-                    style={{
-                        borderBottomWidth: "0.5px",
-                        borderBottomStyle: "solid",
-                        marginRight: "24px",
-                        marginLeft: "12px",
-                    }}>
-                    <span>$23</span>
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div className="col-lg-6" style={{ paddingLeft: "32px" }}>
-                    <span>Sub-total:</span>
-                    </div>
-                    <div
-                    className="col text-center"
-                    style={{
-                        paddingLeft: "32px",
-                        borderBottomWidth: "1.5px",
-                        borderBottomStyle: "solid",
-                        marginRight: "21px",
-                        marginLeft: "8px",
-                        paddingRight: "31px",
-                    }}>
-                    <span>$23</span>
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div className="col" style={{ paddingLeft: "32px" }}>
-                    <span>Total:</span>
-                    </div>
-                    <div className="col text-center" style={{ paddingLeft: "32px" }}>
-                    <span style={{ marginRight: "28px" }}>$34</span>
-                    </div>
-                    </div>
-                    </div>
+                <div className="col border border-black">
+                <strong>ORDER ID: 1213</strong>
+                <div className="row">
+                <div
+                className="table-responsive"
+                style={{
+                    marginLeft: "-12px",
+                    marginRight: "-10px",
+                    paddingBottom: "0px",
+                    marginBottom: "3px",
+                }}>
+                <table className="table">
+                    <thead>
+                    <tr>
+                    <th>Part</th>
+                    <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td>Acer Battery</td>
+                    <td>$500</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                <div className="row">
+                <div
+                className="table-responsive"
+                style={{
+                    marginLeft: "-12px",
+                    marginRight: "-10px",
+                    marginBottom: "3px",
+                }}>
+                <table className="table">
+                    <thead>
+                    <tr>
+                    <th>Others</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td>Service Fee: </td>
+                    <td>$500</td>
+                    </tr>
+                    <tr>
+                    <td>Total Amount:</td>
+                    <td>$49</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                <div className="row">
+                <div className="col" style={{ paddingLeft: "32px" }}>
+                <span>Less</span>
+                </div>
+                </div>
+                <div className="row">
+                <div className="col" style={{ paddingLeft: "44px" }}>
+                <span>Payments:&nbsp;</span>
+                </div>
+                <div
+                className="col text-center"
+                style={{
+                    borderBottomWidth: "0.5px",
+                    borderBottomStyle: "solid",
+                    marginRight: "24px",
+                    marginLeft: "12px",
+                }}>
+                <span>$23</span>
+                </div>
+                </div>
+                <div className="row">
+                <div className="col-lg-6" style={{ paddingLeft: "32px" }}>
+                <span>Sub-total:</span>
+                </div>
+                <div
+                className="col text-center"
+                style={{
+                    paddingLeft: "32px",
+                    borderBottomWidth: "1.5px",
+                    borderBottomStyle: "solid",
+                    marginRight: "21px",
+                    marginLeft: "8px",
+                    paddingRight: "31px",
+                }}>
+                <span>$23</span>
+                </div>
+                </div>
+                <div className="row">
+                <div className="col" style={{ paddingLeft: "32px" }}>
+                <span>Total:</span>
+                </div>
+                <div className="col text-center" style={{ paddingLeft: "32px" }}>
+                <span style={{ marginRight: "28px" }}>$34</span>
+                </div>
                 </div>
                 </div>
                 <div className="col" style={{ borderStyle: "solid" }}>

@@ -18,12 +18,9 @@ def load_list():
         order_list = []
         all_res = result.all()
 
-        
         for row in all_res:
             rowdict = row._asdict()
             order_list.append(rowdict)
-
-
 
         return order_list
     
@@ -69,14 +66,15 @@ def load_row(id):
             rowdict['availability'] = isPartAvailable(rowdict['item_name'],rowdict['brand'])  # returns quantity if available
             part_list.append(rowdict)
 
+        deli_list = get_deli(id)
 
-        d_columns = "order_id, date_format(deli_date,'%Y-%m-%d') as deli_date,origin,destination,notes,deli_status"
-        q=f"select {d_columns} from delivery where order_id = {id}"
-        result = conn.execute(text(q))
-        delivery =  result.all()
-        deli_list = []
-        for row in delivery:
-            deli_list.append(row._asdict())
+        # d_columns = "order_id, date_format(deli_date,'%Y-%m-%d') as deli_date,origin,destination,notes,deli_delivered,deli_received"
+        # q=f"select {d_columns} from delivery where order_id = {id}"
+        # result = conn.execute(text(q))
+        # delivery =  result.all()
+        # deli_list = []
+        # for row in delivery:
+        #     deli_list.append(row._asdict())
 
 
         q = f"select date_format(status_date, '%Y-%m-%d') as status_date,status_name,ref from order_status where order_id = {id}"
