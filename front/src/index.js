@@ -4,15 +4,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Dashboard from './Dashboard/Dashboard';
 import Technician from './tech_pages/Technician';
-import Edit_tech from './tech_pages/Edit_technician';
-import Create_tech from './tech_pages/Create_tech';
+import EditTech from './tech_pages/Edit_technician';
+import CreateTech from './tech_pages/Create_tech';
 import JobOrder from './JobOrder_pages/Job_order';
 import Createjob from './JobOrder_pages/Create_Job_order';
 import Deliveries from './JobOrder_pages/Deliveries';
 import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
 import Customer from './Cust_pages/Customer';
-import Create_customer from './Cust_pages/Create_Customer';
-import Edit_cust from './Cust_pages/Edit_Cust';
+import CreateCustomer from './Cust_pages/Create_Customer';
+import EditCust from './Cust_pages/Edit_Cust';
 
 import PartList from './Parts/PartList';
 import PurchaseOrders from './Parts/PurchaseOrders';
@@ -35,11 +35,11 @@ const router = createBrowserRouter([
  },
  {
   path: "/Create_technician",
-  element: <Create_tech />,
+  element: <CreateTech />,
  },
  {
   path: "/Edit_technician",
-  element: <Edit_tech />,
+  element: <EditTech />,
  },
  {
   path: "/job_order",
@@ -71,16 +71,12 @@ const router = createBrowserRouter([
  },
  {
   path: "/create_customer",
-  element: <Create_customer />,
+  element: <CreateCustomer />,
  },
  {
   path: "/edit_customer",
-  element: <Edit_cust />,
- },
- {
-  path: "/Profile_Page",
-  element: <Profile_Page />,
- },
+  element: <EditCust />,
+ }
 ]);
 
 
