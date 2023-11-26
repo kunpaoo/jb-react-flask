@@ -1,8 +1,23 @@
 import React from "react";
 import Header from "../Header";
 import Navbar from "../Navbar";
+import{useEffect, useState} from 'react';
 
 const Dashboard = () => {
+
+  const [statusUpdate,setUpdate] = useState();
+
+  useEffect(()=>{
+    fetch("/status")
+    .then((res)=>res.json())
+    .then((data)=>{
+      console.log(data)
+      setUpdate(data);
+    })
+  },[])
+
+
+
  return (
   <div id="page-top" class="overflow-hidden">
    <div id="wrapper">

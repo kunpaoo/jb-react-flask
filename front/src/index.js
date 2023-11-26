@@ -22,8 +22,8 @@ import LoginPage from './LogIn_Page';
 import ListOfPricings from './Bills/ListOfPricings';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-const router = createBrowserRouter([
- {
+const router = createBrowserRouter(
+ [{
   path: "/",
   element: <App />,
  },
@@ -96,8 +96,8 @@ const router = createBrowserRouter([
  {
   path: "/ListOfPricings",
   element: <ListOfPricings/>,
- }
-]);
+ }]
+);
 
 
 

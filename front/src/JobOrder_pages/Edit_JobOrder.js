@@ -19,16 +19,16 @@ var [rowData,setRowData] = useState({
     "parts" : []
   });
 useEffect(()=>{
-    fetch("/api/"+id)
+    fetch("/api/job/"+id)
     .then((res)=>res.json())
     .then((d)=>{
       console.log("FROM API: ",d)
       setRowData(d);
       setUnits(d.units.length)
       setNumParts(d.parts.length)
-      
+      setDisabled(d.parts.availability === false? true:false)
     })
-}, []);
+},[]);
     
 
     
@@ -185,9 +185,10 @@ function load_units(){
 // adding parts needed
 const [parts, setParts] = useState([]);
 const [numparts,setNumParts] = useState(0);
+const [disable,setDisabled] = useState(false);
 
-function removePart(event,id) {
-    var defectInput = document.getElementById("part"+id);
+function removePart(event,num) {
+    var defectInput = document.getElementById("part"+num);
     defectInput.remove();
 }
 
@@ -331,7 +332,7 @@ function AddInput() {
    .then((a)=>console.log("NEXT: ",a));
    // console.log(formData);
    // console.log(JSON.stringify(dat));
-    // navigate('/job_order');
+    navigate('/job_order');
 
 
  }
@@ -599,7 +600,7 @@ const displayData = (e) => {
                   name="cust_name"
                   placeholder="Search..."
                   id="cust_name" onInput={() => preview("cust_name")}
-                  defaultValue={rowData.order.cust_name}
+                  value={rowData.order.cust_name}
                  />
                  <button className="btn btn-light search-btn" type="button">
                   {" "}
@@ -713,9 +714,9 @@ const displayData = (e) => {
                 <div className="col">
                     Estimated Price
                 </div>
-                <div className="col">
-                
+                <div className="col">Availability
                 </div>
+                <div className="col-md-4"></div>
                </div>
                 
                {rowData.parts.map((part,a)=>{
@@ -735,13 +736,15 @@ const displayData = (e) => {
                 <input name={"est_price"+i} className="form-control" type="text" defaultValue={part.est_price} />
                </div>
 
-               <div className="col">
-                <button className="btn btn-primary btn-danger" onClick={event=>removePart(event,i)}>
+               <div className="col pt-2" style={{fontSize:"13px"}}>{part.availability !== false? part.availability.quantity +" pieces available": "Out of stock"}</div>
+               
+               <div className="col-md-4 d-flex flex-row">
+               <button className="btn btn-danger btn-sm"  onClick={event=>removePart(event,i)}>
                 <i className="fa fa-trash" aria-hidden="true"></i>
                 </button>
                 </div>
-
-               </div>
+                </div>
+               
                 </>
                })}
 

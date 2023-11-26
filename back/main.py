@@ -1,12 +1,18 @@
 from flask import Flask,render_template,jsonify,request
 from db import *
 from parts import *
+from bills import *
+from manage import *
 import numpy as np
 import json
 
 app = Flask(__name__)
 
 app.debug = True
+
+@app.route('/status', methods=["GET"])
+def check():
+    return statcheckAll(3)
 
 @app.route('/api', methods = ["GET"])
 def home():
@@ -15,7 +21,6 @@ def home():
 
 @app.route('/api/job/<id>', methods = ["GET","POST"])
 def viewrow(id):
-
     return load_row(id)
     
 
@@ -36,12 +41,15 @@ def addjob():
     return add_list(data)
 
 
-@app.route('/deli', methods=["POST","GET"])
-def setdeli():
+@app.route('/deli/<order>', methods=["POST","GET"])
+def setdeli(order):
     data = request.json
-    return set_deli(data)
+    return set_deli(data,order)
     
-
+@app.route('/api/deli', methods=["GET","POST"])
+def getdelis():
+    
+    return load_delis()
 
 @app.route('/api/po',methods=["GET","POST"])
 def getpos():
@@ -63,6 +71,18 @@ def editpo(id):
     updatePO()
     return "UPDATED PO"
 
+@app.route('/api/parts', methods=["GET","POST"])
+def getparts():
+    return loadParts()
+
+@app.route('/update/parts', methods=["GET","POST"])
+def stockOut():
+    data = request.json
+    return updateQuantity(data)
+
+@app.route('/api/statement', methods=["GET","POST"])
+def getBalances():
+    return loadBalances()
 
 
 

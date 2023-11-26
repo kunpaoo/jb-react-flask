@@ -16,9 +16,14 @@ var JobOrder = () => {
     fetch("/api")
     .then((res)=>res.json())
     .then((data)=>{
+      console.log(data)
       setData(data);
-    })
-  })
+    });
+
+    fetch("/status")
+    .then((res)=>res.text())
+    .then((data) => console.log(data));
+  },[])
 
   var job_list;
   data === (null || undefined)? job_list = "loading":
@@ -123,13 +128,13 @@ var JobOrder = () => {
       <td>
         <span
         className="badge bg-primary"
-        style={{ background: "rgb(1,139,32)" }}>
-        With warranty
+        style={{ background: "rgb(1,139,32)", fontSize: "11px" }}>
+        {row.warranty?"WITH WARRANTY":"WITHOUT WARRANTY"}
         </span>
       </td>
       <td className="text-center">
         <span className="badge bg-primary" style={{ fontSize: "11px" }}>
-        Scheduling Delivery
+        {row.status_name} 
         </span>
       </td>
       </tr>
@@ -149,14 +154,17 @@ var JobOrder = () => {
     },
     "units" : [],
     "parts" : [],
-    "delivery" : []
+    "delivery" : [],
+    "history" : [],
+    "charges" :[]
   });
 
   
   const [modDeli,setModDeli] = useState([]);
-
+  const [modHist, setModHist] = useState([]);
+  const [part_sum,setPartSum] = useState(0);
   const modalData = (id) => {
-    fetch("/api/"+id)
+    fetch("/api/job/"+id)
       .then((res)=>res.json())
       .then((d)=>{
         console.log(d);
@@ -177,8 +185,27 @@ var JobOrder = () => {
             </>
           )
         });
-        setModDeli([list])
-      });
+        let histlist = (
+        d.history.map((hist)=>{
+          return(
+            <>
+            <tr>
+            <td>{hist.status_date}</td>
+            <td>{hist.status_name}</td>
+            <td>{hist.ref}</td>            
+            </tr>
+            </>
+          )
+        }
+        ));
+
+        let sum = 0;
+        d.parts.map((part) => {return sum = sum + part.est_price;});
+        setPartSum(sum);
+        setModDeli([list]);
+        setModHist([histlist]);
+        
+    })
   }
 
   const modDataDeli = () => {
@@ -203,7 +230,16 @@ var JobOrder = () => {
   }
 
   
-
+  var charge_list = modData.charges.map((charge)=>{
+     return isNaN(charge.fee_name)?
+      <>
+      <tr>
+        <td className="bg-gray-100 text-capitalize">{charge.fee_name}</td>
+        <td className="text-end">Php {charge.amount}</td>
+      </tr>
+      </>
+    :""
+  });
 
   var unit_list;
   unit_list = modData.units.map((unit)=>{
@@ -228,17 +264,42 @@ var JobOrder = () => {
     )
   });
 
-  var part_list = modData.parts.map((part)=>{
+  var part_list = modData.parts.map((part,i)=>{
+
     return(
       <>
         <tr>
         <td>{part.item_name}</td>
         <td>{part.brand}</td>
-        <td>{part.est_price}</td>
+        <td>{part.availability !== false? part.est_price:<><i>{part.est_price}</i></>}</td>
+      <td style={{fontSize:"0.7em"}}>
+        <select disabled={part.availability === false} defaultValue={part.withdrawn?true:false} onChange={(event)=>updateQuantity(part.op_id,i)} style={{fontSize:"1.2em"}} name="withdrawn" id={"withdrawn"+(i+1)}>
+          <option value="true">Part Withdrawn</option>
+          <option value="false">Part not received</option>
+        </select><br/>
+        {part.withdrawn? "" : (part.availability !== false? part.availability.quantity +" pieces available " : "Out of stock")}
+        </td>
         </tr>
       </>
     )
   })
+
+  var updateQuantity = (op_id,i) => {
+    let withdraw = document.getElementById("withdrawn"+(i+1)).value;
+    var dat = {
+      op_id:op_id,
+      wdraw: withdraw
+    }
+    fetch('/update/parts',{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    body:JSON.stringify(dat)
+    })
+    .then((res)=>res.text())
+    .then((a)=>console.log(a))
+  }
 
 
   const deleteOrder = (event,id) => {
@@ -268,7 +329,7 @@ var JobOrder = () => {
     }
     let deli_dat = JSON.stringify(dat);
 
-    fetch('/deli',{
+    fetch('/deli/job',{
       method:"POST",
       headers: {
         "Content-Type": "application/json",
@@ -339,31 +400,17 @@ var JobOrder = () => {
           marginRight: "14px",
          }}
          href="/Create_Job_Order">
-         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1em"
-          viewBox="0 0 24 24"
-          fill="none"
-          className="fa-sm text-white-50"
-          style={{
-           background: "rgb(2,60,63)",
-           paddingRight: "12px",
-           borderRadius: "16px",
-           fontSize: "16px",
-           paddingTop: "6px",
-           marginRight: "14px",
-          }}
-          href="/Create_Job_Order">                       {/*create job order url*/}
+                               {/*create job order url*/}
           <svg
            xmlns="http://www.w3.org/2000/svg"
            width="1em"
            height="1em"
            viewBox="0 0 24 24"
-           fill="none"
+           fill=""
            className="fa-sm text-black"
            style={{
             fontSize: "30px",
+            color:"white"
            }}>
            <path
             fillRule="evenodd"
@@ -379,7 +426,7 @@ var JobOrder = () => {
            />
           </svg>
           &nbsp;Create New Job
-          </svg>
+          
          </a>
         </div>
        
@@ -583,9 +630,10 @@ var JobOrder = () => {
               <table className="table text-start table-bordered w-100">
               <thead className="table-gray-100">
                 <tr>
-                  <th width={'33%'}>Item</th>
+                  <th width={'25%'}>Item</th>
                   <th>Brand</th>
-                  <th width={'33%'}>Estimated Price</th>
+                  <th width={'20%'}>Price</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -603,27 +651,30 @@ var JobOrder = () => {
                 <tbody>
                 <tr>
                   <td className="bg-gray-100" width={'50%'}>Parts</td>
-                  <td>Php 300</td>
+                  <td className="text-end">Php {part_sum}</td>
                 </tr>
-                <tr>
-                  <td className="bg-gray-100">Warranty Service</td>
-                  <td>Php 200</td>
-                </tr>
-                <tr>
-                  <td className="bg-gray-100">Labor</td>
-                  <td>Php 200</td>
-                </tr>
+                {charge_list}
               </tbody>
               </table>
+
               <table className="table table-bordered mt-2">
                 <tbody>
                 <tr>
                   <td width={'50%'} className="fw-bold bg-gray-100">Total</td>
-                  <td>Php 700</td>
+                  <td className="text-end">Php {modData.order.cost}</td>
                 </tr>
                 <tr>
                   <td className="bg-gray-100">Downpayment</td>
-                  <td>Php 200</td>
+                  <td className="text-end">Php 200</td>
+                </tr>
+                </tbody>
+              </table>  
+
+               <table className="table table-bordered mt-2">
+                <tbody>
+                <tr>
+                  <td width={'50%'} className="fw-bold bg-gray-100">Balance</td>
+                  <td className="text-end">Php {modData.order.balance}</td>
                 </tr>
                 </tbody>
               </table>              
@@ -634,16 +685,31 @@ var JobOrder = () => {
                 <div className="col">
                   <div className="card bg-outline-info text-black w-100 h-auto">
                     <div className="card-header">
-                      <b>Delivery</b>
+                      <b>Order History</b>
                     </div>
                     <div className="card-body">
                       <div className="card-text text-center">
 
                         {/* table */}
 
-                        <table className="text-start table table-striped table-bordered">
-                          <thead className="thead-light">
+                        <table className="text-start table caption-top table-striped table-bordered table-hover">
+                          <thead>
                             <tr>
+                              <th width={"15%"}>Date</th>
+                              <th>Status</th>
+                              <th>Reference</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {modHist.map((his) => his)}
+                          </tbody>
+                        </table>
+
+
+                        <table className="text-start caption-top table table-striped table-bordered">
+                          <caption>Upcoming deliveries</caption>
+                          <thead className="thead-light">
+                          <tr>
                             <th>Delivery Date</th>
                             <th>Destination</th>
                             <th>Origin</th>
@@ -651,17 +717,13 @@ var JobOrder = () => {
                           </tr>
                           </thead>
                           <tbody>
-                          {
-                          modDeli.map((deli) => deli)
-
-                
-                        }
+                          {modDeli.map((deli) => deli)}
                           </tbody>
                         </table>
 
 
 
-                        <form action="POST" className="w-75 m-auto text-start">
+                        <form method="POST" className="w-75 m-auto text-start">
                           <div className="row">
                             <div className="col">
                               Delivery Date
