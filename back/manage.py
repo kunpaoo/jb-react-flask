@@ -28,7 +28,7 @@ def statcheck(id):
         return "Repair Ongoing"
 
     def checkReleased():
-        if order['released']:
+        if order['order']['released']:
             return "Released"
         return "For Releasing"
 
