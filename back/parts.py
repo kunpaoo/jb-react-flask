@@ -31,7 +31,7 @@ from engine import engine
 
 def loadParts():
     with engine.connect() as conn:
-        q = "select * from part;"
+        q = "select * from inventory where unit=0 order by item_id desc;"
         res = conn.execute(text(q)).all()
         parts_list = []
         for row in res:
@@ -41,7 +41,7 @@ def loadParts():
 
 def isPartAvailable(name,brand):
     with engine.connect() as conn:
-        q=f"select item_id, po_id, quantity,price from part where item_name='{name}' and brand = '{brand}'"
+        q=f"select item_id, po_id, quantity,price from inventory where item_name='{name}' and brand = '{brand}'"
         res = conn.execute(text(q)).all()
 
         q=f"select item_id,est_price,op_id from order_part where item_name = '{name}' and brand = '{brand}'"
@@ -76,7 +76,7 @@ def updateQuantity(data):
         q=f"select item_id, withdrawn from order_part where op_id = {data['op_id']}"
         item_id = conn.execute(text(q)).all()[0][0]
         initial_w = conn.execute(text(q)).all()[0][1]
-        q=f"select quantity from part where item_id = {item_id}"
+        q=f"select quantity from inventory where item_id = {item_id}"
         initial_q = conn.execute(text(q)).all()[0][0]
         
 
@@ -87,7 +87,7 @@ def updateQuantity(data):
             new_q = 1
             
 
-        q=f"update part set quantity = {initial_q+new_q} where item_id = {item_id}"
+        q=f"update inventory set quantity = {initial_q+new_q} where item_id = {item_id}"
         conn.execute(text(q))
         conn.commit()
         q=f"update order_part set withdrawn = {data['wdraw']} where op_id = {data['op_id']}"
