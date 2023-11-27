@@ -20,7 +20,7 @@ import DTechnician from "./Dashboard/DTechnician";
 import LoginPage from "./LoginPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BillPayment from "./Bills/BillsPayments";
-import ListofPricings from "./Bills/ListofPricings";
+import ListofPricings from "./Bills/ListofPricing";
 import DPurchasingOfficer from "./Dashboard/DPurchasingOfficer";
 import DCashier from "./Dashboard/DCashier";
 

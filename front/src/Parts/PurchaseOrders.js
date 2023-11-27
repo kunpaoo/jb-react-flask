@@ -304,32 +304,7 @@ var PurchaseOrders = () => {
          id="content-wrapper"></div>
         <Header />
         <div>
-         <div
-          style={{
-           paddingTop: "0px",
-           background: "#ffffff",
-           paddingLeft: "0px",
-           paddingRight: "0px",
-           marginRight: "2px",
-           marginTop: "-1px",
-          }}>
-          <div
-           className="d-sm-flex justify-content-between align-items-center"
-           id="head2"
-           style={{
-            paddingRight: "0px",
-            marginRight: "0px",
-            background: "#ffffff",
-            boxShadow: "0px 0px 20px 1px",
-           }}>
-           <h3 className="text-dark mb-0" style={{ marginLeft: "24px" }}>
-            Parts &gt;
-            <span style={{ marginLeft: "10px", fontSize: "21px" }}>
-             Purchase Orders
-            </span>
-           </h3>
-          </div>
-         </div>
+         <h3 className="ms-3">Purchase Order</h3>
          <div className="container-fluid">
           <div>
            <div className="row" id="headbot">
