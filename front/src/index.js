@@ -1,35 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import Dashboard from './Dashboard/Dashboard';
-import Technician from './tech_pages/Technician';
-import EditTech from './tech_pages/Edit_technician';
-import CreateTech from './tech_pages/Create_tech';
-import JobOrder from './JobOrder_pages/Job_order';
-import Createjob from './JobOrder_pages/Create_Job_order';
-import Deliveries from './JobOrder_pages/Deliveries';
-import EditJobOrder from './JobOrder_pages/Edit_JobOrder';
-import Customer from './Cust_pages/Customer';
-import CreateCustomer from './Cust_pages/Create_Customer';
-import EditCust from './Cust_pages/Edit_Cust';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import Dashboard from "./Dashboard/Dashboard";
+import Technician from "./tech_pages/Technician";
+import CreateTech from "./tech_pages/CreateTech";
+import EditTechnician from "./tech_pages/EditTechnician";
+import JobOrder from "./JobOrder_pages/Job_order";
+import Createjob from "./JobOrder_pages/Create_Job_order";
+import Deliveries from "./JobOrder_pages/Deliveries";
+import EditJobOrder from "./JobOrder_pages/Edit_JobOrder";
+import Customer from "./Cust_pages/Customer";
+import CreateCustomer from "./Cust_pages/CreateCustomer";
+import EditCustomer from "./Cust_pages/EditCust";
+import ProfilePage from "./ProfilePage";
+import PartList from "./Parts/PartList";
+import PurchaseOrders from "./Parts/PurchaseOrders";
+import DTechnician from "./Dashboard/DTechnician";
+import LoginPage from "./LoginPage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import BillPayment from "./Bills/BillsPayments";
+import ListofPricings from "./Bills/ListofPricings";
+import DPurchasingOfficer from "./Dashboard/DPurchasingOfficer";
+import DCashier from "./Dashboard/DCashier";
 
-import PartList from './Parts/PartList';
-import PurchaseOrders from './Parts/PurchaseOrders';
-import BillsPayment from './Bills/Bills_Payments';
-import ProfilePage from './Profile_Page';
-import LoginPage from './LogIn_Page';
-import ListOfPricings from './Bills/ListOfPricings';
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
-
-const router = createBrowserRouter(
- [{
+const router = createBrowserRouter([
+ {
   path: "/",
   element: <App />,
  },
  {
   path: "/Dashboard",
-  element: <Dashboard />,
+  element: <DCashier />,
  },
  {
   path: "/technician",
@@ -41,7 +43,7 @@ const router = createBrowserRouter(
  },
  {
   path: "/Edit_technician",
-  element: <EditTech />,
+  element: <EditTechnician />,
  },
  {
   path: "/job_order",
@@ -77,35 +79,31 @@ const router = createBrowserRouter(
  },
  {
   path: "/edit_customer",
-  element: <EditCust />,
+  element: <EditCustomer />,
  },
-
  {
-  path: "/profile",
+  path: "/Profile_Page",
   element: <ProfilePage />,
  },
-
  {
-  path: "/BillsPayments",
-  element: <BillsPayment />,
- },
- {
-  path: "/LogIn",
+  path: "/Log_In",
   element: <LoginPage />,
  },
  {
-  path: "/ListOfPricings",
-  element: <ListOfPricings/>,
- }]
-);
+  path: "/ListofPricings",
+  element: <ListofPricings />,
+ },
+ {
+  path: "/BillPayment",
+  element: <BillPayment />,
+ },
+]);
 
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+ <React.StrictMode>
+  <RouterProvider router={router} />
+ </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

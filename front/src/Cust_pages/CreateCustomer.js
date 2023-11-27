@@ -1,14 +1,46 @@
-import Header from "../Header";
 import Navbar from "../Navbar";
+import Header from "../Header";
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { v4 as uuid } from "uuid";
+import { Link, useNavigate } from "react-router-dom";
+import sample_cust from "./Cust_list";
 import { Tab, Tabs } from "react-bootstrap";
 
-var Create_tech = () => {
- const [activeStep, setActiveStep] = useState(0);
+var CreateCustomer = () => {
+    const [activeStep, setActiveStep] = useState(0);
 
- const handleTabClick = (step) => {
-  setActiveStep(step);
+    const handleTabClick = (step) => {
+     setActiveStep(step);
+    };
+    
+      
+ const [name, setName] = useState("");
+ const [Address, setAddress] = useState("");
+ const [Email, setEmail] = useState("");
+ const [Contact, setContact] = useState("");
+ const history = useNavigate();
+
+ const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const ids = uuid();
+  let uniqueId = ids.slice(0, 0);
+
+  let a = name,
+   b = Address,
+   c = Email,
+   d = Contact;
+
+  sample_cust.push({
+   id: uniqueId,
+   Name: a,
+   Address: b,
+   Email: c,
+   Contact: d,
+  });
+  history("/");
+
  };
 
  return (
@@ -20,8 +52,11 @@ var Create_tech = () => {
       <Header />
       <div>
        <div>
-        <div className="d-sm-flex justify-content-between align-items-center">
-         <h3 className="text-dark mb-0 ms-3">Technician</h3>
+        <div
+         className="d-sm-flex justify-content-between align-items-center">
+         <h3 className="text-dark mb-0 ms-3">
+          Customer
+         </h3>
         </div>
        </div>
        <div className="container-fluid">
@@ -34,12 +69,14 @@ var Create_tech = () => {
            onSelect={handleTabClick}
            id="step-tabs"
            role="tablist">
+           
            {/* Step 1*/}
            <Tab
             className="tab-pane fade show rounded bg-white p-4"
             id="step1"
             eventKey={0}
-            title="Profile">
+            title = "Profile"
+            >
             <h3 className="multisteps-form__title text-start">Profile</h3>
             <div className="form-row row-auto mt-2">
              <div className="row">
@@ -51,7 +88,7 @@ var Create_tech = () => {
              <div className="row">
               <div className="row">
                <div className="col">
-                <span>Address:&nbsp;</span>
+                <span>Defect Description:&nbsp;</span>
                 <textarea
                  id="defect_descrip"
                  className="form-control"
@@ -72,24 +109,6 @@ var Create_tech = () => {
                 <span>Contact:&nbsp;</span>
                 <input id="brand_name" className="form-control" type="text" />
                </div>
-               <div className="col">
-                <span>Head Technician:&nbsp;</span>
-                <input type="checkbox" />
-               </div>
-              </div>
-              <div className="row">
-               <div className="col">
-                <span>Username:</span>
-                <input type="text" className="form-control" />
-               </div>
-               <div className="col">
-                <span>Password:</span>
-                <input type="text" className="form-control" />
-               </div>
-               <div className="col">
-                <span>Retype Password:</span>
-                <input type="text" className="form-control" />
-               </div>
               </div>
              </div>
             </div>
@@ -104,23 +123,23 @@ var Create_tech = () => {
            </Tab>
           </Tabs>
           <div>
-           {activeStep > 0 && (
-            <button
-             className="btn btn-secondary mt-3 float-start"
-             onClick={() => setActiveStep(activeStep - 1)}>
-             Previous
-            </button>
-           )}
-           {activeStep < 1 && (
-            <button
-             className="btn btn-primary mt-3 float-end"
-             onClick={() => setActiveStep(activeStep + 1)}>
-             Next
-            </button>
-           )}
-           {activeStep >= 1 && (
-            <button className="btn btn-success mt-3 float-end">Submit</button>
-           )}
+          {activeStep > 0 && (
+           <button
+            className="btn btn-secondary mt-3 float-start"
+            onClick={() => setActiveStep(activeStep - 1)}>
+            Previous
+           </button>
+          )}
+          {activeStep < 1 && (
+           <button
+            className="btn btn-primary mt-3 float-end"
+            onClick={() => setActiveStep(activeStep + 1)}>
+            Next
+           </button>
+          )}
+          {activeStep >= 1 && (
+           <button className="btn btn-success mt-3 float-end">Submit</button>
+          )}
           </div>
          </div>
         </div>
@@ -142,4 +161,4 @@ var Create_tech = () => {
  );
 };
 
-export default Create_tech;
+export default CreateCustomer;

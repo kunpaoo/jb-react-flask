@@ -1,32 +1,18 @@
-import LoginPage from './LogIn_Page';
+import LoginPage from "./LoginPage";
 function App() {
 
-  
-  
-
-  
-  
-
-
   return (
-    /* BODY CONTAINER */
-    <div id="page-top" class="overflow-hidden">
+   /* BODY CONTAINER */
+   <div id="page-top" class="overflow-hidden">
     <div id="wrapper">
+     {/* MAIN CONTENT */}
 
-    
+     <LoginPage />
 
-  {/* MAIN CONTENT */}
-          
-     
-
-    <LoginPage/>
-
-    
-    
-    {/* END MAIN CONTENT */}
+     {/* END MAIN CONTENT */}
     </div>
-    </div>
-    /* END BODY CONTAINER */
+   </div>
+   /* END BODY CONTAINER */
   );
 }
 

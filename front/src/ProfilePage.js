@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import Header from "./Header";
 import { Badge } from "react-bootstrap";
-var Profile_Page = () => {
+var ProfilePage = () => {
        function click() {
         // toggle the type attribute
         const togglePassword = document.querySelector("#togglePassword");
@@ -34,14 +34,14 @@ var Profile_Page = () => {
              className="rounded-circle border-secondary-subtle shadow ms-3"
              src="https://pbs.twimg.com/media/F4s5HMgboAAoLOF.jpg"
              style={{
-              marginTop: "-100px",
+              marginTop: "-6rem",
               width: "8rem",
               height: "8rem",
               border: "solid",
              }}
             />
            </div>
-           <div className="col-auto text-start" style={{ marginTop: "-2rem" }}>
+           <div className="col-auto flex-column text-start" style={{ marginTop: "-2rem" }}>
             <div className="col-auto">
              <span style={{ fontSize: "2rem", fontWeight: "normal" }}>
               Technician K. One
@@ -56,7 +56,7 @@ var Profile_Page = () => {
             className="col text-end me-4"
             style={{
              marginTop: "-2rem",
-             fontSize: "15pt",
+             fontSize: "1.5rem",
              fontWeight: "bold",
             }}>
             <span>ID:</span>
@@ -125,7 +125,7 @@ var Profile_Page = () => {
      </div>
     </div>
    </div>
-   //modal for edit Personal Information
+
    <div className="modal fade" role="dialog" tabIndex={-1} id="modal-2">
     <div className="modal-dialog modal-lg" role="document">
      <div className="modal-content">
@@ -227,4 +227,4 @@ var Profile_Page = () => {
  );
 };
 
-export default Profile_Page;
+export default ProfilePage;

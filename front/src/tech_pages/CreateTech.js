@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tab, Tabs } from "react-bootstrap";
 
-var Edit_technician = () => {
+var CreateTech = () => {
  const [activeStep, setActiveStep] = useState(0);
 
  const handleTabClick = (step) => {
@@ -21,7 +21,7 @@ var Edit_technician = () => {
       <div>
        <div>
         <div className="d-sm-flex justify-content-between align-items-center">
-         <h3 className="text-dark mb-0 ms-3">Edit Techician</h3>
+         <h3 className="text-dark mb-0 ms-3">Technician</h3>
         </div>
        </div>
        <div className="container-fluid">
@@ -142,4 +142,4 @@ var Edit_technician = () => {
  );
 };
 
-export default Edit_technician;
+export default CreateTech;

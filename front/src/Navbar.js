@@ -5,6 +5,8 @@ import WorkIcon from "@mui/icons-material/Work";
 import MemoryIcon from "@mui/icons-material/Memory";
 import CreditCard from "@mui/icons-material/CreditCard";
 const Navbar = () => {
+
+
  return (
   <nav
    className="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary navbar-dark"
@@ -57,7 +59,7 @@ const Navbar = () => {
       </a>
      </li>
      <li className="nav-item">
-      <a className="nav-link p-2" href="/BillsPayments">
+      <a className="nav-link p-2" href="/BillPayment">
        <CreditCard fontSize="large" />
        <span className="fs-5 ps-1">Bills/Payments</span>
       </a>

@@ -1,6 +1,7 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import MemoryIcon from "@mui/icons-material/Memory";
 import CreditCard from "@mui/icons-material/CreditCard";
-const N_Cashier = () => {
+const NPurchasingOfficer = () => {
  return (
   <nav
    className="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary navbar-dark"
@@ -27,11 +28,11 @@ const N_Cashier = () => {
        <DashboardIcon fontSize="large" />
        <span className="fs-5 ps-1">Dashboard</span>
       </a>
-      </li>
+     </li>
      <li className="nav-item">
-      <a className="nav-link p-2" href="/Bill_Payment">
-       <CreditCard fontSize="large" />
-       <span className="fs-5 ps-1">Bills/Payments</span>
+      <a className="nav-link p-2" href="/parts_list">
+       <MemoryIcon fontSize="large" />
+       <span className="fs-5 ps-1">Items/Parts</span>
       </a>
      </li>
     </ul>
@@ -40,4 +41,4 @@ const N_Cashier = () => {
  );
 };
 
-export default N_Cashier;
+export default NPurchasingOfficer;

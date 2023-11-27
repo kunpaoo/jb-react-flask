@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 
 const LoginPage = () => {
-
  return (
   <>
    <div className="container mw-100 align-self-center align-self-center">

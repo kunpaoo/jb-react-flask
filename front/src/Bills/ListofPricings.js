@@ -5,7 +5,7 @@ import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import sample_cust from "../Cust_pages/Cust_list";
-var ListOfPricings = () => {
+var ListofPricings = () => {
  const history = useNavigate(); //
 
  const handleEdit = (id, Name, Address, Email, Contact) => {
@@ -403,4 +403,4 @@ var ListOfPricings = () => {
  );
 };
 
-export default ListOfPricings;
+export default ListofPricings;

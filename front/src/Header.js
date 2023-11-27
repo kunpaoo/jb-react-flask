@@ -88,8 +88,8 @@ const Header = () => {
     <div className="mt-4 col-auto">
      <Notifications
       data={data}
-      height="500px"
-      width="300px"
+      height="15rem"
+      width="15rem"
       header={{
        title: "Notifications",
        option: { text: "View All", onClick: () => console.log("Clicked") },
@@ -149,7 +149,7 @@ const Header = () => {
          My profile
         </MenuItem>
        </a>
-       <a href="/LogIn">
+       <a href="/Log_In">
         <MenuItem href="/LogIn">
          <ListItemIcon href="/LogIn">
           <Logout fontSize="small" />
