@@ -13,12 +13,6 @@ def loadBalances():
             rowdict['balances'] = getBalances(rowdict['cust_id'])
             out.append(rowdict)
         return out
-    
-def getBalance(order_id):
-    with engine.connect() as conn:
-        q=f"select order_id,balance from job_order where order_id = {order_id}"
-        res = conn.execute(text(q)).all()[0]
-        return res._asdict()
 
     
 def getBalances(id):
@@ -38,4 +32,25 @@ def getBalances(id):
         }
 
         return b
+    
+def getPayments(order_id):
+    with engine.connect() as conn:
+        q=f"select * from payment where order_id = {order_id} order by pmt_id desc"
+        res = conn.execute(text(q)).all()
+        out = []
+        for row in res:
+            out.append(row._asdict())
+        return out
 
+
+def loadStatement(cust_id):
+    
+
+def loadPendingOrders(cust_id):
+    with engine.connect() as conn:
+        q=f"select order_id, job_name, balance, cost from job_order where cust_id = {cust_id} and completed = 0"
+        res = conn.execute(text(q)).all()
+        out = []
+        for row in res:
+            out.append(row._asdict())
+        return out

@@ -36,27 +36,27 @@ var BillPayment = () => {
      )
     })
 
-    function print_body() {
-        document.getElementById("btnPrint").onclick = function () {
-        printElement(document.getElementById("print_body"));
-        };
-    }
+    // function print_body() {
+    //     document.getElementById("btnPrint").onclick = function () {
+    //     printElement(document.getElementById("print_body"));
+    //     };
+    // }
 
-    function printElement(elem) {
-        var domClone = elem.cloneNode(true);
+    // function printElement(elem) {
+    //     var domClone = elem.cloneNode(true);
 
-        var $printSection = document.getElementById("printSection");
+    //     var $printSection = document.getElementById("printSection");
 
-        if (!$printSection) {
-            $printSection = document.createElement("div");
-            $printSection.id = "printSection";
-            document.body.appendChild($printSection);
-        }
+    //     if (!$printSection) {
+    //         $printSection = document.createElement("div");
+    //         $printSection.id = "printSection";
+    //         document.body.appendChild($printSection);
+    //     }
 
-        $printSection.innerHTML = "";
-        $printSection.appendChild(domClone);
-        window.print();
-    }
+    //     $printSection.innerHTML = "";
+    //     $printSection.appendChild(domClone);
+    //     window.print();
+    // }
 
 
 
@@ -72,113 +72,56 @@ var BillPayment = () => {
             style={{ height: "100vh", overflowY: "auto", width: "100%" }}>
             <div
             className="d-flex flex-column container-fluid"
-            id="content-wrapper"
-            style={{ padding: "0px" }}></div>
+            id="content-wrapper"></div>
             <Header />
             <div>
             <div
             style={{
-            paddingTop: "0px",
-            paddingLeft: "0px",
-            paddingRight: "0px",
             marginRight: "2px",
             marginTop: "-1px",
             }}>
             <div
             className="d-sm-flex justify-content-between align-items-center"
-            id="head2"
-            style={{
-                paddingRight: "0px",
-                marginRight: "0px",
-            }}>
-            <h3 className="text-dark mb-0" style={{ marginLeft: "24px" }}>
+            id="head2">
+            <h3 className="text-dark" style={{ marginLeft: "24px" }}>
                 Bills/Payments
             </h3>
             </div>
             </div>
             <div className="container-fluid">
-            <div>
-            <div className="row" id="headbot">
-                <div className="col h-auto" style={{ paddingBottom: "9px" }}>
-                <div className="mh-100" style={{ marginTop: "21px" }}>
-                <label className="form-label" />
-                <input
-                type="date"
-                style={{
-                    height: "33px",
-                    paddingTop: "0px",
-                    marginTop: "0px",
-                    paddingLeft: "0px",
-                    marginLeft: "3px",
-                }}
-                />
-                <a
-                className="btn btn-primary btn-sm d-none d-sm-inline-block"
-                role="button"
-                data-bs-target="#modal-1"
-                style={{
-                    background: "rgb(2,60,63)",
-                    paddingRight: "12px",
-                    borderRadius: "8px",
-                    fontSize: "16px",
-                    paddingTop: "6px",
-                    marginRight: "-2px",
-                    marginLeft: "12px",
-                }}
-                href="/ListOfPricings">
-                List of Pricings
-                </a>
-                </div>
-                </div>
-                <div
-                className="col-xxl-4 col-auto w-auto flex-wrap d-flex position-relative"
-                style={{ paddingTop: "14px" }}>
-                <div
-                style={{
-                paddingLeft: "0px",
-                paddingRight: "0px",
-                marginTop: "4px",
-                paddingTop: "13px",
-                paddingBottom: "0px",
-                marginBottom: "-1px",
-                }}>
-                <span style={{ paddingTop: "0px", marginTop: "-20px" }}>Show:</span>
-                </div>
-                </div>
-                <div
-                className="col w-auto col-auto"
-                style={{ paddingBottom: "0px", marginBottom: "-40px" }}>
-                <div
-                id="dataTable_length-1"
-                className="dataTables_length"
-                aria-controls="dataTable"
-                style={{ paddingTop: "0px" }}>
-                <div style={{ paddingBottom: "0px", paddingTop: "0px" }}>
-                <label
-                    className="form-label"
-                    style={{
-                    fontSize: "25px",
-                    marginLeft: "-12px",
-                    marginBottom: "-18px",
-                    paddingBottom: "0px",
-                    paddingTop: "16px",
-                    marginTop: "3px",
-                    }}>
-                    <select
-                    className="d-inline-block form-select form-select-sm"
-                    style={{ marginTop: "8px" }}>
-                    <option value={10} selected>
-                    10
-                    </option>
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
-                    </select>
-                    &nbsp;
-                </label>
-                </div>
-                </div>
-                </div>
+            <div className="d-flex flex-row justify-content-between">
+            <div className="p-2">
+                <input type="date" style={{fontSize:"0.8em"}} className="p-1 m-1" />
+            <a
+            className="btn btn-primary btn-sm ms-3 px-3 mb-1"
+            role="button"
+            data-bs-target="#modal-1"
+            style={{
+                background: "rgb(2,60,63)",
+                borderRadius: "8px",
+                fontSize: "16px"
+            }}
+            href="/ListOfPricings">
+            List of Pricings
+            </a>
+            </div>
+            <div
+            className="d-flex flex-row align-items-center">
+            Show:
+            <div
+            className="dataTables_length ms-2"
+            aria-controls="dataTable">
+            
+            <select
+            className="d-inline-block form-select form-select-sm">
+            <option value={10} selected>
+            10
+            </option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+            </select>
+            </div>
             </div>
             </div>
             <div className="card shadow">
@@ -188,7 +131,7 @@ var BillPayment = () => {
                 id="dataTable-2"
                 role="grid"
                 aria-describedby="dataTable_info">
-                <table className="table my-0" id="dataTable">
+                <table className="table " id="dataTable">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -252,17 +195,11 @@ var BillPayment = () => {
             </div>
             </div>
             {/* ========== Start Statement of account ========== */}
-            <div
-            className="modal fade"
-            role="dialog"
-            tabIndex={-1}
-            id="modal-1"
-            style={{ borderStyle: "solid" }}>
+            <div className="modal fade" role="dialog" tabIndex={-1} id="modal-1" >
             <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content">
                 <div
-                className="modal-header"
-                style={{ marginBottom: "-1px", paddingBottom: "2px" }}>
+                className="modal-header">
                 <h4 className="modal-title">Statement of Account</h4>
                 <button
                 className="btn-close"
@@ -273,161 +210,101 @@ var BillPayment = () => {
                 </div>
                 <div
                 className="modal-body"
-                id="print_body"
-                style={{ paddingLeft: "26px", paddingRight: "36px" }}>
-                <div className="row">
-                <div className="col-lg-7">
-                <strong>Marjhealou Nina Anne M. Paraiso</strong>
+                id="print_body">
+                <div className="row p-2">
+                <div className="col-lg-8">
+                <b style={{fontSize:"1.1em"}}>Marjhealou Nina Anne M. Paraiso</b><br/>
+                0976 889 7654 <br/>
+                Purok Tacurong, Sultan Kudarat
+                </div>
+                <div className="col text-end fw-light">
+                09/21/2000 <br/>  
+                ID: 11111 <br/>
+                
+                </div>
+                </div>
+                
+
+
+
+
+                <div className="card mt-3" style={{background:"#eeeeee", fontSize:"0.9em"}}>
+                <div className="card-header fw-bold fs-6">
+                ORDER ID: 1213
+                </div>
+
+
+                <div className="card-body">
+                <div className="row fw-bold">
+                <div className="col" >
+                Details
                 </div>
                 <div className="col">
-                <span>Statement Date:</span>
-                <span>09/21/2000</span>
+                Payments
                 </div>
                 </div>
+
                 <div className="row">
-                <div className="col-lg-7">
-                <span>Contact:&nbsp;</span>
-                <span>0976 889 7654</span>
-                </div>
-                <div className="col">
-                <span style={{ color: "rgb(200,44,35)" }}>
-                    <strong>WITHOUT WARRANTY</strong>
-                </span>
-                </div>
-                </div>
-                <div className="row">
-                <div className="col">
-                <span>Address:&nbsp;</span>
-                <span>Purok Tacurong, Sultan Kudarat</span>
-                </div>
-                </div>
-                <div className="row">
-                <div className="col-lg-12" style={{ paddingTop: "15px" }}>
-                <span>Customer ID:</span>
-                <span>&nbsp;12333-1221</span>
-                </div>
-                </div>
-                <div className="row" style={{ paddingTop: "23px" }}>
-                <div className="col-lg-6" style={{ paddingLeft: "2px" }}>
-                <strong>Details</strong>
-                </div>
-                <div className="col">
-                <strong>Payments</strong>
-                </div>
-                </div>
-                <div className="row">
-                <div className="col border border-black">
-                <strong>ORDER ID: 1213</strong>
-                <div className="row">
-                <div
-                className="table-responsive"
-                style={{
-                    marginLeft: "-12px",
-                    marginRight: "-10px",
-                    paddingBottom: "0px",
-                    marginBottom: "3px",
-                }}>
-                <table className="table">
+                <div className="col p-2">
+                <div className="table-responsive">
+                <table className="table table-bordered">
                     <thead>
                     <tr>
-                    <th>Part</th>
-                    <th>Price</th>
+                    <th>Parts</th>
+                    <th className="text-end">Price</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                     <td>Acer Battery</td>
-                    <td>$500</td>
+                    <td className="text-end">$500</td>
                     </tr>
                     </tbody>
                 </table>
-                </div>
-                </div>
-                <div className="row">
-                <div
-                className="table-responsive"
-                style={{
-                    marginLeft: "-12px",
-                    marginRight: "-10px",
-                    marginBottom: "3px",
-                }}>
-                <table className="table">
+
+                <table className="table table-bordered mt-2">
                     <thead>
                     <tr>
-                    <th>Others</th>
+                    <th colSpan={2}>Fees</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                     <td>Service Fee: </td>
-                    <td>$500</td>
+                    <td className="text-end">$500</td>
                     </tr>
                     <tr>
                     <td>Total Amount:</td>
-                    <td>$49</td>
+                    <td className="text-end">$49</td>
                     </tr>
                     </tbody>
                 </table>
                 </div>
+
+                <table className="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td colSpan={2}>Less</td>
+                    </tr>
+                    <tr>
+                        <td className="ps-4">Payments</td>
+                        <td className="text-end">999</td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td className="text-end">9999</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td className="text-end">9999</td>
+                    </tr>
+                </tbody>
+                </table>
                 </div>
-                <div className="row">
-                <div className="col" style={{ paddingLeft: "32px" }}>
-                <span>Less</span>
-                </div>
-                </div>
-                <div className="row">
-                <div className="col" style={{ paddingLeft: "44px" }}>
-                <span>Payments:&nbsp;</span>
-                </div>
-                <div
-                className="col text-center"
-                style={{
-                    borderBottomWidth: "0.5px",
-                    borderBottomStyle: "solid",
-                    marginRight: "24px",
-                    marginLeft: "12px",
-                }}>
-                <span>$23</span>
-                </div>
-                </div>
-                <div className="row">
-                <div className="col-lg-6" style={{ paddingLeft: "32px" }}>
-                <span>Sub-total:</span>
-                </div>
-                <div
-                className="col text-center"
-                style={{
-                    paddingLeft: "32px",
-                    borderBottomWidth: "1.5px",
-                    borderBottomStyle: "solid",
-                    marginRight: "21px",
-                    marginLeft: "8px",
-                    paddingRight: "31px",
-                }}>
-                <span>$23</span>
-                </div>
-                </div>
-                <div className="row">
-                <div className="col" style={{ paddingLeft: "32px" }}>
-                <span>Total:</span>
-                </div>
-                <div className="col text-center" style={{ paddingLeft: "32px" }}>
-                <span style={{ marginRight: "28px" }}>$34</span>
-                </div>
-                </div>
-                </div>
-                <div className="col" style={{ borderStyle: "solid" }}>
-                <div className="row">
-                    <div className="col">
-                    <div
-                    className="table-responsive"
-                    style={{
-                    marginLeft: "-12px",
-                    marginRight: "-10px",
-                    paddingBottom: "0px",
-                    marginBottom: "3px",
-                    }}>
-                    <table className="table">
+
+                <div className="col p-2">
+                <div className="table-responsive">
+                <table className="table table-bordered">
                     <thead>
                         <tr>
                         <th>Date</th>
@@ -451,17 +328,17 @@ var BillPayment = () => {
                         </tr>
                     </tbody>
                     </table>
-                    </div>
-                    </div>
                 </div>
+                </div>
+                </div>
+
                 </div>
                 </div>
                 </div>
                 <button
                 id="btnPrint"
                 type="button"
-                className="btn btn-outline-secondary m-4"
-                onclick={print_body}>
+                className="btn btn-outline-secondary m-4">
                 Print Receipt
                 </button>
                 <div className="modal-footer">
@@ -712,7 +589,7 @@ var BillPayment = () => {
                     </div>
                     {/* Cash*/}
                     <div className="tab-pane fade rounded bg-white p-4" id="step3">
-                        <form role="form">
+                        <form>
                         <div className="form-group">
                         <div className="row">
                         <div className="col">
@@ -1024,7 +901,7 @@ var BillPayment = () => {
                 id="btnPrint"
                 type="button"
                 className="btn btn-outline-secondary m-4"
-                onclick={print_body}>
+                >
                 Print Receipt
                 </button>
             </div>
