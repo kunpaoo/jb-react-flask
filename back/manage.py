@@ -36,8 +36,6 @@ def statcheck(id):
         cost = int(order['order']['cost'])
         bal = int(order['order']['balance'])
         if bal == cost-200:
-            if order['warranty']:
-                return checkDelivery()
             return checkParts()
         return "Awaiting Downpayment"
 
@@ -47,17 +45,11 @@ def statcheck(id):
             return "For Releasing"
         return "Awaiting Payment"
 
-    def checkDelivery(): # WARRANTIED ORDERS ONLY
+    def checkDelivery():
         deliveries = order['delivery']
-
-        if len(deliveries) == 0:
-            return "Scheduling Delivery"
-        
         for delivery in deliveries:
-            if not delivery['deli_delivered']:
+            if delivery['status'] != "completed":
                 return "Delivery Ongoing"
-            if not delivery['deli_received']:
-                return "Awaiting Delivery"
         return checkBalance()
     
     def checkParts():
@@ -68,8 +60,9 @@ def statcheck(id):
         return "Repair Ongoing"    
 
     with engine.connect() as conn:
-        status = order['history'][0]['status_name']
-        new_status = status
+        last_status = len(order['history'])-1
+        status = order['history'][last_status]['status_name']
+        new_status=status
         match status:
             case "Awaiting Downpayment":
                 new_status = checkDownpayment()
@@ -80,10 +73,6 @@ def statcheck(id):
             case "Awaiting Payment":
                 new_status = checkBalance()
             case "Scheduling Delivery":
-                new_status = checkDelivery()
-            case "Delivery Ongoing":
-                new_status = checkDelivery()
-            case "Awaiting Delivery":
                 new_status = checkDelivery()
             case "For Releasing":
                 new_status = checkReleased()

@@ -52,7 +52,7 @@ def load_row(id):
         
         for row in ures:
             x = row._asdict()
-            if x['warranty']: warr = True
+            if x['warranty'] is True: warr = True
             unit_list.append(row._asdict())
 
         part_columns = "op_id,order_id, item_id,item_name, brand, est_price, withdrawn"
@@ -77,7 +77,7 @@ def load_row(id):
         #     deli_list.append(row._asdict())
 
 
-        q = f"select date_format(status_date, '%Y-%m-%d') as status_date,status_name,ref from order_status where order_id = {id} order by status_id desc"
+        q = f"select date_format(status_date, '%Y-%m-%d') as status_date,status_name,ref from order_status where order_id = {id}"
         
         result = conn.execute(text(q)).all()
         history = []
@@ -139,21 +139,14 @@ def add_list(data):
 
             if data[f"returning{unit}"] == "yes" : returning = True
             else: returning = False
-
             unit_columns = "order_id, unit_name, brand, warranty, returning, defect_description"
             u = f"insert into unit_item({unit_columns}) values('{order_id}','{data[f'unit_name{unit}']}','{data[f'brand{unit}']}',{warranty},{returning},'{data[f'desc{unit}']}')"
             unit_add = conn.execute(text(u))
             conn.commit()  
 
-            # add to inventory
-            unit_id = conn.execute(text("select max(unit_id) from unit_item")).all()[0][0]
-            u = f"insert into inventory(item_name,brand,unit,unit_id,quantity) values ('{data[f'unit_name{unit}']}','{data[f'brand{unit}']}',1,{unit_id},1)"
-            conn.execute(text(u))
-            conn.commit()
-
 
         # part itemize
-        if data["item_name1"] is not None and data["item_name1"] != "":
+        if data["item_name1"] is not None:
             for part in range(1,data['num_of_parts']+1):
                 part_columns = "order_id, item_name, brand, est_price"
                 u = f"insert into order_part({part_columns}) values('{order_id}','{data[f'item_name{part}']}','{data[f'item_brand{part}']}','{data[f'est_price{part}']}')"
